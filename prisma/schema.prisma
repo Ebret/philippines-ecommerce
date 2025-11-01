@@ -254,6 +254,8 @@ model VendorProfile {
   vendor            Vendor    @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   businessAddress   Address?  @relation(fields: [businessAddressId], references: [id])
 
+  @@unique([businessAddressId])
+
   @@index([vendorId])
 }
 
@@ -360,6 +362,7 @@ model ProductVariant {
   inventoryItems    InventoryItem[]
   orderItems        OrderItem[]
   stockAlerts       StockAlert[]
+  inventoryMovements InventoryMovement[]
 
   @@index([productId])
   @@index([sku])
@@ -510,6 +513,7 @@ model InventoryLocation {
   stockAlerts       StockAlert[]
   inventoryMovements InventoryMovement[]
 
+  @@unique([addressId])
   @@index([vendorId])
 }
 

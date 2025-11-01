@@ -1,0 +1,106 @@
+/**
+ * Inventory Export API Route
+ * GET /api/inventory/export - Export inventory data
+ */
+
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+
+/**
+ * GET /api/inventory/export
+ * Export inventory data as CSV or JSON
+ */
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session || (session.user.role !== "ADMIN" && session.user.role !== "VENDOR")) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    const searchParams = request.nextUrl.searchParams;
+    const format = searchParams.get("format") || "JSON";
+    const warehouseId = searchParams.get("warehouseId") || undefined;
+
+    // Build where clause
+    const where: any = {};
+    if (warehouseId) where.warehouseId = warehouseId;
+
+    // Filter by vendor if user is vendor
+    if (session.user.role === "VENDOR") {
+      where.warehouse = { vendor: { userId: session.user.id } };
+    }
+
+    // Get inventory data
+    const inventory = await prisma.inventory.findMany({
+      where,
+      include: {
+        product: { select: { id: true, name: true, sku: true } },
+        warehouse: { select: { id: true, name: true } },
+      },
+      orderBy: { sku: "asc" },
+    });
+
+    if (format.toUpperCase() === "CSV") {
+      // Generate CSV
+      const headers = [
+        "SKU",
+        "Product Name",
+        "Warehouse",
+        "Current Stock",
+        "Reserved Stock",
+        "Reorder Point",
+        "Reorder Quantity",
+        "Status",
+        "Barcode",
+      ];
+
+      const rows = inventory.map((item) => [
+        item.sku,
+        item.product.name,
+        item.warehouse.name,
+        item.currentStock.toString(),
+        item.reservedStock.toString(),
+        item.reorderPoint.toString(),
+        item.reorderQuantity.toString(),
+        item.status,
+        item.barcode || "",
+      ]);
+
+      const csv = [
+        headers.join(","),
+        ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
+      ].join("\n");
+
+      return new NextResponse(csv, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/csv",
+          "Content-Disposition": `attachment; filename="inventory-export-${new Date().toISOString().split("T")[0]}.csv"`,
+        },
+      });
+    } else {
+      // Generate JSON
+      const data = inventory.map((item) => ({
+        sku: item.sku,
+        productId: item.productId,
+        productName: item.product.name,
+        warehouseId: item.warehouseId,
+        warehouseName: item.warehouse.name,
+        currentStock: item.currentStock.toNumber(),
+        reservedStock: item.reservedStock.toNumber(),
+        reorderPoint: item.reorderPoint.toNumber(),
+        reorderQuantity: item.reorderQuantity.toNumber(),
+        status: item.status,
+        barcode: item.barcode,
+      }));
+
+      return NextResponse.json(data);
+    }
+  } catch (error) {
+    console.error("Error exporting inventory:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+

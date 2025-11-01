@@ -1,0 +1,233 @@
+/**
+ * Inventory Reports API Route
+ * GET /api/inventory/reports - Generate inventory reports
+ */
+
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { InventoryReportQuerySchema } from "@/lib/validations/inventory";
+
+/**
+ * GET /api/inventory/reports
+ * Generate inventory reports
+ */
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const searchParams = request.nextUrl.searchParams;
+    const queryData = {
+      warehouseId: searchParams.get("warehouseId") || undefined,
+      vendorId: searchParams.get("vendorId") || undefined,
+      reportType: searchParams.get("reportType") || "STOCK_SUMMARY",
+      startDate: searchParams.get("startDate") || undefined,
+      endDate: searchParams.get("endDate") || undefined,
+      format: searchParams.get("format") || "JSON",
+    };
+
+    const query = InventoryReportQuerySchema.parse(queryData);
+
+    // Build where clause
+    const where: any = {};
+    if (query.warehouseId) where.warehouseId = query.warehouseId;
+
+    // Filter by vendor if user is vendor
+    if (session.user.role === "VENDOR") {
+      where.warehouse = { vendor: { userId: session.user.id } };
+    } else if (query.vendorId) {
+      where.warehouse = { vendor: { id: query.vendorId } };
+    }
+
+    let report: any = {};
+
+    switch (query.reportType) {
+      case "STOCK_SUMMARY":
+        report = await generateStockSummary(where);
+        break;
+      case "TURNOVER":
+        report = await generateTurnoverReport(where);
+        break;
+      case "DEAD_STOCK":
+        report = await generateDeadStockReport(where);
+        break;
+      case "EXPIRING":
+        report = await generateExpiringReport(where);
+        break;
+      case "VARIANCE":
+        report = await generateVarianceReport(where);
+        break;
+      default:
+        report = await generateStockSummary(where);
+    }
+
+    return NextResponse.json({
+      reportType: query.reportType,
+      generatedAt: new Date().toISOString(),
+      data: report,
+    });
+  } catch (error) {
+    console.error("Error generating report:", error);
+    if (error instanceof Error && error.message.includes("validation")) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+
+async function generateStockSummary(where: any) {
+  const inventory = await prisma.inventory.findMany({
+    where,
+    include: {
+      product: { select: { name: true, price: true } },
+      warehouse: { select: { name: true } },
+    },
+  });
+
+  const summary = {
+    totalItems: inventory.length,
+    totalValue: 0,
+    byStatus: {
+      ACTIVE: 0,
+      LOW_STOCK: 0,
+      OUT_OF_STOCK: 0,
+      OVERSTOCK: 0,
+    },
+    items: inventory.map((item) => ({
+      sku: item.sku,
+      product: item.product.name,
+      warehouse: item.warehouse.name,
+      currentStock: item.currentStock.toNumber(),
+      reservedStock: item.reservedStock.toNumber(),
+      value: item.currentStock.toNumber() * (item.product.price?.toNumber() || 0),
+      status: item.status,
+    })),
+  };
+
+  summary.items.forEach((item) => {
+    summary.totalValue += item.value;
+    summary.byStatus[item.status as keyof typeof summary.byStatus]++;
+  });
+
+  return summary;
+}
+
+async function generateTurnoverReport(where: any) {
+  const adjustments = await prisma.stockAdjustment.findMany({
+    where: { inventory: where },
+    include: {
+      inventory: {
+        select: {
+          sku: true,
+          product: { select: { name: true } },
+        },
+      },
+    },
+  });
+
+  const turnover = adjustments.reduce(
+    (acc, adj) => {
+      const key = adj.inventory.sku;
+      if (!acc[key]) {
+        acc[key] = {
+          sku: key,
+          product: adj.inventory.product.name,
+          adjustments: 0,
+          totalQuantity: 0,
+        };
+      }
+      acc[key].adjustments++;
+      acc[key].totalQuantity += adj.quantity;
+      return acc;
+    },
+    {} as Record<string, any>
+  );
+
+  return Object.values(turnover);
+}
+
+async function generateDeadStockReport(where: any) {
+  const inventory = await prisma.inventory.findMany({
+    where: {
+      ...where,
+      currentStock: { gt: 0 },
+    },
+    include: {
+      product: { select: { name: true } },
+      adjustments: { orderBy: { createdAt: "desc" }, take: 1 },
+    },
+  });
+
+  const deadStock = inventory
+    .filter((item) => {
+      const lastAdjustment = item.adjustments[0];
+      if (!lastAdjustment) return true;
+      const daysSinceAdjustment = Math.floor(
+        (new Date().getTime() - lastAdjustment.createdAt.getTime()) / (1000 * 60 * 60 * 24)
+      );
+      return daysSinceAdjustment > 90;
+    })
+    .map((item) => ({
+      sku: item.sku,
+      product: item.product.name,
+      currentStock: item.currentStock.toNumber(),
+      lastAdjustment: item.adjustments[0]?.createdAt,
+    }));
+
+  return deadStock;
+}
+
+async function generateExpiringReport(where: any) {
+  const batches = await prisma.batch.findMany({
+    where: {
+      ...where,
+      expiryDate: {
+        lte: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000),
+        gt: new Date(),
+      },
+    },
+    include: {
+      product: { select: { name: true } },
+    },
+  });
+
+  return batches.map((batch) => ({
+    batchNumber: batch.batchNumber,
+    product: batch.product.name,
+    quantity: batch.quantity,
+    expiryDate: batch.expiryDate,
+    daysUntilExpiry: Math.ceil(
+      (batch.expiryDate!.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+    ),
+  }));
+}
+
+async function generateVarianceReport(where: any) {
+  const adjustments = await prisma.stockAdjustment.findMany({
+    where: {
+      inventory: where,
+      reason: "RECOUNT",
+    },
+    include: {
+      inventory: {
+        select: {
+          sku: true,
+          product: { select: { name: true } },
+        },
+      },
+    },
+  });
+
+  return adjustments.map((adj) => ({
+    sku: adj.inventory.sku,
+    product: adj.inventory.product.name,
+    variance: adj.quantity,
+    variancePercent: adj.previousStock > 0 ? ((adj.quantity / adj.previousStock) * 100).toFixed(2) : 0,
+    date: adj.createdAt,
+  }));
+}
+
