@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Turbopack configuration for Next.js 16
+  turbopack: {
+    resolveAlias: {
+      "@": "./src",
+    },
+  },
+
   // Image Optimization
   images: {
     formats: ["image/avif", "image/webp"],
@@ -11,7 +18,7 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Bundle Optimization
+  // Bundle Optimization (for webpack fallback)
   webpack: (config, { isServer }) => {
     // Tree shaking optimization
     config.optimization = {

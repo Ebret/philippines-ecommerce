@@ -165,12 +165,144 @@ model UserProfile {
   birthDate         DateTime?
   gender            Gender?
   preferredLanguage String    @default("en")
+  emailPreferences  EmailPreferences?
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 
   user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+model EmailPreferences {
+  id                        String    @id @default(cuid())
+  userProfileId             String    @unique
+  marketingEmails           Boolean   @default(true)
+  orderNotifications        Boolean   @default(true)
+  promotionalEmails         Boolean   @default(true)
+  abandonedCartEmails       Boolean   @default(true)
+  productRecommendations    Boolean   @default(true)
+  vendorCommunications      Boolean   @default(true)
+  weeklyNewsletter          Boolean   @default(true)
+  unsubscribeToken          String    @unique @default(cuid())
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+
+  userProfile               UserProfile @relation(fields: [userProfileId], references: [id], onDelete: Cascade)
+
+  @@index([userProfileId])
+  @@index([unsubscribeToken])
+}
+
+model EmailLog {
+  id                String    @id @default(cuid())
+  userId            String?
+  email             String
+  type              EmailType
+  subject           String
+  templateId        String?
+  status            EmailStatus @default(PENDING)
+  sentAt            DateTime?
+  openedAt          DateTime?
+  clickedAt         DateTime?
+  bounceReason      String?
+  metadata          Json?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([email])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model EmailTemplate {
+  id                String    @id @default(cuid())
+  name              String    @unique
+  type              EmailType
+  subject           String
+  htmlContent       String
+  plainTextContent  String
+  variables         String[]  @default([])
+  isActive          Boolean   @default(true)
+  createdBy         String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([type])
+  @@index([isActive])
+}
+
+model EmailQueue {
+  id                String    @id @default(cuid())
+  userId            String?
+  email             String
+  type              EmailType
+  templateId        String
+  variables         Json
+  priority          Int       @default(0)
+  status            QueueStatus @default(PENDING)
+  retryCount        Int       @default(0)
+  maxRetries        Int       @default(3)
+  nextRetryAt       DateTime?
+  sentAt            DateTime?
+  error             String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([email])
+  @@index([type])
+  @@index([nextRetryAt])
+  @@index([createdAt])
+}
+
+enum EmailType {
+  ACCOUNT_VERIFICATION
+  PASSWORD_RESET
+  WELCOME
+  ORDER_CONFIRMATION
+  PAYMENT_CONFIRMATION
+  SHIPPING_UPDATE
+  DELIVERY_CONFIRMATION
+  ORDER_CANCELLED
+  RETURN_INITIATED
+  RETURN_APPROVED
+  REFUND_PROCESSED
+  ABANDONED_CART
+  PRODUCT_RECOMMENDATION
+  PROMOTIONAL
+  VENDOR_NEW_ORDER
+  VENDOR_INVENTORY_ALERT
+  VENDOR_PERFORMANCE_REPORT
+  VENDOR_COMMISSION_STATEMENT
+  NEWSLETTER
+  ACCOUNT_UPDATE
+  SECURITY_ALERT
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  DELIVERED
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+  UNSUBSCRIBED
+}
+
+enum QueueStatus {
+  PENDING
+  PROCESSING
+  SENT
+  FAILED
+  RETRY
 }
 
 model Address {

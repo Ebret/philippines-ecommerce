@@ -1,0 +1,120 @@
+/**
+ * GET /api/emails/preferences
+ * Get user email preferences
+ * PATCH /api/emails/preferences
+ * Update user email preferences
+ */
+
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { emailService } from '@/lib/email-service';
+import { EmailPreferencesSchema } from '@/lib/validations/email';
+import { prisma } from '@/lib/prisma';
+import { z } from 'zod';
+
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      );
+    }
+
+    const preferences = await emailService.getEmailPreferences(user.id);
+
+    return NextResponse.json(
+      {
+        success: true,
+        preferences: preferences || {
+          marketingEmails: true,
+          orderNotifications: true,
+          promotionalEmails: true,
+          abandonedCartEmails: true,
+          productRecommendations: true,
+          vendorCommunications: true,
+          weeklyNewsletter: true,
+        },
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Get email preferences error:', error);
+    return NextResponse.json(
+      { error: 'Failed to get email preferences' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      );
+    }
+
+    const body = await request.json();
+    const validated = EmailPreferencesSchema.parse(body);
+
+    const result = await emailService.updateEmailPreferences(user.id, validated);
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: result.error },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        preferences: result.data,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Validation error', details: error.errors },
+        { status: 400 }
+      );
+    }
+
+    console.error('Update email preferences error:', error);
+    return NextResponse.json(
+      { error: 'Failed to update email preferences' },
+      { status: 500 }
+    );
+  }
+}
+
