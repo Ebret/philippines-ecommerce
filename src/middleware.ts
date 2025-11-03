@@ -38,7 +38,8 @@ export default withAuth(
           pathname.startsWith("/auth") ||
           pathname.startsWith("/api/auth") ||
           pathname === "/" ||
-          pathname.startsWith("/products")
+          pathname.startsWith("/products") ||
+          pathname.startsWith("/api/testimonials")
         ) {
           return true;
         }
@@ -58,8 +59,9 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public folder
+     * - api (API routes)
      */
-    "/((?!_next/static|_next/image|favicon.ico|public).*)",
+    "/((?!_next/static|_next/image|favicon.ico|public|api).*)",
   ],
 };
 

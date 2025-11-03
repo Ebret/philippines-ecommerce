@@ -2,8 +2,7 @@
 // Multi-vendor marketplace with live selling, inventory management, and Philippines-specific features
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -121,6 +120,13 @@ enum InventoryMovementType {
   TRANSFER
 }
 
+enum TestimonialStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  FEATURED
+}
+
 // ============================================================================
 // USERS & AUTHENTICATION
 // ============================================================================
@@ -144,6 +150,9 @@ model User {
   vendor            Vendor?
   orders            Order[]
   reviews           Review[]
+  testimonials      Testimonial[] @relation("testimonials")
+  emailLogs         EmailLog[]
+  emailQueues       EmailQueue[]
   liveViewers       LiveViewer[]
   liveMessages      LiveMessage[]
   referrals         Referral[] @relation("referrer")
@@ -357,6 +366,7 @@ model Vendor {
   profile           VendorProfile?
   products          Product[]
   orders            Order[]
+  testimonials      Testimonial[] @relation("testimonials")
   inventoryLocations InventoryLocation[]
   liveSessions      LiveSession[]
 
@@ -462,6 +472,7 @@ model Product {
   images            ProductImage[]
   translations      ProductTranslation[]
   reviews           Review[]
+  testimonials      Testimonial[] @relation("testimonials")
   orderItems        OrderItem[]
   liveProducts      LiveProduct[]
   groupDeals        GroupDeal[]
@@ -848,4 +859,56 @@ model Review {
   @@index([productId])
   @@index([userId])
   @@index([status])
+}
+
+// ============================================================================
+// TESTIMONIALS & MEDIA (Phase 20.1)
+// ============================================================================
+
+model Testimonial {
+  id                    String              @id @default(cuid())
+  productId             String
+  vendorId              String
+  userId                String
+  rating                Int                 @db.SmallInt
+  title                 String
+  content               String              @db.Text
+  mediaUrls             String[]            @default([])
+  mediaTypes            String[]            @default([])
+  beforeAfterComparison Json?
+  isVerified            Boolean             @default(false)
+  isFeatured            Boolean             @default(false)
+  status                TestimonialStatus   @default(PENDING)
+  viewCount             Int                 @default(0)
+  helpfulCount          Int                 @default(0)
+  notHelpfulCount       Int                 @default(0)
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  product               Product             @relation("testimonials", fields: [productId], references: [id], onDelete: Cascade)
+  vendor                Vendor              @relation("testimonials", fields: [vendorId], references: [id], onDelete: Cascade)
+  user                  User                @relation("testimonials", fields: [userId], references: [id], onDelete: Cascade)
+  media                 TestimonialMedia[]
+
+  @@index([productId])
+  @@index([vendorId])
+  @@index([userId])
+  @@index([status])
+  @@index([isFeatured])
+  @@index([createdAt])
+}
+
+model TestimonialMedia {
+  id                String      @id @default(cuid())
+  testimonialId     String
+  mediaUrl          String
+  mediaType         String
+  duration          Int?
+  fileSize          Int
+  mimeType          String
+  uploadedAt        DateTime    @default(now())
+
+  testimonial       Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+
+  @@index([testimonialId])
 }
