@@ -1,0 +1,100 @@
+# Multi-stage build for Philippines E-Commerce Platform
+# Phase 20.1: Media Processing Infrastructure
+
+# Stage 1: Dependencies
+FROM node:18-alpine AS dependencies
+WORKDIR /app
+
+# Install system dependencies including FFmpeg
+RUN apk add --no-cache \
+    ffmpeg \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
+
+# Copy package files
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Install dependencies
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# Stage 2: Builder
+FROM node:18-alpine AS builder
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache \
+    ffmpeg \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
+
+# Copy package files
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Install all dependencies (including dev)
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Build application
+RUN npm run build
+
+# Stage 3: Runtime
+FROM node:18-alpine AS runtime
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    ffmpeg \
+    curl \
+    dumb-init
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
+
+# Copy built application from builder
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+
+# Copy dependencies from dependencies stage
+COPY --from=dependencies --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=dependencies --chown=nextjs:nodejs /app/package*.json ./
+
+# Create directories for logs and uploads
+RUN mkdir -p /app/logs /app/uploads && \
+    chown -R nextjs:nodejs /app/logs /app/uploads
+
+# Switch to non-root user
+USER nextjs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:3000/api/health || exit 1
+
+# Expose port
+EXPOSE 3000
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start application
+CMD ["npm", "run", "start"]
+
