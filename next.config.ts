@@ -86,11 +86,9 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Internationalization optimization
-  i18n: {
-    locales: ["en", "fil"],
-    defaultLocale: "en",
-  },
+  // NOTE: i18n configuration removed - incompatible with App Router in Next.js 16
+  // For internationalization with App Router, use next-intl library instead
+  // See: https://nextjs.org/docs/app/building-your-application/routing/internationalization
 
   // Headers for caching
   async headers() {
