@@ -11,11 +11,12 @@ import { isCategorySlugUnique, generateSlug } from "@/lib/product-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const category = await prisma.category.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         parent: true,
         children: true,
@@ -54,9 +55,10 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(auth);
 
     if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
@@ -71,7 +73,7 @@ export async function PATCH(
 
     // Check if category exists
     const existing = await prisma.category.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existing) {
@@ -83,7 +85,7 @@ export async function PATCH(
 
     // Check slug uniqueness if slug is being updated
     if (validatedData.slug && validatedData.slug !== existing.slug) {
-      const isUnique = await isCategorySlugUnique(validatedData.slug, params.id);
+      const isUnique = await isCategorySlugUnique(validatedData.slug, id);
       if (!isUnique) {
         return NextResponse.json(
           { error: "Category slug already exists" },
@@ -106,7 +108,7 @@ export async function PATCH(
       }
 
       // Prevent circular hierarchy
-      if (parent.parentId === params.id) {
+      if (parent.parentId === id) {
         return NextResponse.json(
           { error: "Cannot create circular category hierarchy" },
           { status: 400 }
@@ -115,7 +117,7 @@ export async function PATCH(
     }
 
     const updated = await prisma.category.update({
-      where: { id: params.id },
+      where: { id },
       data: validatedData,
       include: {
         children: true,
@@ -146,9 +148,10 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(auth);
 
     if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
@@ -159,7 +162,7 @@ export async function DELETE(
     }
 
     const category = await prisma.category.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         children: true,
         products: true,
@@ -182,7 +185,7 @@ export async function DELETE(
     }
 
     await prisma.category.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });

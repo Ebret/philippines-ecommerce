@@ -19,9 +19,10 @@ const referralRedemptions: any[] = [];
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
+    const { code } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -31,7 +32,7 @@ export async function POST(
       );
     }
 
-    const referral = referrals.find((r) => r.code === params.code);
+    const referral = referrals.find((r) => r.code === code);
 
     if (!referral) {
       return NextResponse.json(
@@ -72,7 +73,7 @@ export async function POST(
     const validation = ReferralRedeemSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Validation failed", details: validation.error.errors },
+        { success: false, error: "Validation failed", details: validation.error.issues },
         { status: 400 }
       );
     }
@@ -82,7 +83,7 @@ export async function POST(
       id: `redemp_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
       referralId: referral.id,
       refereeId: session.user.id,
-      refereeName: validation.data.refereeName,
+      refereeName: validation.data.referreeName,
       refereeEmail: validation.data.refereeEmail,
       initialPurchaseAmount: validation.data.initialPurchaseAmount || 0,
       commission: 0, // Will be calculated on first purchase

@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
     const validation = CommunityCreationSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Validation failed", details: validation.error.errors },
+        { success: false, error: "Validation failed", details: validation.error.issues },
         { status: 400 }
       );
     }

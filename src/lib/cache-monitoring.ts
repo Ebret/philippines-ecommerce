@@ -359,7 +359,12 @@ export function getCacheOptimizationOpportunities(metrics: CachePerformanceMetri
   effort: "low" | "medium" | "high";
   estimatedImprovement: number;
 }[] {
-  const opportunities = [];
+  const opportunities: {
+    opportunity: string;
+    impact: "high" | "medium" | "low";
+    effort: "low" | "medium" | "high";
+    estimatedImprovement: number;
+  }[] = [];
 
   if (metrics.hitRate < 50) {
     opportunities.push({

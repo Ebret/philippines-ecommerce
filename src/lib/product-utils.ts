@@ -132,7 +132,7 @@ export function buildProductSearchQuery(filters: {
   status?: string;
 }): Prisma.ProductFindManyArgs {
   const where: Prisma.ProductWhereInput = {
-    status: filters.status || "ACTIVE",
+    status: (filters.status || "ACTIVE") as any,
   };
 
   if (filters.query) {

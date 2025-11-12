@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { ProductSearchSchema, buildProductSearchQuery } from "@/lib/product-utils";
+import { buildProductSearchQuery } from "@/lib/product-utils";
+import { ProductSearchSchema } from "@/lib/validations/product";
 
 /**
  * GET /api/products/search
@@ -119,7 +120,9 @@ export async function GET(request: NextRequest) {
         take: validatedParams.limit,
         orderBy,
       }),
-      prisma.product.count(searchQuery),
+      prisma.product.count({
+        where: searchQuery.where,
+      }),
     ]);
 
     return NextResponse.json({

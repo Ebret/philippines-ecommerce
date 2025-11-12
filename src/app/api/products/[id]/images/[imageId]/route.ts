@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductImageUpdateSchema } from "@/lib/validations/product";
 
@@ -10,14 +10,15 @@ import { ProductImageUpdateSchema } from "@/lib/validations/product";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string; imageId: string } }
+  { params }: { params: Promise<{ id: string; imageId: string }> }
 ) {
   try {
+    const { id, imageId } = await params;
     const image = await prisma.productImage.findUnique({
-      where: { id: params.imageId },
+      where: { id: imageId },
     });
 
-    if (!image || image.productId !== params.id) {
+    if (!image || image.productId !== id) {
       return NextResponse.json(
         { error: "Image not found" },
         { status: 404 }
@@ -40,10 +41,11 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string; imageId: string } }
+  { params }: { params: Promise<{ id: string; imageId: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id, imageId } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -57,7 +59,7 @@ export async function PATCH(
 
     // Verify product exists
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -83,10 +85,10 @@ export async function PATCH(
 
     // Get existing image
     const existing = await prisma.productImage.findUnique({
-      where: { id: params.imageId },
+      where: { id: imageId },
     });
 
-    if (!existing || existing.productId !== params.id) {
+    if (!existing || existing.productId !== id) {
       return NextResponse.json(
         { error: "Image not found" },
         { status: 404 }
@@ -97,15 +99,15 @@ export async function PATCH(
     if (validatedData.isPrimary) {
       await prisma.productImage.updateMany({
         where: {
-          productId: params.id,
-          NOT: { id: params.imageId },
+          productId: id,
+          NOT: { id: imageId },
         },
         data: { isPrimary: false },
       });
     }
 
     const updated = await prisma.productImage.update({
-      where: { id: params.imageId },
+      where: { id: imageId },
       data: validatedData,
     });
 
@@ -132,10 +134,11 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string; imageId: string } }
+  { params }: { params: Promise<{ id: string; imageId: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id, imageId } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -146,7 +149,7 @@ export async function DELETE(
 
     // Verify product exists
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -172,10 +175,10 @@ export async function DELETE(
 
     // Get existing image
     const existing = await prisma.productImage.findUnique({
-      where: { id: params.imageId },
+      where: { id: imageId },
     });
 
-    if (!existing || existing.productId !== params.id) {
+    if (!existing || existing.productId !== id) {
       return NextResponse.json(
         { error: "Image not found" },
         { status: 404 }
@@ -183,7 +186,7 @@ export async function DELETE(
     }
 
     await prisma.productImage.delete({
-      where: { id: params.imageId },
+      where: { id: imageId },
     });
 
     return NextResponse.json({ success: true });

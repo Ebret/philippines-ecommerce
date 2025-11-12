@@ -10,6 +10,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { GroupDealUpdateSchema } from "@/lib/validations/group-pricing";
 import { getGroupDealStatus } from "@/lib/group-pricing-utils";
+import { UserRole } from "@prisma/client";
 
 // Mock database
 const groupDeals: any[] = [];
@@ -20,10 +21,11 @@ const groupDeals: any[] = [];
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const deal = groupDeals.find((d) => d.id === params.id);
+    const { id } = await params;
+    const deal = groupDeals.find((d) => d.id === id);
 
     if (!deal) {
       return NextResponse.json(
@@ -72,19 +74,20 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
-    if (!session || session.user.role !== "vendor") {
+    if (!session || (session.user as any).role !== UserRole.SELLER) {
       return NextResponse.json(
         { success: false, error: "Unauthorized - vendor access required" },
         { status: 401 }
       );
     }
 
-    const deal = groupDeals.find((d) => d.id === params.id);
+    const deal = groupDeals.find((d) => d.id === id);
 
     if (!deal) {
       return NextResponse.json(
@@ -94,7 +97,7 @@ export async function PATCH(
     }
 
     // Check ownership
-    if (deal.vendorId !== session.user.id && session.user.role !== "admin") {
+    if (deal.vendorId !== session.user.id && (session.user as any).role !== UserRole.ADMIN) {
       return NextResponse.json(
         { success: false, error: "Unauthorized - not deal owner" },
         { status: 403 }
@@ -107,7 +110,7 @@ export async function PATCH(
     const validation = GroupDealUpdateSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Validation failed", details: validation.error.errors },
+        { success: false, error: "Validation failed", details: validation.error.issues },
         { status: 400 }
       );
     }
@@ -119,7 +122,7 @@ export async function PATCH(
       updatedAt: new Date(),
     };
 
-    const index = groupDeals.findIndex((d) => d.id === params.id);
+    const index = groupDeals.findIndex((d) => d.id === id);
     groupDeals[index] = updatedDeal;
 
     return NextResponse.json(
@@ -145,19 +148,20 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
-    if (!session || session.user.role !== "vendor") {
+    if (!session || (session.user as any).role !== UserRole.SELLER) {
       return NextResponse.json(
         { success: false, error: "Unauthorized - vendor access required" },
         { status: 401 }
       );
     }
 
-    const deal = groupDeals.find((d) => d.id === params.id);
+    const deal = groupDeals.find((d) => d.id === id);
 
     if (!deal) {
       return NextResponse.json(
@@ -167,7 +171,7 @@ export async function DELETE(
     }
 
     // Check ownership
-    if (deal.vendorId !== session.user.id && session.user.role !== "admin") {
+    if (deal.vendorId !== session.user.id && (session.user as any).role !== UserRole.ADMIN) {
       return NextResponse.json(
         { success: false, error: "Unauthorized - not deal owner" },
         { status: 403 }
@@ -175,7 +179,7 @@ export async function DELETE(
     }
 
     // Soft delete
-    const index = groupDeals.findIndex((d) => d.id === params.id);
+    const index = groupDeals.findIndex((d) => d.id === id);
     groupDeals[index].status = "cancelled";
     groupDeals[index].deletedAt = new Date();
 

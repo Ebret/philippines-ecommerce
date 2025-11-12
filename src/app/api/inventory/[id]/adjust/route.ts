@@ -15,11 +15,12 @@ import { StockAdjustmentSchema } from "@/lib/validations/inventory";
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
-    if (!session || (session.user.role !== "ADMIN" && session.user.role !== "VENDOR")) {
+    if (!session?.user || ((session.user.role as any) !== "ADMIN" && (session.user.role as any) !== "SELLER")) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -27,9 +28,9 @@ export async function POST(
     const data = StockAdjustmentSchema.parse(body);
 
     // Check if inventory exists
-    const inventory = await prisma.inventory.findUnique({
-      where: { id: params.id },
-      include: { warehouse: { include: { vendor: true } } },
+    const inventory = await prisma.inventoryItem.findUnique({
+      where: { id },
+      include: { location: { include: { vendor: true } } },
     });
 
     if (!inventory) {
@@ -37,42 +38,42 @@ export async function POST(
     }
 
     // Check authorization for vendors
-    if (session.user.role === "VENDOR") {
-      if (inventory.warehouse.vendor?.userId !== session.user.id) {
+    if ((session.user.role as any) === "SELLER") {
+      if (inventory.location.vendor?.userId !== session.user.id) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
     }
 
     // Calculate new stock
-    const newStock = Math.max(0, inventory.currentStock.toNumber() + data.quantity);
+    const newStock = Math.max(0, inventory.quantity + data.quantity);
 
     // Create adjustment record and update inventory in transaction
     const result = await prisma.$transaction(async (tx) => {
-      // Create adjustment record
-      const adjustment = await tx.stockAdjustment.create({
+      // Create inventory movement record
+      const movement = await tx.inventoryMovement.create({
         data: {
-          inventoryId: params.id,
-          quantity: data.quantity,
-          reason: data.reason,
-          notes: data.notes,
+          variantId: inventory.variantId,
+          locationId: inventory.locationId,
+          movementType: data.quantity > 0 ? "IN" : "OUT",
+          quantity: Math.abs(data.quantity),
+          referenceType: data.reason,
           referenceId: data.referenceId,
-          adjustedBy: data.adjustedBy,
-          previousStock: inventory.currentStock.toNumber(),
-          newStock,
+          notes: data.notes,
+          createdById: session.user.id,
         },
       });
 
       // Update inventory
-      const updated = await tx.inventory.update({
-        where: { id: params.id },
-        data: { currentStock: newStock },
+      const updated = await tx.inventoryItem.update({
+        where: { id },
+        data: { quantity: newStock },
         include: {
-          product: { select: { id: true, name: true } },
-          warehouse: { select: { id: true, name: true } },
+          variant: { select: { id: true, name: true } },
+          location: { select: { id: true, name: true } },
         },
       });
 
-      return { adjustment, inventory: updated };
+      return { movement, inventory: updated };
     });
 
     return NextResponse.json(result, { status: 201 });

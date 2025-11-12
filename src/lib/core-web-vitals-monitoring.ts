@@ -31,6 +31,7 @@ export interface MobilePerformanceMetric {
   screenSize: string;
   batteryLevel: number;
   connectionSpeed: number; // Mbps
+  networkType?: "4g" | "3g" | "2g" | "5g" | "wifi";
   pageLoadTime: number;
   resourceCount: number;
   totalResourceSize: number; // bytes

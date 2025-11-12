@@ -34,7 +34,7 @@ export const ProductSchema = z.object({
   isFeatured: z.boolean().default(false),
   isDigital: z.boolean().default(false),
   weight: z.number().positive().optional(),
-  dimensions: z.record(z.any()).optional(),
+  dimensions: z.record(z.string(), z.any()).optional(),
   brand: z.string().max(255).optional(),
   model: z.string().max(255).optional(),
   condition: ProductConditionEnum.default("NEW"),
@@ -57,7 +57,7 @@ export const ProductVariantSchema = z.object({
   stockQuantity: z.number().int().nonnegative().default(0),
   lowStockThreshold: z.number().int().nonnegative().default(10),
   weight: z.number().positive().optional(),
-  attributes: z.record(z.any()).optional(),
+  attributes: z.record(z.string(), z.any()).optional(),
   isActive: z.boolean().default(true),
 });
 

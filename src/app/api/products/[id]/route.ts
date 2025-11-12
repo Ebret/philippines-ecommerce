@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductUpdateSchema } from "@/lib/validations/product";
 import { isSlugUnique, getProductWithRelations } from "@/lib/product-utils";
@@ -11,10 +11,11 @@ import { isSlugUnique, getProductWithRelations } from "@/lib/product-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const product = await getProductWithRelations(params.id);
+    const { id } = await params;
+    const product = await getProductWithRelations(id);
 
     if (!product) {
       return NextResponse.json(
@@ -25,7 +26,7 @@ export async function GET(
 
     // Increment view count
     await prisma.product.update({
-      where: { id: params.id },
+      where: { id },
       data: { viewCount: { increment: 1 } },
     });
 
@@ -45,10 +46,11 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -62,7 +64,7 @@ export async function PATCH(
 
     // Get existing product
     const existing = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!existing) {
@@ -88,7 +90,7 @@ export async function PATCH(
 
     // Check slug uniqueness if slug is being updated
     if (validatedData.slug && validatedData.slug !== existing.slug) {
-      const isUnique = await isSlugUnique(validatedData.slug, params.id);
+      const isUnique = await isSlugUnique(validatedData.slug, id);
       if (!isUnique) {
         return NextResponse.json(
           { error: "Product slug already exists" },
@@ -112,8 +114,8 @@ export async function PATCH(
     }
 
     const updated = await prisma.product.update({
-      where: { id: params.id },
-      data: validatedData,
+      where: { id },
+      data: validatedData as any,
       include: {
         vendor: {
           select: {
@@ -150,10 +152,11 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -163,7 +166,7 @@ export async function DELETE(
     }
 
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -188,7 +191,7 @@ export async function DELETE(
     }
 
     await prisma.product.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });

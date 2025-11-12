@@ -152,7 +152,8 @@ const FilterPanel = React.forwardRef<HTMLDivElement, FilterPanelProps>(
                             filter.id,
                             parseInt(e.target.value),
                             (selectedFilters[filter.id] as { min: number; max: number })?.max ||
-                              filter.max
+                              filter.max ||
+                              100
                           )
                         }
                         className="w-full rounded border border-neutral-200 px-2 py-1 text-sm"
@@ -170,7 +171,8 @@ const FilterPanel = React.forwardRef<HTMLDivElement, FilterPanelProps>(
                           handleRangeChange(
                             filter.id,
                             (selectedFilters[filter.id] as { min: number; max: number })?.min ||
-                              filter.min,
+                              filter.min ||
+                              0,
                             parseInt(e.target.value)
                           )
                         }
@@ -192,7 +194,8 @@ const FilterPanel = React.forwardRef<HTMLDivElement, FilterPanelProps>(
                           filter.id,
                           parseInt(e.target.value),
                           (selectedFilters[filter.id] as { min: number; max: number })?.max ||
-                            filter.max
+                            filter.max ||
+                            100
                         )
                       }
                       className="w-full"

@@ -125,7 +125,7 @@ const ModerationPanel = React.forwardRef<HTMLDivElement, ModerationPanelProps>(
                       </Button>
                       <Button
                         size="sm"
-                        variant="error"
+                        variant="destructive"
                         onClick={() => handleReject(review.id)}
                         disabled={!rejectReason.trim()}
                       >
@@ -137,7 +137,7 @@ const ModerationPanel = React.forwardRef<HTMLDivElement, ModerationPanelProps>(
                   <div className="flex gap-2">
                     <Button
                       size="sm"
-                      variant="success"
+                      variant="default"
                       onClick={() => onApprove?.(review.id)}
                     >
                       Approve

@@ -30,22 +30,22 @@ const dynamicOptionsNoSSR = {
 
 // Auth Components - Route-based code splitting
 export const DynamicLoginForm = dynamic(
-  () => import("@/components/auth/LoginForm"),
+  () => import("@/components/auth/LoginForm").then((mod) => ({ default: mod.LoginForm })),
   dynamicOptions
 );
 
 export const DynamicRegisterForm = dynamic(
-  () => import("@/components/auth/RegisterForm"),
+  () => import("@/components/auth/RegisterForm").then((mod) => ({ default: mod.RegisterForm })),
   dynamicOptions
 );
 
 export const DynamicForgotPasswordForm = dynamic(
-  () => import("@/components/auth/ForgotPasswordForm"),
+  () => import("@/components/auth/ForgotPasswordForm").then((mod) => ({ default: mod.ForgotPasswordForm })),
   dynamicOptions
 );
 
 export const DynamicResetPasswordForm = dynamic(
-  () => import("@/components/auth/ResetPasswordForm"),
+  () => import("@/components/auth/ResetPasswordForm").then((mod) => ({ default: mod.ResetPasswordForm })),
   dynamicOptions
 );
 
@@ -75,11 +75,12 @@ export function createDynamicImport<T extends React.ComponentType<any>>(
   importFn: () => Promise<{ default: T }>,
   options?: {
     ssr?: boolean;
-    loading?: React.ComponentType;
+    loading?: React.ComponentType<any>;
   }
 ) {
+  const LoadingComponent = options?.loading || DynamicLoadingComponent;
   return dynamic(importFn, {
-    loading: options?.loading || (() => <DynamicLoadingComponent />),
+    loading: () => <LoadingComponent />,
     ssr: options?.ssr !== false,
   });
 }

@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
           },
         },
         status: {
-          in: ["DELIVERED", "COMPLETED"],
+          in: ["DELIVERED"],
         },
       },
     });

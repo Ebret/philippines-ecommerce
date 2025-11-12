@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductVariantSchema } from "@/lib/validations/product";
 import { isSkuUnique, updateProductStatus } from "@/lib/product-utils";
@@ -11,11 +11,12 @@ import { isSkuUnique, updateProductStatus } from "@/lib/product-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const variants = await prisma.productVariant.findMany({
-      where: { productId: params.id },
+      where: { productId: id },
       include: {
         images: {
           orderBy: { sortOrder: "asc" },
@@ -40,10 +41,11 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -57,7 +59,7 @@ export async function POST(
 
     // Verify product exists
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -93,15 +95,15 @@ export async function POST(
     const variant = await prisma.productVariant.create({
       data: {
         ...validatedData,
-        productId: params.id,
-      },
+        productId: id,
+      } as any,
       include: {
         images: true,
       },
     });
 
     // Update product status if needed
-    await updateProductStatus(params.id);
+    await updateProductStatus(id);
 
     return NextResponse.json(variant, { status: 201 });
   } catch (error) {

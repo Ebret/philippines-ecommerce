@@ -15,7 +15,6 @@ interface VendorDashboardProps {
 
 const VendorDashboard = React.forwardRef<HTMLDivElement, VendorDashboardProps>(
   ({ vendorName, isLoading = false, className }, ref) => {
-    const [activeTab, setActiveTab] = React.useState('overview');
 
     const mockSalesData = [
       { label: 'Mon', value: 12500 },
@@ -85,97 +84,99 @@ const VendorDashboard = React.forwardRef<HTMLDivElement, VendorDashboardProps>(
 
         {/* Tabs */}
         <Tabs
-          tabs={[
-            { id: 'overview', label: 'Overview' },
-            { id: 'products', label: 'Products' },
-            { id: 'orders', label: 'Recent Orders' },
+          items={[
+            {
+              id: 'overview',
+              label: 'Overview',
+              content: (
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                  <AnalyticsChart
+                    title="Sales This Week"
+                    data={mockSalesData}
+                    type="bar"
+                    currency
+                    height={300}
+                  />
+                  <AnalyticsChart
+                    title="Sales by Category"
+                    data={[
+                      { label: 'Electronics', value: 45000 },
+                      { label: 'Fashion', value: 32000 },
+                      { label: 'Home', value: 28000 },
+                      { label: 'Sports', value: 15900 },
+                    ]}
+                    type="pie"
+                    height={300}
+                  />
+                </div>
+              ),
+            },
+            {
+              id: 'products',
+              label: 'Products',
+              content: (
+                <DataTable
+                  columns={[
+                    { key: 'name', label: 'Product Name', sortable: true },
+                    { key: 'sales', label: 'Sales', sortable: true },
+                    {
+                      key: 'revenue',
+                      label: 'Revenue',
+                      render: (value) => `₱${value.toLocaleString()}`,
+                    },
+                    {
+                      key: 'rating',
+                      label: 'Rating',
+                      render: (value) => `${value} ⭐`,
+                    },
+                  ]}
+                  data={mockProductData}
+                  striped
+                  hoverable
+                />
+              ),
+            },
+            {
+              id: 'orders',
+              label: 'Recent Orders',
+              content: (
+                <DataTable
+                  columns={[
+                    { key: 'id', label: 'Order ID', sortable: true },
+                    { key: 'customer', label: 'Customer', sortable: true },
+                    {
+                      key: 'amount',
+                      label: 'Amount',
+                      render: (value) => `₱${value.toLocaleString()}`,
+                    },
+                    {
+                      key: 'status',
+                      label: 'Status',
+                      render: (value) => {
+                        const statusColors = {
+                          Completed: 'success',
+                          Processing: 'info',
+                          Shipped: 'warning',
+                          Pending: 'secondary',
+                        };
+                        return (
+                          <span className={`text-xs font-medium text-${statusColors[value as keyof typeof statusColors]}-700`}>
+                            {value}
+                          </span>
+                        );
+                      },
+                    },
+                    { key: 'date', label: 'Date', sortable: true },
+                  ]}
+                  data={mockOrderData}
+                  striped
+                  hoverable
+                />
+              ),
+            },
           ]}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
+          defaultTab="overview"
         />
-
-        {/* Overview Tab */}
-        {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <AnalyticsChart
-              title="Sales This Week"
-              data={mockSalesData}
-              type="bar"
-              currency
-              height={300}
-            />
-            <AnalyticsChart
-              title="Sales by Category"
-              data={[
-                { label: 'Electronics', value: 45000 },
-                { label: 'Fashion', value: 32000 },
-                { label: 'Home', value: 28000 },
-                { label: 'Sports', value: 15900 },
-              ]}
-              type="pie"
-              height={300}
-            />
-          </div>
-        )}
-
-        {/* Products Tab */}
-        {activeTab === 'products' && (
-          <DataTable
-            columns={[
-              { key: 'name', label: 'Product Name', sortable: true },
-              { key: 'sales', label: 'Sales', sortable: true },
-              {
-                key: 'revenue',
-                label: 'Revenue',
-                render: (value) => `₱${value.toLocaleString()}`,
-              },
-              {
-                key: 'rating',
-                label: 'Rating',
-                render: (value) => `${value} ⭐`,
-              },
-            ]}
-            data={mockProductData}
-            striped
-            hoverable
-          />
-        )}
-
-        {/* Orders Tab */}
-        {activeTab === 'orders' && (
-          <DataTable
-            columns={[
-              { key: 'id', label: 'Order ID', sortable: true },
-              { key: 'customer', label: 'Customer', sortable: true },
-              {
-                key: 'amount',
-                label: 'Amount',
-                render: (value) => `₱${value.toLocaleString()}`,
-              },
-              {
-                key: 'status',
-                label: 'Status',
-                render: (value) => {
-                  const statusColors = {
-                    Completed: 'success',
-                    Processing: 'info',
-                    Shipped: 'warning',
-                    Pending: 'secondary',
-                  };
-                  return (
-                    <span className={`text-xs font-medium text-${statusColors[value as keyof typeof statusColors]}-700`}>
-                      {value}
-                    </span>
-                  );
-                },
-              },
-              { key: 'date', label: 'Date', sortable: true },
-            ]}
-            data={mockOrderData}
-            striped
-            hoverable
-          />
-        )}
       </div>
     );
   }

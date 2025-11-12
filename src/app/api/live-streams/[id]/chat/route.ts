@@ -25,12 +25,13 @@ import {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const searchParams = request.nextUrl.searchParams;
     const query = ChatMessageQuerySchema.parse({
-      sessionId: params.id,
+      sessionId: id,
       page: searchParams.get("page"),
       limit: searchParams.get("limit"),
       sortOrder: searchParams.get("sortOrder"),
@@ -40,7 +41,7 @@ export async function GET(
 
     // Verify stream exists
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!stream) {
@@ -52,12 +53,12 @@ export async function GET(
 
     // Get total count
     const total = await prisma.liveMessage.count({
-      where: { sessionId: params.id },
+      where: { sessionId: id },
     });
 
     // Get messages
     const messages = await prisma.liveMessage.findMany({
-      where: { sessionId: params.id },
+      where: { sessionId: id },
       include: {
         user: {
           select: {
@@ -107,9 +108,10 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -132,7 +134,7 @@ export async function POST(
 
     // Verify stream exists
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!stream) {
@@ -163,7 +165,7 @@ export async function POST(
     // Create message
     const message = await prisma.liveMessage.create({
       data: {
-        sessionId: params.id,
+        sessionId: id,
         userId: user.id,
         message: sanitized,
         timestamp: new Date(),

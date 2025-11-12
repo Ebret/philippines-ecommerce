@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { RefundRequestSchema, PaymentMethod } from "@/lib/validations/payment";
+import { RefundRequestSchema, PaymentMethod, PaymentStatus } from "@/lib/validations/payment";
 import GCashGateway from "@/lib/payment-gateways/gcash";
 import PayMayaGateway from "@/lib/payment-gateways/paymaya";
 import CardGateway from "@/lib/payment-gateways/card";
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const validationResult = RefundRequestSchema.safeParse(body);
     if (!validationResult.success) {
       return NextResponse.json(
-        { error: "Invalid refund request", details: validationResult.error.errors },
+        { error: "Invalid refund request", details: validationResult.error.issues },
         { status: 400 }
       );
     }
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Check if payment is eligible for refund
     // In production, fetch actual payment status from database
     const daysSincePayment = 5; // Mock value
-    if (!isEligibleForRefund("COMPLETED", daysSincePayment)) {
+    if (!isEligibleForRefund(PaymentStatus.COMPLETED, daysSincePayment)) {
       return NextResponse.json(
         { error: "Payment is not eligible for refund" },
         { status: 400 }
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get payment method from database (mock for now)
-    const method = PaymentMethod.GCASH; // Would be fetched from database
+    const method = PaymentMethod.GCASH as PaymentMethod; // Would be fetched from database
 
     // Route to appropriate payment gateway
     let refundResult;

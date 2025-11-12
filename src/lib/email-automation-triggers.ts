@@ -102,16 +102,16 @@ export class EmailAutomationTriggers {
       // Send to vendor
       const order = await prisma.order.findUnique({
         where: { id: orderNumber },
-        include: { vendor: true },
+        include: { vendor: { include: { user: true } } },
       });
 
-      if (order?.vendor?.email) {
+      if (order?.vendor?.user?.email) {
         await emailService.queueEmail({
-          email: order.vendor.email,
+          email: order.vendor.user.email,
           type: 'VENDOR_NEW_ORDER',
           templateId: 'vendor-new-order',
           variables: {
-            vendorName: order.vendor.name,
+            vendorName: order.vendor.storeName,
             orderNumber,
             customerName: firstName,
             totalAmount: totalAmount.toFixed(2),

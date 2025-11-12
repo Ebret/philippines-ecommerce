@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const validationResult = ProcessPaymentSchema.safeParse(body);
     if (!validationResult.success) {
       return NextResponse.json(
-        { error: "Invalid payment data", details: validationResult.error.errors },
+        { error: "Invalid payment data", details: validationResult.error.issues },
         { status: 400 }
       );
     }
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
           merchantId: process.env.GCASH_MERCHANT_ID || "",
           webhookSecret: process.env.GCASH_WEBHOOK_SECRET || "",
         });
-        transaction = await gateway.processPayment(paymentData);
+        transaction = await gateway.processPayment(paymentData as any);
         break;
       }
 
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
           merchantId: process.env.PAYMAYA_MERCHANT_ID || "",
           webhookSecret: process.env.PAYMAYA_WEBHOOK_SECRET || "",
         });
-        transaction = await gateway.processPayment(paymentData);
+        transaction = await gateway.processPayment(paymentData as any);
         break;
       }
 
@@ -76,13 +76,13 @@ export async function POST(request: NextRequest) {
           webhookSecret: process.env.CARD_WEBHOOK_SECRET || "",
           provider: (process.env.CARD_PROVIDER as "STRIPE" | "PAYMONGO") || "STRIPE",
         });
-        transaction = await gateway.processPayment(paymentData);
+        transaction = await gateway.processPayment(paymentData as any);
         break;
       }
 
       case PaymentMethod.COD: {
         const gateway = new CODGateway();
-        transaction = await gateway.processPayment(paymentData);
+        transaction = await gateway.processPayment(paymentData as any);
         break;
       }
 

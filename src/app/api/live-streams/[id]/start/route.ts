@@ -14,9 +14,10 @@ import { prisma } from "@/lib/prisma";
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -27,7 +28,7 @@ export async function POST(
 
     // Get stream and verify ownership
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { vendor: { include: { user: true } } },
     });
 
@@ -62,7 +63,7 @@ export async function POST(
 
     // Update stream status to live
     const updated = await prisma.liveSession.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         status: "live",
         startTime: new Date(),

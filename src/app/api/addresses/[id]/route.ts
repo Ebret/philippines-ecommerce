@@ -10,9 +10,10 @@ import { AddressSchema } from "@/lib/validations/cart";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -34,7 +35,7 @@ export async function GET(
     }
 
     const address = await prisma.address.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!address || address.userId !== user.id) {
@@ -60,9 +61,10 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -84,7 +86,7 @@ export async function PATCH(
     }
 
     const address = await prisma.address.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!address || address.userId !== user.id) {
@@ -100,13 +102,13 @@ export async function PATCH(
     // If setting as default, unset other defaults
     if (validatedData.isDefault) {
       await prisma.address.updateMany({
-        where: { userId: user.id, isDefault: true, id: { not: params.id } },
+        where: { userId: user.id, isDefault: true, id: { not: id } },
         data: { isDefault: false },
       });
     }
 
     const updatedAddress = await prisma.address.update({
-      where: { id: params.id },
+      where: { id },
       data: validatedData,
     });
 
@@ -136,9 +138,10 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -160,7 +163,7 @@ export async function DELETE(
     }
 
     const address = await prisma.address.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!address || address.userId !== user.id) {
@@ -171,7 +174,7 @@ export async function DELETE(
     }
 
     await prisma.address.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({

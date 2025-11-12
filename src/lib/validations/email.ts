@@ -20,9 +20,9 @@ export const EmailSendSchema = z.object({
     content: z.union([z.instanceof(Buffer), z.string()]),
     contentType: z.string().optional(),
   })).optional(),
-  headers: z.record(z.string()).optional(),
+  headers: z.record(z.string(), z.string()).optional(),
   tags: z.array(z.string()).optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
   trackingId: z.string().optional(),
 });
 
@@ -32,7 +32,7 @@ export const EmailQueueSchema = z.object({
   email: z.string().email(),
   type: z.string(),
   templateId: z.string(),
-  variables: z.record(z.any()),
+  variables: z.record(z.string(), z.any()),
   priority: z.number().int().min(0).max(10).optional(),
   retryCount: z.number().int().min(0).optional(),
   maxRetries: z.number().int().min(1).optional(),
@@ -98,7 +98,7 @@ export const EmailStatsQuerySchema = z.object({
 export const BulkEmailSchema = z.object({
   recipients: z.array(z.object({
     email: z.string().email(),
-    variables: z.record(z.any()),
+    variables: z.record(z.string(), z.any()),
   })),
   type: z.string(),
   templateId: z.string(),
@@ -111,7 +111,7 @@ export const EmailCampaignSchema = z.object({
   type: z.string(),
   templateId: z.string(),
   recipients: z.array(z.string().email()),
-  variables: z.record(z.any()),
+  variables: z.record(z.string(), z.any()),
   scheduledAt: z.date().optional(),
   priority: z.number().int().min(0).max(10).optional(),
 });
@@ -137,7 +137,7 @@ export const EmailAutomationTriggerSchema = z.object({
 });
 
 // Email template variables schema
-export const EmailTemplateVariablesSchema = z.record(z.union([
+export const EmailTemplateVariablesSchema = z.record(z.string(), z.union([
   z.string(),
   z.number(),
   z.boolean(),

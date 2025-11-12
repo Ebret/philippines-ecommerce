@@ -19,8 +19,8 @@ export { Footer } from './layout/footer';
 export { Container } from './layout/container';
 
 // Auth Components
-export { LoginForm } from './auth/login-form';
-export { RegisterForm } from './auth/register-form';
+export { LoginForm } from './auth/LoginForm';
+export { RegisterForm } from './auth/RegisterForm';
 
 // Product Components
 export { ProductCard } from './products/product-card';

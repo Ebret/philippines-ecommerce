@@ -142,7 +142,7 @@ export const SocialShareTrackingSchema = z.object({
   shareId: z.string().min(1),
   platform: SocialPlatformEnum,
   action: z.enum(["view", "click", "share", "purchase"]),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 export const SocialProofSchema = z.object({

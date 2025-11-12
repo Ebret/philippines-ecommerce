@@ -17,9 +17,10 @@ import { prisma } from "@/lib/prisma";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const searchParams = request.nextUrl.searchParams;
     const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
     const limit = Math.min(100, parseInt(searchParams.get("limit") || "20"));
@@ -27,7 +28,7 @@ export async function GET(
 
     // Verify stream exists
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!stream) {
@@ -39,12 +40,12 @@ export async function GET(
 
     // Get total count
     const total = await prisma.liveViewer.count({
-      where: { sessionId: params.id },
+      where: { sessionId: id },
     });
 
     // Get viewers
     const viewers = await prisma.liveViewer.findMany({
-      where: { sessionId: params.id },
+      where: { sessionId: id },
       include: {
         user: {
           select: {
@@ -94,9 +95,10 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -119,7 +121,7 @@ export async function POST(
 
     // Verify stream exists
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!stream) {
@@ -133,7 +135,7 @@ export async function POST(
     const existing = await prisma.liveViewer.findUnique({
       where: {
         sessionId_userId: {
-          sessionId: params.id,
+          sessionId: id,
           userId: user.id,
         },
       },
@@ -153,7 +155,7 @@ export async function POST(
     // Add viewer
     const viewer = await prisma.liveViewer.create({
       data: {
-        sessionId: params.id,
+        sessionId: id,
         userId: user.id,
       },
       include: {
@@ -174,7 +176,7 @@ export async function POST(
 
     // Update viewer count
     await prisma.liveSession.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         viewerCount: {
           increment: 1,

@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface EmailNotificationTemplateProps {
-  recipientName: string;
+  recipientName?: string;
   subject: string;
   preheader?: string;
   title: string;

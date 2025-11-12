@@ -6,7 +6,7 @@ export const PerformanceMetricSchema = z.object({
   value: z.number().min(0, "Metric value must be non-negative"),
   unit: z.enum(["ms", "kb", "mb", "percent", "count"]),
   timestamp: z.date().optional(),
-  tags: z.record(z.string()).optional(),
+  tags: z.record(z.string(), z.string()).optional(),
 });
 
 export const CoreWebVitalsSchema = z.object({
@@ -115,7 +115,7 @@ export const PerformanceQuerySchema = z.object({
   limit: z.number().min(1).max(1000).default(100),
   offset: z.number().min(0).default(0),
   groupBy: z.enum(["hour", "day", "week", "month"]).optional(),
-  tags: z.record(z.string()).optional(),
+  tags: z.record(z.string(), z.string()).optional(),
 });
 
 export const PerformanceComparisonSchema = z.object({

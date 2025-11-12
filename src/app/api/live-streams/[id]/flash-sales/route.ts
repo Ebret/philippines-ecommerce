@@ -20,12 +20,13 @@ import { calculateFlashSalePrice } from "@/lib/live-selling-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     // Verify stream exists
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!stream) {
@@ -37,14 +38,12 @@ export async function GET(
 
     // Get flash sales
     const flashSales = await prisma.liveProduct.findMany({
-      where: { sessionId: params.id },
+      where: { sessionId: id },
       include: {
         product: {
           select: {
             id: true,
             name: true,
-            price: true,
-            imageUrl: true,
           },
         },
       },
@@ -75,9 +74,10 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -88,7 +88,7 @@ export async function POST(
 
     // Get stream and verify ownership
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { vendor: { include: { user: true } } },
     });
 
@@ -124,7 +124,7 @@ export async function POST(
     // Create flash sale
     const flashSale = await prisma.liveProduct.create({
       data: {
-        sessionId: params.id,
+        sessionId: id,
         productId: data.productId,
         specialPrice: data.specialPrice,
         stockLimit: data.stockLimit,
@@ -134,8 +134,6 @@ export async function POST(
           select: {
             id: true,
             name: true,
-            price: true,
-            imageUrl: true,
           },
         },
       },

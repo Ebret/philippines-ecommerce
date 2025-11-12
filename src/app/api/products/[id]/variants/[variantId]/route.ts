@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductVariantUpdateSchema } from "@/lib/validations/product";
 import { isSkuUnique, updateProductStatus } from "@/lib/product-utils";
@@ -11,11 +11,12 @@ import { isSkuUnique, updateProductStatus } from "@/lib/product-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string; variantId: string } }
+  { params }: { params: Promise<{ id: string; variantId: string }> }
 ) {
   try {
+    const { id, variantId } = await params;
     const variant = await prisma.productVariant.findUnique({
-      where: { id: params.variantId },
+      where: { id: variantId },
       include: {
         images: {
           orderBy: { sortOrder: "asc" },
@@ -23,7 +24,7 @@ export async function GET(
       },
     });
 
-    if (!variant || variant.productId !== params.id) {
+    if (!variant || variant.productId !== id) {
       return NextResponse.json(
         { error: "Variant not found" },
         { status: 404 }
@@ -46,10 +47,11 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string; variantId: string } }
+  { params }: { params: Promise<{ id: string; variantId: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id, variantId } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -63,7 +65,7 @@ export async function PATCH(
 
     // Verify product exists
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -89,10 +91,10 @@ export async function PATCH(
 
     // Get existing variant
     const existing = await prisma.productVariant.findUnique({
-      where: { id: params.variantId },
+      where: { id: variantId },
     });
 
-    if (!existing || existing.productId !== params.id) {
+    if (!existing || existing.productId !== id) {
       return NextResponse.json(
         { error: "Variant not found" },
         { status: 404 }
@@ -101,7 +103,7 @@ export async function PATCH(
 
     // Check SKU uniqueness if SKU is being updated
     if (validatedData.sku && validatedData.sku !== existing.sku) {
-      const isUnique = await isSkuUnique(validatedData.sku, params.variantId);
+      const isUnique = await isSkuUnique(validatedData.sku, variantId);
       if (!isUnique) {
         return NextResponse.json(
           { error: "SKU already exists" },
@@ -111,15 +113,15 @@ export async function PATCH(
     }
 
     const updated = await prisma.productVariant.update({
-      where: { id: params.variantId },
-      data: validatedData,
+      where: { id: variantId },
+      data: validatedData as any,
       include: {
         images: true,
       },
     });
 
     // Update product status if needed
-    await updateProductStatus(params.id);
+    await updateProductStatus(id);
 
     return NextResponse.json(updated);
   } catch (error) {
@@ -144,10 +146,11 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string; variantId: string } }
+  { params }: { params: Promise<{ id: string; variantId: string }> }
 ) {
   try {
-    const session = await getServerSession(auth);
+    const { id, variantId } = await params;
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -158,7 +161,7 @@ export async function DELETE(
 
     // Verify product exists
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!product) {
@@ -184,10 +187,10 @@ export async function DELETE(
 
     // Get existing variant
     const existing = await prisma.productVariant.findUnique({
-      where: { id: params.variantId },
+      where: { id: variantId },
     });
 
-    if (!existing || existing.productId !== params.id) {
+    if (!existing || existing.productId !== id) {
       return NextResponse.json(
         { error: "Variant not found" },
         { status: 404 }
@@ -195,11 +198,11 @@ export async function DELETE(
     }
 
     await prisma.productVariant.delete({
-      where: { id: params.variantId },
+      where: { id: variantId },
     });
 
     // Update product status if needed
-    await updateProductStatus(params.id);
+    await updateProductStatus(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

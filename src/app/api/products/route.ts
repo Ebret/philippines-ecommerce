@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductSchema } from "@/lib/validations/product";
 import { isSlugUnique, generateSlug, getProductWithRelations } from "@/lib/product-utils";
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(auth);
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
         ...validatedData,
         slug,
         vendorId,
-      },
+      } as any,
       include: {
         vendor: {
           select: {

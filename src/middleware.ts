@@ -12,8 +12,8 @@ const protectedRoutes: Record<string, string[]> = {
 };
 
 export default withAuth(
-  function middleware(request: NextRequest) {
-    const token = request.nextauth.token;
+  function middleware(request: any) {
+    const token = request.nextauth?.token;
     const pathname = request.nextUrl.pathname;
 
     // Check if route is protected

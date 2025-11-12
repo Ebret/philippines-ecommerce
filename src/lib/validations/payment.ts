@@ -99,8 +99,8 @@ export const ProcessPaymentSchema = z.object({
   orderId: z.string().min(1, "Order ID is required"),
   amount: z.number().positive("Amount must be positive"),
   method: z.nativeEnum(PaymentMethod),
-  paymentData: z.record(z.any()),
-  metadata: z.record(z.any()).optional(),
+  paymentData: z.record(z.string(), z.any()),
+  metadata: z.record(z.string(), z.any()).optional(),
 });
 
 // Payment verification schema
@@ -186,7 +186,7 @@ export const TransactionLogSchema = z.object({
   method: z.nativeEnum(PaymentMethod),
   amount: z.number(),
   status: z.nativeEnum(PaymentStatus),
-  gatewayResponse: z.record(z.any()),
+  gatewayResponse: z.record(z.string(), z.any()),
   errorMessage: z.string().optional(),
   timestamp: z.string().datetime(),
   ipAddress: z.string().optional(),

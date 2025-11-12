@@ -11,9 +11,10 @@ import { canReturnOrder, calculateRefundAmount } from "@/lib/order-utils";
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -38,7 +39,7 @@ export async function POST(
     const validatedData = OrderReturnSchema.parse(body);
 
     const order = await prisma.order.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         items: true,
         shipment: true,
@@ -61,7 +62,7 @@ export async function POST(
     }
 
     // Check if order can be returned
-    const deliveredDate = order.shipment?.deliveredAt;
+    const deliveredDate = order.shipment?.deliveredAt || null;
     if (!canReturnOrder(order.status, deliveredDate)) {
       return NextResponse.json(
         {
@@ -94,7 +95,7 @@ export async function POST(
 
     // Update order status to RETURNED
     const returnedOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         status: "RETURNED",
         notes: `Return requested: ${validatedData.reason}`,

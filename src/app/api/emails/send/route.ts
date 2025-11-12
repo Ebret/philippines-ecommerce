@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       cc: validated.cc,
       bcc: validated.bcc,
       attachments: validated.attachments,
-      headers: validated.headers,
+      headers: validated.headers as Record<string, string> | undefined,
       tags: validated.tags,
       metadata: validated.metadata,
       trackingId: validated.trackingId,
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: 'Validation error', details: error.errors },
+        { error: 'Validation error', details: error.issues },
         { status: 400 }
       );
     }

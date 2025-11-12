@@ -20,11 +20,12 @@ import { getStreamStatus } from "@/lib/live-selling-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         vendor: {
           select: {
@@ -40,8 +41,6 @@ export async function GET(
               select: {
                 id: true,
                 name: true,
-                price: true,
-                imageUrl: true,
               },
             },
           },
@@ -84,9 +83,10 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -97,7 +97,7 @@ export async function PATCH(
 
     // Get stream and verify ownership
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { vendor: { include: { user: true } } },
     });
 
@@ -120,7 +120,7 @@ export async function PATCH(
 
     // Update stream
     const updated = await prisma.liveSession.update({
-      where: { id: params.id },
+      where: { id },
       data,
       include: {
         vendor: {
@@ -162,9 +162,10 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -175,7 +176,7 @@ export async function DELETE(
 
     // Get stream and verify ownership
     const stream = await prisma.liveSession.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { vendor: { include: { user: true } } },
     });
 
@@ -195,7 +196,7 @@ export async function DELETE(
 
     // Delete stream
     await prisma.liveSession.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json(

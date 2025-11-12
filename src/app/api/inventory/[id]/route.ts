@@ -17,42 +17,53 @@ import { InventoryUpdateSchema } from "@/lib/validations/inventory";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const inventory = await prisma.inventory.findUnique({
-      where: { id: params.id },
+    const inventory = await prisma.inventoryItem.findUnique({
+      where: { id },
       include: {
-        product: { select: { id: true, name: true, sku: true, price: true } },
-        variant: { select: { id: true, name: true } },
-        warehouse: { select: { id: true, name: true, type: true } },
-        adjustments: { orderBy: { createdAt: "desc" }, take: 20 },
-        batches: { where: { status: "ACTIVE" }, orderBy: { expiryDate: "asc" } },
+        variant: { select: { id: true, name: true, sku: true, price: true } },
+        location: { select: { id: true, name: true, code: true } },
       },
     });
+
+    // Get recent movements for this inventory item
+    let movements: any[] = [];
+    if (inventory) {
+      movements = await prisma.inventoryMovement.findMany({
+        where: {
+          variantId: inventory.variantId,
+          locationId: inventory.locationId,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      });
+    }
 
     if (!inventory) {
       return NextResponse.json({ error: "Inventory not found" }, { status: 404 });
     }
 
     // Check authorization
-    if (session.user.role === "VENDOR") {
-      const warehouse = await prisma.warehouse.findUnique({
-        where: { id: inventory.warehouseId },
+    if ((session.user.role as any) === "SELLER") {
+      const location = await prisma.inventoryLocation.findUnique({
+        where: { id: inventory.locationId },
         include: { vendor: { select: { userId: true } } },
       });
 
-      if (warehouse?.vendor?.userId !== session.user.id) {
+      if (location?.vendor?.userId !== session.user.id) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
     }
 
-    return NextResponse.json(inventory);
+    return NextResponse.json({ ...inventory, movements });
   } catch (error) {
     console.error("Error fetching inventory:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -65,11 +76,12 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session?.user || (session.user.role as any) !== "ADMIN") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -77,21 +89,28 @@ export async function PATCH(
     const data = InventoryUpdateSchema.parse(body);
 
     // Check if inventory exists
-    const inventory = await prisma.inventory.findUnique({
-      where: { id: params.id },
+    const inventory = await prisma.inventoryItem.findUnique({
+      where: { id },
     });
 
     if (!inventory) {
       return NextResponse.json({ error: "Inventory not found" }, { status: 404 });
     }
 
+    // Map schema fields to model fields
+    const updateData: any = {};
+    if (data.currentStock !== undefined) updateData.quantity = data.currentStock;
+    if (data.reservedStock !== undefined) updateData.reservedQuantity = data.reservedStock;
+    // Note: reorderPoint, reorderQuantity, sku, barcode, status are not in InventoryItem model
+    // They would need to be stored in a separate model or the ProductVariant model
+
     // Update inventory
-    const updated = await prisma.inventory.update({
-      where: { id: params.id },
-      data,
+    const updated = await prisma.inventoryItem.update({
+      where: { id },
+      data: updateData,
       include: {
-        product: { select: { id: true, name: true } },
-        warehouse: { select: { id: true, name: true } },
+        variant: { select: { id: true, name: true } },
+        location: { select: { id: true, name: true } },
       },
     });
 
@@ -111,17 +130,18 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session?.user || (session.user.role as any) !== "ADMIN") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Check if inventory exists
-    const inventory = await prisma.inventory.findUnique({
-      where: { id: params.id },
+    const inventory = await prisma.inventoryItem.findUnique({
+      where: { id },
     });
 
     if (!inventory) {
@@ -129,8 +149,8 @@ export async function DELETE(
     }
 
     // Delete inventory
-    await prisma.inventory.delete({
-      where: { id: params.id },
+    await prisma.inventoryItem.delete({
+      where: { id },
     });
 
     return NextResponse.json({ message: "Inventory deleted successfully" });

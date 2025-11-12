@@ -115,7 +115,7 @@ const ReviewList = React.forwardRef<HTMLDivElement, ReviewListProps>(
                 <Pagination
                   currentPage={currentPage}
                   totalPages={totalPages}
-                  onPageChange={onPageChange}
+                  onPageChange={onPageChange || (() => {})}
                 />
               </div>
             )}

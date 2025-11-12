@@ -108,7 +108,7 @@ class EmailService {
         data: {
           userId: item.userId,
           email: item.email,
-          type: item.type,
+          type: item.type as any,
           templateId: item.templateId,
           variables: item.variables,
           priority: item.priority || 0,
@@ -146,7 +146,7 @@ class EmailService {
         data: {
           userId,
           email,
-          type,
+          type: type as any,
           subject,
           status: status as any,
           metadata,

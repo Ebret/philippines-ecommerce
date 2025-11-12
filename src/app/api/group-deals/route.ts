@@ -9,6 +9,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { GroupDealCreationSchema } from "@/lib/validations/group-pricing";
 import { generateGroupDealId, getGroupDealStatus } from "@/lib/group-pricing-utils";
+import { UserRole } from "@prisma/client";
 
 // Mock database - replace with Prisma in production
 const groupDeals: any[] = [];
@@ -92,7 +93,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session || session.user.role !== "vendor") {
+    if (!session || (session.user as any).role !== UserRole.SELLER) {
       return NextResponse.json(
         { success: false, error: "Unauthorized - vendor access required" },
         { status: 401 }
@@ -105,7 +106,7 @@ export async function POST(request: NextRequest) {
     const validation = GroupDealCreationSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Validation failed", details: validation.error.errors },
+        { success: false, error: "Validation failed", details: validation.error.issues },
         { status: 400 }
       );
     }

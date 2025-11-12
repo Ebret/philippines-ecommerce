@@ -33,9 +33,9 @@ export async function GET(request: NextRequest) {
     if (alertType) where.alertType = alertType;
 
     // Filter by vendor if user is vendor
-    if (session.user.role === "VENDOR") {
-      where.inventory = {
-        warehouse: { vendor: { userId: session.user.id } },
+    if ((session.user.role as any) === "SELLER") {
+      where.location = {
+        vendor: { userId: session.user.id },
       };
     }
 
@@ -46,15 +46,15 @@ export async function GET(request: NextRequest) {
     const alerts = await prisma.stockAlert.findMany({
       where,
       include: {
-        inventory: {
+        variant: {
           select: {
             id: true,
+            name: true,
             sku: true,
-            currentStock: true,
             product: { select: { name: true } },
-            warehouse: { select: { name: true } },
           },
         },
+        location: { select: { id: true, name: true } },
       },
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * limit,
@@ -83,33 +83,43 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || (session.user.role !== "ADMIN" && session.user.role !== "VENDOR")) {
+    if (!session?.user || ((session.user.role as any) !== "ADMIN" && (session.user.role as any) !== "SELLER")) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     const body = await request.json();
     const data = StockAlertSchema.parse(body);
 
-    // Check if inventory exists
-    const inventory = await prisma.inventory.findUnique({
-      where: { id: data.productId },
-      include: { warehouse: { include: { vendor: true } } },
+    // Check if variant exists
+    const variant = await prisma.productVariant.findUnique({
+      where: { id: data.variantId || "" },
+      include: { product: true },
     });
 
-    if (!inventory) {
-      return NextResponse.json({ error: "Inventory not found" }, { status: 404 });
+    if (!variant) {
+      return NextResponse.json({ error: "Variant not found" }, { status: 404 });
     }
 
-    // Check authorization for vendors
-    if (session.user.role === "VENDOR" && inventory.warehouse.vendor?.userId !== session.user.id) {
+    // Check if location exists
+    const location = await prisma.inventoryLocation.findUnique({
+      where: { id: data.warehouseId },
+      include: { vendor: true },
+    });
+
+    if (!location) {
+      return NextResponse.json({ error: "Location not found" }, { status: 404 });
+    }
+
+    // Check authorization for sellers
+    if ((session.user.role as any) === "SELLER" && location.vendor?.userId !== session.user.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Check for existing alert
     const existingAlert = await prisma.stockAlert.findFirst({
       where: {
-        inventoryId: data.productId,
-        alertType: data.alertType,
+        variantId: data.variantId || "",
+        locationId: data.warehouseId,
       },
     });
 
@@ -123,20 +133,21 @@ export async function POST(request: NextRequest) {
     // Create alert
     const alert = await prisma.stockAlert.create({
       data: {
-        inventoryId: data.productId,
-        alertType: data.alertType,
+        variantId: data.variantId || "",
+        locationId: data.warehouseId,
         threshold: data.threshold,
-        status: data.status,
-        notifyVendor: data.notifyVendor,
-        notifyAdmin: data.notifyAdmin,
+        isActive: true,
       },
       include: {
-        inventory: {
+        variant: {
           select: {
+            id: true,
+            name: true,
             sku: true,
             product: { select: { name: true } },
           },
         },
+        location: { select: { id: true, name: true } },
       },
     });
 

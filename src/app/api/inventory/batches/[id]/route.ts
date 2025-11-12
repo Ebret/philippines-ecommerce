@@ -17,7 +17,7 @@ import { BatchUpdateSchema } from "@/lib/validations/inventory";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -25,8 +25,10 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
+
     const batch = await prisma.batch.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         product: { select: { id: true, name: true, sku: true } },
         warehouse: { select: { id: true, name: true, vendor: { select: { userId: true } } } },
@@ -38,7 +40,7 @@ export async function GET(
     }
 
     // Check authorization
-    if (session.user.role === "VENDOR" && batch.warehouse.vendor?.userId !== session.user.id) {
+    if ((session.user.role as any) === "SELLER" && batch.warehouse.vendor?.userId !== session.user.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -55,20 +57,21 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || (session.user.role !== "ADMIN" && session.user.role !== "VENDOR")) {
+    if (!session || ((session.user.role as any) !== "ADMIN" && (session.user.role as any) !== "SELLER")) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    const { id } = await params;
     const body = await request.json();
     const data = BatchUpdateSchema.parse(body);
 
     // Check if batch exists
     const batch = await prisma.batch.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: { warehouse: { include: { vendor: true } } },
     });
 
@@ -77,13 +80,13 @@ export async function PATCH(
     }
 
     // Check authorization for vendors
-    if (session.user.role === "VENDOR" && batch.warehouse.vendor?.userId !== session.user.id) {
+    if ((session.user.role as any) === "SELLER" && batch.warehouse.vendor?.userId !== session.user.id) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Update batch
     const updated = await prisma.batch.update({
-      where: { id: params.id },
+      where: { id },
       data,
       include: {
         product: { select: { id: true, name: true } },
@@ -107,17 +110,19 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "ADMIN") {
+    if (!session || (session.user.role as any) !== "ADMIN") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    const { id } = await params;
+
     // Check if batch exists
     const batch = await prisma.batch.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!batch) {
@@ -126,7 +131,7 @@ export async function DELETE(
 
     // Delete batch
     await prisma.batch.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: "Batch deleted successfully" });

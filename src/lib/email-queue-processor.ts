@@ -119,7 +119,7 @@ class EmailQueueProcessor {
         console.log(`Email sent: ${queueItem.email} (${queueItem.type})`);
       } else {
         // Handle send failure
-        await this.handleSendFailure(queueItem, result.error);
+        await this.handleSendFailure(queueItem, result.error || 'Unknown error');
       }
     } catch (error) {
       console.error(`Error processing queue item ${queueItem.id}:`, error);
@@ -137,14 +137,14 @@ class EmailQueueProcessor {
     if (retryCount < maxRetries) {
       // Schedule retry
       const retryDelay = EMAIL_CONFIG.queue.retryDelayMs * retryCount;
-      const retryAt = new Date(Date.now() + retryDelay);
+      const nextRetryAt = new Date(Date.now() + retryDelay);
 
       await prisma.emailQueue.update({
         where: { id: queueItem.id },
         data: {
           status: 'RETRY',
           retryCount,
-          retryAt,
+          nextRetryAt,
         },
       });
 
@@ -155,8 +155,7 @@ class EmailQueueProcessor {
         where: { id: queueItem.id },
         data: {
           status: 'FAILED',
-          failureReason: error,
-          failedAt: new Date(),
+          error: error,
         },
       });
 
@@ -255,7 +254,7 @@ class EmailQueueProcessor {
   async getQueueItems(status: string, limit: number = 50) {
     try {
       return await prisma.emailQueue.findMany({
-        where: { status },
+        where: { status: status as any },
         orderBy: { createdAt: 'desc' },
         take: limit,
       });

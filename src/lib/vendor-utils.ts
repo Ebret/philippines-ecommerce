@@ -138,8 +138,8 @@ export async function getVendorEarnings(vendorId: string, days: number = 30) {
   let totalCommission = new Decimal(0);
 
   for (const order of orders) {
-    const commission = calculateCommission(order.total, order.vendor.commissionRate);
-    const earnings = calculateVendorEarnings(order.total, order.vendor.commissionRate);
+    const commission = calculateCommission(order.totalAmount, order.vendor.commissionRate);
+    const earnings = calculateVendorEarnings(order.totalAmount, order.vendor.commissionRate);
     totalCommission = totalCommission.add(commission);
     totalEarnings = totalEarnings.add(earnings);
   }
@@ -305,10 +305,10 @@ export async function getVendorCommissionHistory(vendorId: string, limit: number
 
   return orders.map((order) => ({
     orderId: order.id,
-    orderTotal: order.total.toNumber(),
+    orderTotal: order.totalAmount.toNumber(),
     commissionRate: order.vendor.commissionRate.toNumber(),
-    commission: calculateCommission(order.total, order.vendor.commissionRate).toNumber(),
-    earnings: calculateVendorEarnings(order.total, order.vendor.commissionRate).toNumber(),
+    commission: calculateCommission(order.totalAmount, order.vendor.commissionRate).toNumber(),
+    earnings: calculateVendorEarnings(order.totalAmount, order.vendor.commissionRate).toNumber(),
     status: order.status,
     date: order.createdAt,
   }));

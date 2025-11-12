@@ -14,7 +14,6 @@ interface AdminDashboardProps {
 
 const AdminDashboard = React.forwardRef<HTMLDivElement, AdminDashboardProps>(
   ({ isLoading = false, className }, ref) => {
-    const [activeTab, setActiveTab] = React.useState('overview');
 
     const mockRevenueData = [
       { label: 'Week 1', value: 125000 },
@@ -80,90 +79,92 @@ const AdminDashboard = React.forwardRef<HTMLDivElement, AdminDashboardProps>(
 
         {/* Tabs */}
         <Tabs
-          tabs={[
-            { id: 'overview', label: 'Overview' },
-            { id: 'users', label: 'Users' },
-            { id: 'vendors', label: 'Vendors' },
+          items={[
+            {
+              id: 'overview',
+              label: 'Overview',
+              content: (
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                  <AnalyticsChart
+                    title="Revenue Trend"
+                    data={mockRevenueData}
+                    type="line"
+                    currency
+                    height={300}
+                  />
+                  <AnalyticsChart
+                    title="Platform Distribution"
+                    data={[
+                      { label: 'Customers', value: 8500 },
+                      { label: 'Vendors', value: 342 },
+                      { label: 'Admins', value: 12 },
+                    ]}
+                    type="pie"
+                    height={300}
+                  />
+                </div>
+              ),
+            },
+            {
+              id: 'users',
+              label: 'Users',
+              content: (
+                <DataTable
+                  columns={[
+                    { key: 'name', label: 'Name', sortable: true },
+                    { key: 'email', label: 'Email', sortable: true },
+                    { key: 'role', label: 'Role', sortable: true },
+                    {
+                      key: 'status',
+                      label: 'Status',
+                      render: (value) => (
+                        <span
+                          className={cn(
+                            'inline-block rounded-full px-2 py-1 text-xs font-medium',
+                            value === 'Active'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-neutral-100 text-neutral-800'
+                          )}
+                        >
+                          {value}
+                        </span>
+                      ),
+                    },
+                  ]}
+                  data={mockUserData}
+                  striped
+                  hoverable
+                />
+              ),
+            },
+            {
+              id: 'vendors',
+              label: 'Vendors',
+              content: (
+                <DataTable
+                  columns={[
+                    { key: 'name', label: 'Vendor Name', sortable: true },
+                    {
+                      key: 'sales',
+                      label: 'Total Sales',
+                      render: (value) => `₱${value.toLocaleString()}`,
+                    },
+                    { key: 'products', label: 'Products', sortable: true },
+                    {
+                      key: 'rating',
+                      label: 'Rating',
+                      render: (value) => `${value} ⭐`,
+                    },
+                  ]}
+                  data={mockVendorData}
+                  striped
+                  hoverable
+                />
+              ),
+            },
           ]}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
+          defaultTab="overview"
         />
-
-        {/* Overview Tab */}
-        {activeTab === 'overview' && (
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <AnalyticsChart
-              title="Revenue Trend"
-              data={mockRevenueData}
-              type="line"
-              currency
-              height={300}
-            />
-            <AnalyticsChart
-              title="Platform Distribution"
-              data={[
-                { label: 'Customers', value: 8500 },
-                { label: 'Vendors', value: 342 },
-                { label: 'Admins', value: 12 },
-              ]}
-              type="pie"
-              height={300}
-            />
-          </div>
-        )}
-
-        {/* Users Tab */}
-        {activeTab === 'users' && (
-          <DataTable
-            columns={[
-              { key: 'name', label: 'Name', sortable: true },
-              { key: 'email', label: 'Email', sortable: true },
-              { key: 'role', label: 'Role', sortable: true },
-              {
-                key: 'status',
-                label: 'Status',
-                render: (value) => (
-                  <span
-                    className={cn(
-                      'inline-block rounded-full px-2 py-1 text-xs font-medium',
-                      value === 'Active'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-neutral-100 text-neutral-800'
-                    )}
-                  >
-                    {value}
-                  </span>
-                ),
-              },
-            ]}
-            data={mockUserData}
-            striped
-            hoverable
-          />
-        )}
-
-        {/* Vendors Tab */}
-        {activeTab === 'vendors' && (
-          <DataTable
-            columns={[
-              { key: 'name', label: 'Vendor Name', sortable: true },
-              {
-                key: 'sales',
-                label: 'Total Sales',
-                render: (value) => `₱${value.toLocaleString()}`,
-              },
-              { key: 'products', label: 'Products', sortable: true },
-              {
-                key: 'rating',
-                label: 'Rating',
-                render: (value) => `${value} ⭐`,
-              },
-            ]}
-            data={mockVendorData}
-            striped
-            hoverable
-          />
-        )}
       </div>
     );
   }

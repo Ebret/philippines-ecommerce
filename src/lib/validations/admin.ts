@@ -174,7 +174,7 @@ export const DataExportSchema = z.object({
   format: z.enum(["csv", "excel", "json"]),
   dateFrom: z.string().datetime().optional(),
   dateTo: z.string().datetime().optional(),
-  filters: z.record(z.any()).optional(),
+  filters: z.record(z.string(), z.any()).optional(),
 });
 
 // Type exports
