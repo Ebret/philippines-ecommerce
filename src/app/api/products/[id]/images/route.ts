@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductImageSchema } from "@/lib/validations/product";
 
@@ -10,11 +10,12 @@ import { ProductImageSchema } from "@/lib/validations/product";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const images = await prisma.productImage.findMany({
-      where: { productId: params.id },
+      where: { productId: id },
       orderBy: { sortOrder: "asc" },
     });
 
@@ -34,10 +35,11 @@ export async function GET(
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const session = await getServerSession(auth);
+    const session = await getServerSession(authOptions);
 
     if (!session || !["SELLER", "ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -51,7 +53,7 @@ export async function POST(
 
     // Verify product exists
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     if (!product) {
@@ -78,7 +80,7 @@ export async function POST(
     // If this is the primary image, unset other primary images
     if (validatedData.isPrimary) {
       await prisma.productImage.updateMany({
-        where: { productId: params.id },
+        where: { productId: id },
         data: { isPrimary: false },
       });
     }
@@ -86,7 +88,7 @@ export async function POST(
     const image = await prisma.productImage.create({
       data: {
         ...validatedData,
-        productId: params.id,
+        productId: id,
       },
     });
 

@@ -198,7 +198,7 @@ export async function POST(
     console.error("Error sending chat message:", error);
     if (error.name === "ZodError") {
       return NextResponse.json(
-        { success: false, error: "Validation error", details: error.errors },
+        { success: false, error: "Validation error", details: error.issues },
         { status: 400 }
       );
     }

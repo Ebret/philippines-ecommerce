@@ -62,7 +62,7 @@ export function calculateUsersByRole(users: any[]): {
 } {
   return {
     customers: users.filter((u) => u.role === "customer").length,
-    vendors: users.filter((u) => u.role === "vendor").length,
+    vendors: users.filter((u) => u.role === "SELLER").length,
     admins: users.filter((u) => u.role === "admin").length,
   };
 }

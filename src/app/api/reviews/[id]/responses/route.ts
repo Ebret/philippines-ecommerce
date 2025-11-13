@@ -21,10 +21,11 @@ const responses: Record<string, any> = {};
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const reviewId = params.id;
+    const reviewId = id;
 
     // Get responses for this review
     const reviewResponses = Object.values(responses).filter(
@@ -51,8 +52,9 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -63,7 +65,7 @@ export async function POST(
       );
     }
 
-    const reviewId = params.id;
+    const reviewId = id;
     const body = await request.json();
 
     // Validate request body

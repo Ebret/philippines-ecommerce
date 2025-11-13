@@ -43,7 +43,7 @@ export async function POST(
     
     if (validatedData.voteType === "helpful") {
       updatedTestimonial = await prisma.testimonial.update({
-        where: { id: params.id },
+        where: { id: id },
         data: {
           helpfulCount: {
             increment: 1,
@@ -74,7 +74,7 @@ export async function POST(
       });
     } else if (validatedData.voteType === "unhelpful") {
       updatedTestimonial = await prisma.testimonial.update({
-        where: { id: params.id },
+        where: { id: id },
         data: {
           notHelpfulCount: {
             increment: 1,

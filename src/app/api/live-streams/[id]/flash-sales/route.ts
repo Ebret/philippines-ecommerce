@@ -151,7 +151,7 @@ export async function POST(
     console.error("Error creating flash sale:", error);
     if (error.name === "ZodError") {
       return NextResponse.json(
-        { success: false, error: "Validation error", details: error.errors },
+        { success: false, error: "Validation error", details: error.issues },
         { status: 400 }
       );
     }

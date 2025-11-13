@@ -24,8 +24,9 @@ const helpfulnessVotes: Record<string, any> = {};
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -36,7 +37,7 @@ export async function POST(
       );
     }
 
-    const reviewId = params.id;
+    const reviewId = id;
     const body = await request.json();
 
     // Validate request body
@@ -120,10 +121,11 @@ export async function POST(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const reviewId = params.id;
+    const reviewId = id;
 
     // Check if review exists
     const review = reviews[reviewId];

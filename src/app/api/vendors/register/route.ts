@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { VendorRegistrationSchema, generateVendorSlug, isVendorSlugUnique } from "@/lib/vendor-utils";
+import { VendorRegistrationSchema } from "@/lib/validations/vendor";
+import { generateVendorSlug, isVendorSlugUnique } from "@/lib/vendor-utils";
 
 /**
  * POST /api/vendors/register

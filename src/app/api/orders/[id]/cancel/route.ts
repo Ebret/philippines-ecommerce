@@ -11,9 +11,10 @@ import { canCancelOrder, calculateRefundAmount } from "@/lib/order-utils";
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -38,7 +39,7 @@ export async function POST(
     const validatedData = OrderCancellationSchema.parse(body);
 
     const order = await prisma.order.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         items: true,
         payments: true,
@@ -78,7 +79,7 @@ export async function POST(
 
     // Update order status
     const cancelledOrder = await prisma.order.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         status: "CANCELLED",
         notes: `Cancelled: ${validatedData.reason}`,

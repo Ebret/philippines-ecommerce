@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-export default function VerifyRequestPage() {
+function VerifyRequestContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
 
@@ -44,6 +45,14 @@ export default function VerifyRequestPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VerifyRequestPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyRequestContent />
+    </Suspense>
   );
 }
 

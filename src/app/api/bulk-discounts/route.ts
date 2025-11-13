@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session || session.user.role !== "vendor") {
+    if (!session || session.user.role !== "SELLER") {
       return NextResponse.json(
         { success: false, error: "Unauthorized - vendor access required" },
         { status: 401 }
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     const validation = BulkDiscountCreationSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Validation failed", details: validation.error.errors },
+        { success: false, error: "Validation failed", details: validation.error.issues },
         { status: 400 }
       );
     }
@@ -142,4 +142,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
 

@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     const validationResult = VerifyPaymentSchema.safeParse(body);
     if (!validationResult.success) {
       return NextResponse.json(
-        { error: "Invalid verification data", details: validationResult.error.errors },
+        { error: "Invalid verification data", details: validationResult.error.issues },
         { status: 400 }
       );
     }
@@ -120,4 +120,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
 

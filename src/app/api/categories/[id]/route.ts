@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { CategoryUpdateSchema } from "@/lib/validations/product";
 import { isCategorySlugUnique, generateSlug } from "@/lib/product-utils";
@@ -59,7 +59,7 @@ export async function PATCH(
 ) {
   try {
     const { id } = await params;
-    const session = await getServerSession(auth);
+    const session = await getServerSession(authOptions);
 
     if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(
@@ -152,7 +152,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const session = await getServerSession(auth);
+    const session = await getServerSession(authOptions);
 
     if (!session || !["ADMIN", "SUPER_ADMIN"].includes(session.user.role)) {
       return NextResponse.json(

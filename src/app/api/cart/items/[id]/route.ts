@@ -9,9 +9,10 @@ import { UpdateCartItemSchema } from "@/lib/validations/cart";
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -26,7 +27,7 @@ export async function PATCH(
 
     // In production, update cart item in database
     const updatedItem = {
-      id: params.id,
+      id,
       quantity: validatedData.quantity,
       updatedAt: new Date(),
     };
@@ -57,9 +58,10 @@ export async function PATCH(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -72,7 +74,7 @@ export async function DELETE(
     // In production, delete cart item from database
     return NextResponse.json({
       message: "Item removed from cart",
-      itemId: params.id,
+      itemId: id,
     });
   } catch (error) {
     console.error("Error removing cart item:", error);

@@ -19,9 +19,10 @@ const participations: any[] = [];
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -31,7 +32,7 @@ export async function POST(
       );
     }
 
-    const deal = groupDeals.find((d) => d.id === params.id);
+    const deal = groupDeals.find((d) => d.id === id);
 
     if (!deal) {
       return NextResponse.json(
@@ -62,7 +63,7 @@ export async function POST(
     const validation = GroupDealJoinSchema.safeParse(body);
     if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Validation failed", details: validation.error.errors },
+        { success: false, error: "Validation failed", details: validation.error.issues },
         { status: 400 }
       );
     }
@@ -93,7 +94,7 @@ export async function POST(
 
     // Check if user already joined
     const existingParticipation = participations.find(
-      (p) => p.dealId === params.id && p.userId === session.user.id
+      (p) => p.dealId === id && p.userId === session.user.id
     );
 
     if (existingParticipation) {
@@ -109,7 +110,7 @@ export async function POST(
     // Create participation record
     const participation = {
       id: `part_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
-      dealId: params.id,
+      dealId: id,
       userId: session.user.id,
       quantity,
       notes,

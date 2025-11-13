@@ -10,8 +10,9 @@ import { ShipmentUpdateSchema } from "@/lib/validations/order";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -34,7 +35,7 @@ export async function GET(
     }
 
     const shipment = await prisma.shipment.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         order: {
           select: {
@@ -81,8 +82,9 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -108,7 +110,7 @@ export async function PATCH(
     const validatedData = ShipmentUpdateSchema.parse(body);
 
     const shipment = await prisma.shipment.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     if (!shipment) {
@@ -145,7 +147,7 @@ export async function PATCH(
     }
 
     const updatedShipment = await prisma.shipment.update({
-      where: { id: params.id },
+      where: { id: id },
       data: updateData,
       include: {
         order: true,

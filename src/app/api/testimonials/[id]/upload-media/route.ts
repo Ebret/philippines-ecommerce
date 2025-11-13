@@ -144,8 +144,9 @@ export async function POST(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     // Check authentication
     const session = await getServerSession(authOptions);
@@ -170,7 +171,7 @@ export async function DELETE(
 
     // Get testimonial
     const testimonial = await prisma.testimonial.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     if (!testimonial) {

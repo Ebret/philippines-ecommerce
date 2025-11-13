@@ -46,7 +46,7 @@ export async function PATCH(
 
     // Get testimonial
     const testimonial = await prisma.testimonial.findUnique({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     if (!testimonial) {

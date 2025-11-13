@@ -10,8 +10,9 @@ import { getVendorEarnings, getVendorCommissionHistory } from "@/lib/vendor-util
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -24,7 +25,7 @@ export async function GET(
 
     // Get vendor
     const vendor = await prisma.vendor.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: { user: true },
     });
 
@@ -57,7 +58,7 @@ export async function GET(
 
     // Get days parameter
     const days = parseInt(request.nextUrl.searchParams.get("days") || "30");
-    const earnings = await getVendorEarnings(params.id, days);
+    const earnings = await getVendorEarnings(id, days);
 
     return NextResponse.json(earnings);
   } catch (error) {
@@ -75,8 +76,9 @@ export async function GET(
  */
 export async function GET_COMMISSIONS(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -89,7 +91,7 @@ export async function GET_COMMISSIONS(
 
     // Get vendor
     const vendor = await prisma.vendor.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: { user: true },
     });
 
@@ -121,7 +123,7 @@ export async function GET_COMMISSIONS(
     }
 
     const limit = Math.min(parseInt(request.nextUrl.searchParams.get("limit") || "50"), 100);
-    const commissions = await getVendorCommissionHistory(params.id, limit);
+    const commissions = await getVendorCommissionHistory(id, limit);
 
     return NextResponse.json(commissions);
   } catch (error) {

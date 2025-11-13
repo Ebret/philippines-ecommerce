@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
     if (query.status) where.status = query.status;
 
     // Filter by vendor if user is vendor
-    if (session.user.role === "VENDOR") {
+    if (session.user.role === "SELLER") {
       where.warehouse = { vendor: { userId: session.user.id } };
     } else if (query.vendorId) {
       where.warehouse = { vendor: { id: query.vendorId } };

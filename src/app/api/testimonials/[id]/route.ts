@@ -56,7 +56,7 @@ export async function GET(
 
     // Increment view count
     await prisma.testimonial.update({
-      where: { id: params.id },
+      where: { id: id },
       data: { viewCount: { increment: 1 } },
     });
 
@@ -138,7 +138,7 @@ export async function PATCH(
 
     // Update testimonial
     const updatedTestimonial = await prisma.testimonial.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         ...validatedData,
         status: "PENDING", // Reset to pending if modified
@@ -240,7 +240,7 @@ export async function DELETE(
 
     // Delete testimonial (cascade deletes media)
     await prisma.testimonial.delete({
-      where: { id: params.id },
+      where: { id: id },
     });
 
     return NextResponse.json({

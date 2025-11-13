@@ -16,10 +16,11 @@ const referralRedemptions: any[] = [];
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
+  const { code } = await params;
   try {
-    const referral = referrals.find((r) => r.code === params.code);
+    const referral = referrals.find((r) => r.code === code);
 
     if (!referral) {
       return NextResponse.json(

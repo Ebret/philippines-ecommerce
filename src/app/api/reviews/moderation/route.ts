@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const session = await getServerSession(authOptions);
 
     // Check if user is admin
-    if (session?.user?.role !== "admin") {
+    if (session?.user?.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Unauthorized - admin access required" },
         { status: 403 }
@@ -102,23 +102,20 @@ export async function GET(request: NextRequest) {
 // PATCH /api/reviews/moderation/[id]/approve - Approve review
 // ============================================================================
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
     // Check if user is admin
-    if (session?.user?.role !== "admin") {
+    if (session?.user?.role !== "ADMIN") {
       return NextResponse.json(
         { error: "Unauthorized - admin access required" },
         { status: 403 }
       );
     }
 
-    const reviewId = params.id;
     const body = await request.json();
+    const reviewId = body.reviewId;
 
     // Validate request body
     const validation = ReviewModerationSchema.safeParse({
@@ -163,4 +160,5 @@ export async function PATCH(
     );
   }
 }
+
 

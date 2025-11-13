@@ -145,7 +145,7 @@ export async function PATCH(
     console.error("Error updating live stream:", error);
     if (error.name === "ZodError") {
       return NextResponse.json(
-        { success: false, error: "Validation error", details: error.errors },
+        { success: false, error: "Validation error", details: error.issues },
         { status: 400 }
       );
     }

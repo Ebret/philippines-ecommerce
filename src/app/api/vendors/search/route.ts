@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { VendorSearchSchema, searchVendors } from "@/lib/vendor-utils";
+import { VendorSearchSchema } from "@/lib/validations/vendor";
+import { searchVendors } from "@/lib/vendor-utils";
 
 /**
  * GET /api/vendors/search

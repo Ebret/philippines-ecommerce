@@ -10,11 +10,12 @@ import { VendorStoreSettingsSchema } from "@/lib/validations/vendor";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const vendor = await prisma.vendor.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       select: {
         id: true,
         storeName: true,
@@ -55,8 +56,9 @@ export async function GET(
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -69,7 +71,7 @@ export async function PATCH(
 
     // Get vendor
     const vendor = await prisma.vendor.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: { user: true },
     });
 
@@ -105,7 +107,7 @@ export async function PATCH(
 
     // Update vendor store
     const updatedVendor = await prisma.vendor.update({
-      where: { id: params.id },
+      where: { id: id },
       data: validatedData,
     });
 

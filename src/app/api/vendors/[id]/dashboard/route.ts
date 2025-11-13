@@ -10,8 +10,9 @@ import { getVendorDashboard } from "@/lib/vendor-utils";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const session = await getServerSession(authOptions);
 
@@ -24,7 +25,7 @@ export async function GET(
 
     // Get vendor
     const vendor = await prisma.vendor.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: { user: true },
     });
 
@@ -55,7 +56,7 @@ export async function GET(
       );
     }
 
-    const dashboard = await getVendorDashboard(params.id);
+    const dashboard = await getVendorDashboard(id);
 
     return NextResponse.json(dashboard);
   } catch (error) {

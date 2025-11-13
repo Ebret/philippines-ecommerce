@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-export default function VerifySuccessPage() {
+function VerifySuccessContent() {
   const searchParams = useSearchParams();
   const alreadyVerified = searchParams.get("already_verified");
 
@@ -33,6 +34,14 @@ export default function VerifySuccessPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function VerifySuccessPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifySuccessContent />
+    </Suspense>
   );
 }
 

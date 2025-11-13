@@ -10,9 +10,10 @@ import { VendorVerificationSchema } from "@/lib/validations/vendor";
  */
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
@@ -36,7 +37,7 @@ export async function PATCH(
 
     // Get vendor
     const vendor = await prisma.vendor.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!vendor) {
@@ -51,7 +52,7 @@ export async function PATCH(
 
     // Update vendor status
     const updatedVendor = await prisma.vendor.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         status: validatedData.status,
       },
