@@ -127,6 +127,38 @@ enum TestimonialStatus {
   FEATURED
 }
 
+enum NotificationType {
+  ORDER_CONFIRMED
+  PAYMENT_CONFIRMED
+  SHIPMENT_SHIPPED
+  SHIPMENT_DELIVERED
+  ORDER_CANCELLED
+  RETURN_INITIATED
+  RETURN_APPROVED
+  ACCOUNT_VERIFICATION
+  PASSWORD_RESET
+  VENDOR_APPROVED
+  VENDOR_SUSPENDED
+  PRODUCT_REVIEW
+  PROMOTION
+  SYSTEM_ALERT
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  IN_APP
+  PUSH
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  DELIVERED
+  READ
+}
+
 // ============================================================================
 // USERS & AUTHENTICATION
 // ============================================================================
@@ -158,6 +190,9 @@ model User {
   referrals         Referral[] @relation("referrer")
   referredBy        Referral[] @relation("referee")
   inventoryMovements InventoryMovement[]
+  notifications     Notification[]
+  notificationPreference NotificationPreference?
+  notificationHistory NotificationHistory[]
 
   @@index([email])
   @@index([phone])
@@ -911,4 +946,117 @@ model TestimonialMedia {
   testimonial       Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
 
   @@index([testimonialId])
+}
+
+// ============================================================================
+// NOTIFICATIONS (Week 8)
+// ============================================================================
+
+model Notification {
+  id                String              @id @default(cuid())
+  userId            String
+  type              NotificationType
+  title             String
+  message           String              @db.Text
+  data              Json?
+  channels          NotificationChannel[]
+  status            NotificationStatus  @default(PENDING)
+  isRead            Boolean             @default(false)
+  readAt            DateTime?
+  sentAt            DateTime?
+  failedAt          DateTime?
+  failureReason     String?
+  retryCount        Int                 @default(0)
+  maxRetries        Int                 @default(3)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([status])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+model NotificationPreference {
+  id                String              @id @default(cuid())
+  userId            String              @unique
+  emailNotifications Boolean             @default(true)
+  smsNotifications  Boolean             @default(true)
+  inAppNotifications Boolean            @default(true)
+  pushNotifications Boolean             @default(true)
+  orderUpdates      Boolean             @default(true)
+  promotions        Boolean             @default(true)
+  accountAlerts     Boolean             @default(true)
+  vendorUpdates     Boolean             @default(false)
+  frequency         String              @default("immediate") // immediate, daily, weekly
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model NotificationTemplate {
+  id                String              @id @default(cuid())
+  type              NotificationType
+  name              String
+  emailSubject      String?
+  emailTemplate     String?             @db.Text
+  smsTemplate       String?             @db.Text
+  inAppTitle        String?
+  inAppMessage      String?             @db.Text
+  variables         String[]            @default([])
+  isActive          Boolean             @default(true)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@unique([type])
+  @@index([type])
+  @@index([isActive])
+}
+
+model NotificationQueue {
+  id                String              @id @default(cuid())
+  notificationId    String
+  channel           NotificationChannel
+  recipient         String
+  status            NotificationStatus  @default(PENDING)
+  sentAt            DateTime?
+  failedAt          DateTime?
+  failureReason     String?
+  retryCount        Int                 @default(0)
+  nextRetryAt       DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@index([notificationId])
+  @@index([channel])
+  @@index([status])
+  @@index([nextRetryAt])
+}
+
+model NotificationHistory {
+  id                String              @id @default(cuid())
+  userId            String
+  notificationType  NotificationType
+  channel           NotificationChannel
+  recipient         String
+  status            NotificationStatus
+  sentAt            DateTime
+  deliveredAt       DateTime?
+  readAt            DateTime?
+  failureReason     String?
+  metadata          Json?
+  createdAt         DateTime            @default(now())
+
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([notificationType])
+  @@index([channel])
+  @@index([sentAt])
 }
