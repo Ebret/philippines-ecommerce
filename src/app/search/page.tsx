@@ -221,3 +221,10 @@ function SearchPageContent() {
   );
 }
 
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="container mx-auto py-12">Loading search...</div>}>
+      <SearchPageContent />
+    </Suspense>
+  );
+}
