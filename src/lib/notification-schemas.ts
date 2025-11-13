@@ -7,12 +7,27 @@ import { z } from 'zod';
 import { NotificationType, NotificationChannel } from '@prisma/client';
 
 export const SendNotificationSchema = z.object({
-  userId: z.string().cuid('Invalid user ID'),
-  type: z.nativeEnum(NotificationType),
+  userId: z.string().cuid(),
+  type: z.enum([
+    'ORDER_CONFIRMED',
+    'PAYMENT_CONFIRMED',
+    'SHIPMENT_SHIPPED',
+    'SHIPMENT_DELIVERED',
+    'ORDER_CANCELLED',
+    'RETURN_INITIATED',
+    'RETURN_APPROVED',
+    'ACCOUNT_VERIFICATION',
+    'PASSWORD_RESET',
+    'VENDOR_APPROVED',
+    'VENDOR_SUSPENDED',
+    'PRODUCT_REVIEW',
+    'PROMOTION',
+    'SYSTEM_ALERT',
+  ]),
   title: z.string().min(1).max(200),
   message: z.string().min(1).max(5000),
-  data: z.record(z.any()).optional(),
-  channels: z.array(z.nativeEnum(NotificationChannel)).optional(),
+  data: z.record(z.string(), z.any()).optional(),
+  channels: z.array(z.enum(['EMAIL', 'SMS', 'IN_APP', 'PUSH'])).optional(),
   priority: z.enum(['low', 'normal', 'high']).optional(),
 });
 
@@ -31,7 +46,22 @@ export const NotificationPreferenceSchema = z.object({
 export const GetNotificationsSchema = z.object({
   limit: z.number().int().positive().max(100).default(20),
   offset: z.number().int().nonnegative().default(0),
-  type: z.nativeEnum(NotificationType).optional(),
+  type: z.enum([
+    'ORDER_CONFIRMED',
+    'PAYMENT_CONFIRMED',
+    'SHIPMENT_SHIPPED',
+    'SHIPMENT_DELIVERED',
+    'ORDER_CANCELLED',
+    'RETURN_INITIATED',
+    'RETURN_APPROVED',
+    'ACCOUNT_VERIFICATION',
+    'PASSWORD_RESET',
+    'VENDOR_APPROVED',
+    'VENDOR_SUSPENDED',
+    'PRODUCT_REVIEW',
+    'PROMOTION',
+    'SYSTEM_ALERT',
+  ]).optional(),
   isRead: z.boolean().optional(),
 });
 
@@ -45,11 +75,26 @@ export const DeleteNotificationSchema = z.object({
 
 export const BulkNotificationSchema = z.object({
   userIds: z.array(z.string().cuid()).min(1).max(1000),
-  type: z.nativeEnum(NotificationType),
+  type: z.enum([
+    'ORDER_CONFIRMED',
+    'PAYMENT_CONFIRMED',
+    'SHIPMENT_SHIPPED',
+    'SHIPMENT_DELIVERED',
+    'ORDER_CANCELLED',
+    'RETURN_INITIATED',
+    'RETURN_APPROVED',
+    'ACCOUNT_VERIFICATION',
+    'PASSWORD_RESET',
+    'VENDOR_APPROVED',
+    'VENDOR_SUSPENDED',
+    'PRODUCT_REVIEW',
+    'PROMOTION',
+    'SYSTEM_ALERT',
+  ]),
   title: z.string().min(1).max(200),
   message: z.string().min(1).max(5000),
-  data: z.record(z.any()).optional(),
-  channels: z.array(z.nativeEnum(NotificationChannel)).optional(),
+  data: z.record(z.string(), z.any()).optional(),
+  channels: z.array(z.enum(['EMAIL', 'SMS', 'IN_APP', 'PUSH'])).optional(),
 });
 
 export const EmailNotificationSchema = z.object({
@@ -58,21 +103,21 @@ export const EmailNotificationSchema = z.object({
   html: z.string().min(1),
   text: z.string().optional(),
   templateId: z.string().optional(),
-  variables: z.record(z.any()).optional(),
+  variables: z.record(z.string(), z.any()).optional(),
 });
 
 export const SMSNotificationSchema = z.object({
   to: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number'),
   message: z.string().min(1).max(160),
   templateId: z.string().optional(),
-  variables: z.record(z.any()).optional(),
+  variables: z.record(z.string(), z.any()).optional(),
 });
 
 export const InAppNotificationSchema = z.object({
   userId: z.string().cuid(),
   title: z.string().min(1).max(200),
   message: z.string().min(1).max(5000),
-  data: z.record(z.any()).optional(),
+  data: z.record(z.string(), z.any()).optional(),
   actionUrl: z.string().url().optional(),
 });
 

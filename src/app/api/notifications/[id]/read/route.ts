@@ -5,13 +5,13 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { notificationService } from '@/lib/notification-service';
+import { NotificationService } from '@/lib/notification-service';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
@@ -23,9 +23,11 @@ export async function PUT(
       );
     }
 
+    const { id } = await params;
+
     // Verify notification belongs to user
     const notification = await prisma.notification.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!notification) {
@@ -42,7 +44,7 @@ export async function PUT(
       );
     }
 
-    const success = await notificationService.markAsRead(params.id);
+    const success = await NotificationService.markAsRead(id);
 
     if (!success) {
       return NextResponse.json(

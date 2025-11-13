@@ -5,7 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { notificationService } from '@/lib/notification-service';
+import { NotificationService } from '@/lib/notification-service';
 import { SendNotificationSchema } from '@/lib/notification-schemas';
 import { getServerSession } from 'next-auth';
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await notificationService.sendNotification(validated);
+    const result = await NotificationService.sendNotification(validated);
 
     if (!result.success) {
       return NextResponse.json(

@@ -5,7 +5,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { notificationService } from '@/lib/notification-service';
+import { NotificationService } from '@/lib/notification-service';
 import { GetNotificationsSchema } from '@/lib/notification-schemas';
 import { getServerSession } from 'next-auth';
 import { prisma } from '@/lib/prisma';
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
     const validated = GetNotificationsSchema.parse({ limit, offset });
 
-    const result = await notificationService.getUserNotifications(
+    const result = await NotificationService.getUserNotifications(
       session.user.id,
       validated.limit,
       validated.offset
