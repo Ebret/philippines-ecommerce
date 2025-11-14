@@ -122,7 +122,19 @@ export default function TestimonialDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Testimonial Card */}
           <div className="lg:col-span-2">
-            <TestimonialCard testimonial={testimonial} />
+            <TestimonialCard
+              id={testimonial.id}
+              title={testimonial.title}
+              content={testimonial.content}
+              rating={testimonial.rating}
+              authorName={testimonial.authorName}
+              authorRole={testimonial.authorRole}
+              companyName={testimonial.companyName}
+              thumbnailUrl={testimonial.thumbnailUrl}
+              mediaType={testimonial.mediaType}
+              createdAt={testimonial.createdAt}
+              featured={testimonial.featured}
+            />
 
             {/* Helpful Section */}
             <div className="mt-8 p-6 bg-white rounded-lg shadow-md">
@@ -153,7 +165,10 @@ export default function TestimonialDetailPage() {
 
             {/* Comments Section */}
             <div className="mt-8">
-              <CommentSection testimonialId={id} />
+              <CommentSection
+                comments={[]}
+                allowComments={true}
+              />
             </div>
           </div>
 
