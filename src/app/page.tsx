@@ -33,7 +33,7 @@ export default function Home() {
             <div className="border rounded-lg p-6 hover:shadow-lg transition">
               <h4 className="text-xl font-bold mb-2">Herbal Tea</h4>
               <p className="text-gray-600 mb-4">Premium herbal tea blend</p>
-              <p className="text-2xl font-bold text-green-600 mb-4">$19.99</p>
+              <p className="text-2xl font-bold text-green-600 mb-4">₱19.99</p>
               <button className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
                 Add to Cart
               </button>
@@ -41,7 +41,7 @@ export default function Home() {
             <div className="border rounded-lg p-6 hover:shadow-lg transition">
               <h4 className="text-xl font-bold mb-2">Vitamin Supplement</h4>
               <p className="text-gray-600 mb-4">Natural vitamin supplement</p>
-              <p className="text-2xl font-bold text-green-600 mb-4">$29.99</p>
+              <p className="text-2xl font-bold text-green-600 mb-4">₱29.99</p>
               <button className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
                 Add to Cart
               </button>
@@ -49,7 +49,7 @@ export default function Home() {
             <div className="border rounded-lg p-6 hover:shadow-lg transition">
               <h4 className="text-xl font-bold mb-2">Herbal Oil</h4>
               <p className="text-gray-600 mb-4">Pure herbal oil extract</p>
-              <p className="text-2xl font-bold text-green-600 mb-4">$39.99</p>
+              <p className="text-2xl font-bold text-green-600 mb-4">₱39.99</p>
               <button className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
                 Add to Cart
               </button>
