@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = 'force-dynamic';
+
 function VerifyErrorContent() {
   const searchParams = useSearchParams();
   const reason = searchParams.get("reason");

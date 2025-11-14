@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ProductGrid } from '@/components/products/product-grid';
 
+export const dynamic = 'force-dynamic';
+
 interface Filter {
   priceRange: { min: number; max: number };
   categories: Array<{ id: string; name: string; count: number }>;
