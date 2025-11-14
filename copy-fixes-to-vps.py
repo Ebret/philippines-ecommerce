@@ -22,6 +22,8 @@ FILES_TO_COPY = [
     ("src/components/ui/button.tsx", f"{VPS_APP_DIR}/src/components/ui/button.tsx"),
     ("src/components/ui/input.tsx", f"{VPS_APP_DIR}/src/components/ui/input.tsx"),
     ("src/components/ui/textarea.tsx", f"{VPS_APP_DIR}/src/components/ui/textarea.tsx"),
+    ("src/app/auth/verify-error/page.tsx", f"{VPS_APP_DIR}/src/app/auth/verify-error/page.tsx"),
+    ("src/app/search/page.tsx", f"{VPS_APP_DIR}/src/app/search/page.tsx"),
     ("src/app/testimonials/[id]/page.tsx", f"{VPS_APP_DIR}/src/app/testimonials/[id]/page.tsx"),
     ("src/app/testimonials/create/page.tsx", f"{VPS_APP_DIR}/src/app/testimonials/create/page.tsx"),
     ("src/app/testimonials/create/create-client.tsx", f"{VPS_APP_DIR}/src/app/testimonials/create/create-client.tsx"),
