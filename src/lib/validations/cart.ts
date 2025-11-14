@@ -70,7 +70,7 @@ export const CheckoutDataSchema = z.object({
   billingAddressId: z.string().optional(),
   billingAddress: AddressSchema.optional(),
   useSameAddress: z.boolean().default(true),
-  shippingProvider: z.enum(["LBC", "TWO_GO", "JRS", "GRAB", "LALAMOVE", "PICKUP"]),
+  shippingProvider: z.enum(["LBC", "TWO_GO", "JRS", "JT_EXPRESS", "GRAB", "LALAMOVE", "MOVEIT", "PICKUP"]),
   notes: z.string().max(500, "Notes cannot exceed 500 characters").optional(),
   acceptTerms: z.boolean().refine((val) => val === true, "You must accept terms and conditions"),
 });
@@ -82,8 +82,8 @@ export type CheckoutData = z.infer<typeof CheckoutDataSchema>;
  * Validates shipping option selection
  */
 export const ShippingOptionSchema = z.object({
-  provider: z.enum(["LBC", "TWO_GO", "JRS", "GRAB", "LALAMOVE", "PICKUP"]),
-  estimatedDays: z.number().int().min(1, "Estimated days must be at least 1"),
+  provider: z.enum(["LBC", "TWO_GO", "JRS", "JT_EXPRESS", "GRAB", "LALAMOVE", "MOVEIT", "PICKUP"]),
+  estimatedDays: z.number().min(0, "Estimated days cannot be negative"),
   fee: z.number().nonnegative("Shipping fee cannot be negative"),
   description: z.string().optional(),
 });
@@ -114,7 +114,7 @@ export const CheckoutValidationSchema = z.object({
   items: z.array(CartItemSchema).min(1, "Cart must have at least one item"),
   shippingAddress: AddressSchema,
   billingAddress: AddressSchema.optional(),
-  shippingProvider: z.enum(["LBC", "TWO_GO", "JRS", "GRAB", "LALAMOVE", "PICKUP"]),
+  shippingProvider: z.enum(["LBC", "TWO_GO", "JRS", "JT_EXPRESS", "GRAB", "LALAMOVE", "MOVEIT", "PICKUP"]),
   notes: z.string().max(500).optional(),
 });
 
@@ -128,7 +128,7 @@ export const OrderCreationSchema = z.object({
   items: z.array(CartItemSchema).min(1, "Order must have at least one item"),
   shippingAddress: AddressSchema,
   billingAddress: AddressSchema.optional(),
-  shippingProvider: z.enum(["LBC", "TWO_GO", "JRS", "GRAB", "LALAMOVE", "PICKUP"]),
+  shippingProvider: z.enum(["LBC", "TWO_GO", "JRS", "JT_EXPRESS", "GRAB", "LALAMOVE", "MOVEIT", "PICKUP"]),
   paymentMethod: z.enum(["GCASH", "PAYMAYA", "CREDIT_CARD", "DEBIT_CARD", "BANK_TRANSFER", "COD"]),
   notes: z.string().max(500).optional(),
 });
@@ -175,7 +175,7 @@ export const ShippingCalculationSchema = z.object({
   cityMunicipality: z.string().min(1, "City/Municipality is required"),
   barangay: z.string().min(1, "Barangay is required"),
   weight: z.number().positive("Weight must be positive").optional(),
-  provider: z.enum(["LBC", "TWO_GO", "JRS", "GRAB", "LALAMOVE", "PICKUP"]),
+  provider: z.enum(["LBC", "TWO_GO", "JRS", "JT_EXPRESS", "GRAB", "LALAMOVE", "MOVEIT", "PICKUP"]),
 });
 
 export type ShippingCalculation = z.infer<typeof ShippingCalculationSchema>;

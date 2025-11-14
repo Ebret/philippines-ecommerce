@@ -99,8 +99,10 @@ enum ShippingProvider {
   LBC
   TWO_GO
   JRS
+  JT_EXPRESS
   GRAB
   LALAMOVE
+  MOVEIT
   PICKUP
 }
 

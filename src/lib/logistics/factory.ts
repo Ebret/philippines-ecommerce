@@ -2,6 +2,10 @@ import { BaseLogisticsProvider } from "./base";
 import { LBCExpressProvider } from "./lbc";
 import { TwoGoExpressProvider } from "./twogo";
 import { JRSExpressProvider } from "./jrs";
+import { JTExpressProvider } from "./jt-express";
+import { LalamoveProvider } from "./lalamove";
+import { GrabExpressProvider } from "./grab-express";
+import { MoveItProvider } from "./moveit";
 
 /**
  * Logistics Provider Factory
@@ -26,6 +30,22 @@ export class LogisticsFactory {
     const jrsApiSecret = process.env.JRS_API_SECRET || "mock_jrs_secret";
     const jrsWebhookSecret = process.env.JRS_WEBHOOK_SECRET || "mock_jrs_webhook";
 
+    const jtApiKey = process.env.JT_EXPRESS_API_KEY || "mock_jt_key";
+    const jtApiSecret = process.env.JT_EXPRESS_API_SECRET || "mock_jt_secret";
+    const jtWebhookSecret = process.env.JT_EXPRESS_WEBHOOK_SECRET || "mock_jt_webhook";
+
+    const lalamoveApiKey = process.env.LALAMOVE_API_KEY || "mock_lalamove_key";
+    const lalamoveApiSecret = process.env.LALAMOVE_API_SECRET || "mock_lalamove_secret";
+    const lalamoveWebhookSecret = process.env.LALAMOVE_WEBHOOK_SECRET || "mock_lalamove_webhook";
+
+    const grabApiKey = process.env.GRAB_API_KEY || "mock_grab_key";
+    const grabApiSecret = process.env.GRAB_API_SECRET || "mock_grab_secret";
+    const grabWebhookSecret = process.env.GRAB_WEBHOOK_SECRET || "mock_grab_webhook";
+
+    const moveitApiKey = process.env.MOVEIT_API_KEY || "mock_moveit_key";
+    const moveitApiSecret = process.env.MOVEIT_API_SECRET || "mock_moveit_secret";
+    const moveitWebhookSecret = process.env.MOVEIT_WEBHOOK_SECRET || "mock_moveit_webhook";
+
     this.providers.set(
       "LBC",
       new LBCExpressProvider(lbcApiKey, lbcApiSecret, lbcWebhookSecret)
@@ -39,6 +59,26 @@ export class LogisticsFactory {
     this.providers.set(
       "JRS",
       new JRSExpressProvider(jrsApiKey, jrsApiSecret, jrsWebhookSecret)
+    );
+
+    this.providers.set(
+      "JT_EXPRESS",
+      new JTExpressProvider(jtApiKey, jtApiSecret, jtWebhookSecret)
+    );
+
+    this.providers.set(
+      "LALAMOVE",
+      new LalamoveProvider(lalamoveApiKey, lalamoveApiSecret, lalamoveWebhookSecret)
+    );
+
+    this.providers.set(
+      "GRAB",
+      new GrabExpressProvider(grabApiKey, grabApiSecret, grabWebhookSecret)
+    );
+
+    this.providers.set(
+      "MOVEIT",
+      new MoveItProvider(moveitApiKey, moveitApiSecret, moveitWebhookSecret)
     );
   }
 

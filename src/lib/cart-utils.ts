@@ -67,15 +67,17 @@ export function calculateShippingFee(
     "LBC": 1.0,
     "TWO_GO": 0.95,
     "JRS": 0.9,
+    "JT_EXPRESS": 1.0, // Default standard provider
     "GRAB": 1.2,
     "LALAMOVE": 1.3,
+    "MOVEIT": 1.05,
   };
 
   const multiplier = providerMultipliers[provider] || 1.0;
   let fee = new Decimal(baseFee).mul(multiplier);
 
   // Free shipping for orders over 1000 PHP (except express services)
-  if (amount.greaterThanOrEqualTo(1000) && !["GRAB", "LALAMOVE"].includes(provider)) {
+  if (amount.greaterThanOrEqualTo(1000) && !["GRAB", "LALAMOVE", "MOVEIT"].includes(provider)) {
     fee = new Decimal(0);
   }
 
@@ -223,8 +225,10 @@ export function getShippingProviderName(provider: string): string {
     "LBC": "LBC Express",
     "TWO_GO": "2GO Express",
     "JRS": "JRS Express",
-    "GRAB": "Grab",
+    "JT_EXPRESS": "J&T Express",
+    "GRAB": "Grab Express",
     "LALAMOVE": "Lalamove",
+    "MOVEIT": "MoveIt",
     "PICKUP": "Pickup at Store",
   };
   return names[provider] || provider;
@@ -241,10 +245,14 @@ export function getEstimatedDeliveryDays(provider: string): number {
       return 3;
     case "JRS":
       return 3;
+    case "JT_EXPRESS":
+      return 2; // J&T Express - 2-3 days
     case "GRAB":
-      return 1;
+      return 0.083; // ~2 hours
     case "LALAMOVE":
-      return 1;
+      return 0.083; // ~2 hours
+    case "MOVEIT":
+      return 1; // Next day delivery
     case "PICKUP":
       return 0;
     default:
