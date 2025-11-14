@@ -70,12 +70,12 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-      allowDangerousEmailAccountLinking: true,
+      allowDangerousEmailAccountLinking: false,
     }),
     FacebookProvider({
       clientId: process.env.FACEBOOK_APP_ID || "",
       clientSecret: process.env.FACEBOOK_APP_SECRET || "",
-      allowDangerousEmailAccountLinking: true,
+      allowDangerousEmailAccountLinking: false,
     }),
   ],
   pages: {
@@ -107,8 +107,12 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ user, account, profile }) {
-      // Allow OAuth sign-in
+      // For OAuth providers, verify email is provided
       if (account?.provider !== "credentials") {
+        if (!user.email) {
+          return false;
+        }
+        // OAuth users are automatically verified by their provider
         return true;
       }
 
