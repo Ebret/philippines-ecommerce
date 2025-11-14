@@ -6,7 +6,6 @@
 'use client';
 
 import { useState } from 'react';
-import { formatDistanceToNow } from 'date-fns';
 
 interface Comment {
   id: string;
