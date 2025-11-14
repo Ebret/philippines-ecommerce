@@ -10,7 +10,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "db:seed": "prisma db seed"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.922.0",
@@ -60,7 +61,11 @@
     "eslint-config-next": "16.0.1",
     "happy-dom": "^20.0.10",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5",
     "vitest": "^4.0.6"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }
