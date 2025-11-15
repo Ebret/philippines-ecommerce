@@ -3,6 +3,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import AdminLiveStreamsClient from './live-streams-client';
 
+export const metadata = {
+  title: 'Admin Live Streams | Philippines E-Commerce',
+  description: 'Manage live selling streams',
+};
+
 export const dynamic = 'force-dynamic';
 
 export default async function AdminLiveStreamsPage() {
@@ -15,7 +20,7 @@ export default async function AdminLiveStreamsPage() {
   // Check if user is admin
   const user = session.user as any;
   if (user.role !== 'ADMIN' && user.role !== 'SUPER_ADMIN') {
-    redirect('/');
+    redirect('/auth/unauthorized');
   }
 
   return <AdminLiveStreamsClient />;

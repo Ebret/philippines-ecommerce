@@ -3,6 +3,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Admin Dashboard | Philippines E-Commerce",
+  description: "Admin dashboard for managing the e-commerce platform",
+};
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
@@ -15,7 +20,7 @@ export default async function AdminDashboard() {
   // Check if user is admin
   const user = session.user as any;
   if (user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
-    redirect("/");
+    redirect("/auth/unauthorized");
   }
   return (
     <div>
