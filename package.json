@@ -71,6 +71,6 @@
     "vitest": "^4.0.6"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "node prisma/seed-test-accounts.js"
   }
 }
