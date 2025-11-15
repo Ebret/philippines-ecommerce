@@ -1,0 +1,49 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - main [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "Extreme Life Herbal" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - list [ref=e6]:
+          - listitem [ref=e7]:
+            - link "Home" [ref=e8] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e9]:
+            - link "Products" [ref=e10] [cursor=pointer]:
+              - /url: /products
+          - listitem [ref=e11]:
+            - link "About" [ref=e12] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e13]:
+            - link "Contact" [ref=e14] [cursor=pointer]:
+              - /url: /contact
+    - generic [ref=e16]:
+      - heading "Our Products" [level=1] [ref=e17]
+      - paragraph [ref=e18]: Discover our premium herbal products for health and wellness
+    - generic [ref=e20]:
+      - generic [ref=e22]:
+        - heading "Filters" [level=2] [ref=e23]
+        - generic [ref=e24]:
+          - textbox "Search products..." [active] [ref=e25]: herbal
+          - button "Search" [ref=e26]
+        - generic [ref=e27]:
+          - heading "Category" [level=3] [ref=e28]
+          - combobox [ref=e29]:
+            - option "All Categories" [selected]
+        - generic [ref=e30]:
+          - heading "Sort By" [level=3] [ref=e31]
+          - combobox [ref=e32]:
+            - option "Newest" [selected]
+            - 'option "Price: Low to High"'
+            - 'option "Price: High to Low"'
+            - option "Most Popular"
+            - option "Highest Rated"
+      - generic [ref=e33]:
+        - paragraph [ref=e35]: Showing 1 to 0 of 0 products
+        - paragraph [ref=e37]: No products found. Try adjusting your filters.
+    - paragraph [ref=e40]: © 2025 Extreme Life Herbal. All rights reserved.
+  - alert [ref=e41]
+```

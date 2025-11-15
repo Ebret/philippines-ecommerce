@@ -1,0 +1,46 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - heading "Extreme Life Herbal" [level=1] [ref=e5]
+        - list [ref=e6]:
+          - listitem [ref=e7]:
+            - link "Home" [ref=e8] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e9]:
+            - link "Products" [ref=e10] [cursor=pointer]:
+              - /url: /products
+          - listitem [ref=e11]:
+            - link "About" [ref=e12] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e13]:
+            - link "Contact" [ref=e14] [cursor=pointer]:
+              - /url: /contact
+    - generic [ref=e16]:
+      - heading "Welcome to Extreme Life Herbal" [level=2] [ref=e17]
+      - paragraph [ref=e18]: Premium herbal products for your health and wellness
+      - button "Shop Now" [ref=e19]
+    - generic [ref=e21]:
+      - heading "Featured Products" [level=3] [ref=e22]
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - heading "Herbal Tea" [level=4] [ref=e25]
+          - paragraph [ref=e26]: Premium herbal tea blend
+          - paragraph [ref=e27]: ₱19.99
+          - button "Add to Cart" [ref=e28]
+        - generic [ref=e29]:
+          - heading "Vitamin Supplement" [level=4] [ref=e30]
+          - paragraph [ref=e31]: Natural vitamin supplement
+          - paragraph [ref=e32]: ₱29.99
+          - button "Add to Cart" [ref=e33]
+        - generic [ref=e34]:
+          - heading "Herbal Oil" [level=4] [ref=e35]
+          - paragraph [ref=e36]: Pure herbal oil extract
+          - paragraph [ref=e37]: ₱39.99
+          - button "Add to Cart" [ref=e38]
+    - paragraph [ref=e41]: © 2025 Extreme Life Herbal. All rights reserved.
+  - alert [ref=e42]
+```
