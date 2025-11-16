@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Leaf, Shield, Zap, Heart } from 'lucide-react';
+import { Leaf, Shield, Zap, Heart, MapPin, Phone, Mail } from 'lucide-react';
 
 export const metadata = {
   title: 'About Us | Extreme Life Herbal',
@@ -125,6 +125,49 @@ export default function AboutPage() {
             >
               Shop Now
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Business Location Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">Visit Our Office</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Address */}
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-xl border border-emerald-200 dark:border-emerald-800 text-center">
+              <MapPin className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Address</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                35 Cambridge E. Rodriguez Cubao<br />
+                Quezon City 1102<br />
+                Philippines
+              </p>
+            </div>
+
+            {/* Phone */}
+            <div className="bg-amber-50 dark:bg-amber-900/20 p-6 rounded-xl border border-amber-200 dark:border-amber-800 text-center">
+              <Phone className="w-8 h-8 text-amber-600 dark:text-amber-400 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Phone</h3>
+              <a
+                href="tel:+6328714285"
+                className="text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
+              >
+                (02) 8714 8285
+              </a>
+            </div>
+
+            {/* Email */}
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800 text-center">
+              <Mail className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
+              <a
+                href="mailto:extremelifeherbal@gmail.com"
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors break-all"
+              >
+                extremelifeherbal@gmail.com
+              </a>
+            </div>
           </div>
         </div>
       </section>
