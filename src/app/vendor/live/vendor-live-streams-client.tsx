@@ -88,7 +88,9 @@ export default function VendorLiveStreamsClient() {
           </div>
           <Link
             href="/vendor/live/create"
-            className="px-7 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 flex items-center gap-2 whitespace-nowrap"
+            className="px-7 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 flex items-center gap-2 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
+            aria-label="Create a new live selling session"
+            title="Create a new live selling session"
           >
             <Play className="w-5 h-5" />
             Create Live Session
@@ -104,7 +106,9 @@ export default function VendorLiveStreamsClient() {
               <p className="text-red-800 dark:text-red-300 mb-4 text-sm">{error}</p>
               <button
                 onClick={() => fetchStreams()}
-                className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 dark:from-red-600 dark:to-red-700 dark:hover:from-red-700 dark:hover:to-red-800 text-white rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95"
+                className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 dark:from-red-600 dark:to-red-700 dark:hover:from-red-700 dark:hover:to-red-800 text-white rounded-lg font-semibold transition-all duration-200 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+                aria-label="Retry loading live streams"
+                title="Retry loading live streams"
               >
                 <RefreshCw className="w-4 h-4" />
                 Try Again
@@ -204,7 +208,9 @@ export default function VendorLiveStreamsClient() {
                     {stream.status === 'SCHEDULED' && (
                       <button
                         onClick={() => handleStartStream(stream.id)}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-200 text-sm shadow-md hover:shadow-lg active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-200 text-sm shadow-md hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+                        aria-label={`Start live stream: ${stream.title}`}
+                        title={`Start live stream: ${stream.title}`}
                       >
                         <Play className="w-4 h-4" />
                         Start
@@ -213,7 +219,9 @@ export default function VendorLiveStreamsClient() {
                     {stream.status === 'LIVE' && (
                       <button
                         onClick={() => handleEndStream(stream.id)}
-                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 dark:from-red-500 dark:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 text-white rounded-lg font-semibold transition-all duration-200 text-sm shadow-md hover:shadow-lg active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 dark:from-red-500 dark:to-red-600 dark:hover:from-red-600 dark:hover:to-red-700 text-white rounded-lg font-semibold transition-all duration-200 text-sm shadow-md hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+                        aria-label={`End live stream: ${stream.title}`}
+                        title={`End live stream: ${stream.title}`}
                       >
                         <Square className="w-4 h-4" />
                         End
@@ -221,7 +229,9 @@ export default function VendorLiveStreamsClient() {
                     )}
                     <Link
                       href={`/live/${stream.id}`}
-                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 text-white rounded-lg font-semibold transition-all duration-200 text-sm shadow-md hover:shadow-lg active:scale-95"
+                      className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 text-white rounded-lg font-semibold transition-all duration-200 text-sm shadow-md hover:shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+                      aria-label={`View live stream: ${stream.title}`}
+                      title={`View live stream: ${stream.title}`}
                     >
                       <Eye className="w-4 h-4" />
                       View
@@ -247,7 +257,9 @@ export default function VendorLiveStreamsClient() {
             </p>
             <Link
               href="/vendor/live/create"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
+              aria-label="Create your first live selling session"
+              title="Create your first live selling session"
             >
               <Play className="w-5 h-5" />
               Create Your First Live Session

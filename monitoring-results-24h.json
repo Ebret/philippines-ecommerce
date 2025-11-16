@@ -1,0 +1,444 @@
+{
+  "start_time": "2025-11-15T10:44:54.213779",
+  "checks": [
+    {
+      "timestamp": "2025-11-15T10:44:54.214756",
+      "check_number": 1,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.953819
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": true,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi | prisma:warn In pr"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T11:45:03.548030",
+      "check_number": 2,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.764358
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": true,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi | prisma:warn In pr"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T12:45:12.828166",
+      "check_number": 3,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.789046
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": true,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi | prisma:warn In pr"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T13:45:21.768910",
+      "check_number": 4,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.863115
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": true,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi | prisma:warn In pr"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T14:45:29.830261",
+      "check_number": 5,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.873325
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-out.log last 10 lines:\n0|philippi | \n0|philippi | > phi"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T15:45:39.557563",
+      "check_number": 6,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.740235
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-out.log last 10 lines:\n0|philippi | \n0|philippi | > phi"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T16:45:48.881383",
+      "check_number": 7,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.778598
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-out.log last 10 lines:\n0|philippi | \n0|philippi | > phi"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T17:45:57.124377",
+      "check_number": 8,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.742402
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-out.log last 10 lines:\n0|philippi | \n0|philippi | > phi"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T18:46:05.519164",
+      "check_number": 9,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.867161
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T19:46:14.012984",
+      "check_number": 10,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.897375
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T20:46:23.035277",
+      "check_number": 11,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.747218
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-out.log last 10 lines:\n0|philippi | \n0|philippi | > phi"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T21:46:32.470513",
+      "check_number": 12,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.746627
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T22:46:41.392053",
+      "check_number": 13,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.744718
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-15T23:46:50.360966",
+      "check_number": 14,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.990191
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T00:46:59.934127",
+      "check_number": 15,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.996421
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T01:47:11.133063",
+      "check_number": 16,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 1.143987
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T02:47:20.781496",
+      "check_number": 17,
+      "results": {
+        "application": {
+          "healthy": false,
+          "response_time": 0
+        },
+        "pm2": {
+          "online": false,
+          "output": "timed out"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T03:47:57.150688",
+      "check_number": 18,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 2.103854
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T04:48:14.211544",
+      "check_number": 19,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.868848
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T05:48:23.374286",
+      "check_number": 20,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.785389
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T06:48:32.398206",
+      "check_number": 21,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.738021
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T07:48:41.973260",
+      "check_number": 22,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 1.085769
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T08:48:52.185577",
+      "check_number": 23,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.728741
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    },
+    {
+      "timestamp": "2025-11-16T09:49:02.202521",
+      "check_number": 24,
+      "results": {
+        "application": {
+          "healthy": true,
+          "response_time": 0.814165
+        },
+        "pm2": {
+          "online": true,
+          "output": "\u250c\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 id \u2502 name                     \u2502 namespace   \u2502 v"
+        },
+        "logs": {
+          "clean": false,
+          "output": "[TAILING] Tailing last 10 lines for [philippines-ecommerce] process (change the value with --lines option)\n/root/.pm2/logs/philippines-ecommerce-error.log last 10 lines:\n0|philippi |       \"asc\",\n0|ph"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total_checks": 24,
+    "successful_checks": 4,
+    "failed_checks": 20,
+    "uptime_percentage": 16.666666666666664,
+    "end_time": "2025-11-16T09:49:11.205836"
+  }
+}
