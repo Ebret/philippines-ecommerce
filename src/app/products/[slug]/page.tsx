@@ -100,20 +100,12 @@ export default function ProductDetailPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-white">
-        <nav className="bg-gray-800 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-            <ul className="flex gap-6">
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/products">Products</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-            </ul>
+      <main className="min-h-screen bg-white dark:bg-gray-950">
+        <div className="container mx-auto py-20 text-center">
+          <div className="inline-block">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 dark:border-emerald-400 mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400 font-medium">Loading product details...</p>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-gray-600">Loading product details...</p>
         </div>
       </main>
     );
@@ -121,58 +113,37 @@ export default function ProductDetailPage() {
 
   if (error || !product) {
     return (
-      <main className="min-h-screen bg-white">
-        <nav className="bg-gray-800 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-            <ul className="flex gap-6">
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/products">Products</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-            </ul>
+      <main className="min-h-screen bg-white dark:bg-gray-950">
+        <div className="container mx-auto py-20 text-center">
+          <div className="inline-block">
+            <div className="text-6xl mb-4">⚠️</div>
+            <p className="text-red-600 dark:text-red-400 mb-6 font-semibold text-lg">{error || 'Product not found'}</p>
+            <Link href="/products" className="inline-block px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200">
+              Back to Products
+            </Link>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-red-600 mb-4">{error || 'Product not found'}</p>
-          <Link href="/products" className="text-green-600 hover:text-green-700">
-            Back to Products
-          </Link>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="bg-gray-800 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-          <ul className="flex gap-6">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-          </ul>
-        </div>
-      </nav>
-
+    <main className="min-h-screen bg-white dark:bg-gray-950">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto">
-          <div className="flex gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-green-600">Home</Link>
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products" className="hover:text-green-600">Products</Link>
+            <Link href="/products" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Products</Link>
             <span>/</span>
-            <span className="text-gray-900">{product.name}</span>
+            <span className="text-gray-900 dark:text-white font-semibold">{product.name}</span>
           </div>
         </div>
       </div>
 
       {/* Product Detail */}
-      <div className="container mx-auto py-12">
+      <div className="container mx-auto px-4 md:px-8 py-12">
         <ProductDetail
           id={product.id}
           title={product.name}
@@ -194,9 +165,12 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Reviews Section */}
-      <div className="bg-gray-50 py-12">
-        <div className="container mx-auto">
-          <h2 className="text-2xl font-bold mb-8">Customer Reviews</h2>
+      <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 py-16 border-t border-gray-200 dark:border-gray-800">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Customer Reviews</h2>
+            <p className="text-gray-600 dark:text-gray-400">See what customers think about this product</p>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               {product.reviews && product.reviews.length > 0 ? (
@@ -209,7 +183,10 @@ export default function ProductDetailPage() {
                   createdAt: review.date,
                 }))} />
               ) : (
-                <p className="text-gray-600">No reviews yet. Be the first to review this product!</p>
+                <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                  <div className="text-5xl mb-4">💬</div>
+                  <p className="text-gray-600 dark:text-gray-400 font-medium">No reviews yet. Be the first to review this product!</p>
+                </div>
               )}
             </div>
             <div>
@@ -220,9 +197,9 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
+      <footer className="bg-gray-900 dark:bg-black text-white py-12 px-4 md:px-8">
         <div className="container mx-auto text-center">
-          <p>&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-gray-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>

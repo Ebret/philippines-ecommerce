@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { Trash2, Plus, Minus, ShoppingCart, ArrowRight } from 'lucide-react';
 
 interface CartItem {
   id: string;
@@ -185,23 +186,15 @@ export default function CartPage() {
 
   if (!session?.user) {
     return (
-      <main className="min-h-screen bg-white">
-        <nav className="bg-gray-800 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-            <ul className="flex gap-6">
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/products">Products</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-            </ul>
+      <main className="min-h-screen bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4 md:px-8 py-20 text-center">
+          <div className="inline-block">
+            <div className="text-6xl mb-4">🔐</div>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium text-lg">Please log in to view your cart</p>
+            <Link href="/auth/login" className="inline-block px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200">
+              Log In
+            </Link>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-gray-600 mb-4">Please log in to view your cart</p>
-          <Link href="/auth/login" className="text-green-600 hover:text-green-700 font-semibold">
-            Log In
-          </Link>
         </div>
       </main>
     );
@@ -209,155 +202,182 @@ export default function CartPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-white">
-        <nav className="bg-gray-800 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
+      <main className="min-h-screen bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4 md:px-8 py-20 text-center">
+          <div className="inline-block">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 dark:border-emerald-400 mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400 font-medium">Loading cart...</p>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-gray-600">Loading cart...</p>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <nav className="bg-gray-800 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-          <ul className="flex gap-6">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-          </ul>
-        </div>
-      </nav>
-
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto">
-          <div className="flex gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-green-600">Home</Link>
+    <main className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Breadcrumb */}
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-gray-900">Shopping Cart</span>
+            <span className="text-gray-900 dark:text-white font-semibold">Shopping Cart</span>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto py-12">
+      <div className="container mx-auto px-4 md:px-8 py-12">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-700">
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400 font-medium">
             {error}
           </div>
         )}
 
         {cartItems.length === 0 ? (
-          <div className="text-center py-12">
-            <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
-            <p className="text-gray-600 mb-6">Start shopping to add items to your cart</p>
-            <Link href="/products" className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded">
-              Continue Shopping
-            </Link>
+          <div className="text-center py-20">
+            <div className="inline-block">
+              <div className="text-6xl mb-4">🛒</div>
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Your Cart is Empty</h1>
+              <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">Start shopping to add items to your cart</p>
+              <Link href="/products" className="inline-block px-8 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center gap-2">
+                <ShoppingCart className="w-5 h-5" />
+                Continue Shopping
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2">
-              <h1 className="text-3xl font-bold mb-6">Shopping Cart ({cartItems.length} items)</h1>
+              <div className="mb-8">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Shopping Cart</h1>
+                <p className="text-gray-600 dark:text-gray-400">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in your cart</p>
+              </div>
               <div className="space-y-4">
                 {cartItems.map(item => (
-                  <div key={item.id} className="flex gap-4 p-4 border border-gray-200 rounded-lg">
+                  <div key={item.id} className="group flex gap-4 p-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
                     {item.image && (
-                      <img src={item.image} alt={item.productName} className="w-24 h-24 object-cover rounded" />
-                    )}
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">{item.productName}</h3>
-                      <p className="text-sm text-gray-600">{item.vendorName}</p>
-                      <p className="text-sm text-gray-600">SKU: {item.sku || 'N/A'}</p>
-                      <p className="font-bold text-green-600 mt-2">₱{item.price.toFixed(2)}</p>
-                    </div>
-                    <div className="flex flex-col items-end gap-2">
-                      <div className="flex items-center gap-2">
-                        <button onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)} className="px-2 py-1 border border-gray-300 rounded">-</button>
-                        <input type="number" value={item.quantity} onChange={(e) => handleUpdateQuantity(item.id, parseInt(e.target.value) || 1)} className="w-12 p-1 border border-gray-300 rounded text-center" />
-                        <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)} className="px-2 py-1 border border-gray-300 rounded">+</button>
+                      <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+                        <img src={item.image} alt={item.productName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                       </div>
-                      <button onClick={() => handleRemoveItem(item.id)} className="text-red-600 hover:text-red-700 text-sm font-semibold">
-                        Remove
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-gray-900 dark:text-white text-lg line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{item.productName}</h3>
+                      <p className="text-sm text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wide">{item.vendorName}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">SKU: {item.sku || 'N/A'}</p>
+                      <p className="font-bold text-emerald-600 dark:text-emerald-400 text-lg mt-2">₱{item.price.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</p>
+                    </div>
+                    <div className="flex flex-col items-end gap-3">
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                        <button
+                          onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
+                          className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
+                          aria-label="Decrease quantity"
+                        >
+                          <Minus className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                        </button>
+                        <input
+                          type="number"
+                          value={item.quantity}
+                          onChange={(e) => handleUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
+                          className="w-10 p-1 text-center bg-transparent text-gray-900 dark:text-white font-semibold border-0 focus:outline-none"
+                        />
+                        <button
+                          onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
+                          className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
+                          aria-label="Increase quantity"
+                        >
+                          <Plus className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                        </button>
+                      </div>
+                      {/* Remove Button */}
+                      <button
+                        onClick={() => handleRemoveItem(item.id)}
+                        className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                        aria-label="Remove item"
+                      >
+                        <Trash2 className="w-5 h-5" />
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
-              <button onClick={handleClearCart} className="mt-6 text-red-600 hover:text-red-700 font-semibold">
+              <button
+                onClick={handleClearCart}
+                className="mt-8 px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg font-semibold transition-colors"
+              >
                 Clear Cart
               </button>
             </div>
 
             {/* Cart Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-gray-50 p-6 rounded-lg sticky top-4">
-                <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-                <div className="space-y-3 mb-4">
-                  <div className="flex justify-between">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 sticky top-4">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
+
+                {/* Price Breakdown */}
+                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
                     <span>Subtotal:</span>
-                    <span>₱{cartSummary.subtotal.toFixed(2)}</span>
+                    <span className="font-semibold">₱{cartSummary.subtotal.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
                     <span>Tax (12%):</span>
-                    <span>₱{cartSummary.taxAmount.toFixed(2)}</span>
+                    <span className="font-semibold">₱{cartSummary.taxAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
                     <span>Shipping:</span>
-                    <span>₱{cartSummary.shippingFee.toFixed(2)}</span>
+                    <span className="font-semibold">₱{cartSummary.shippingFee.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                   </div>
                   {cartSummary.discountAmount > 0 && (
-                    <div className="flex justify-between text-green-600">
+                    <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-semibold">
                       <span>Discount:</span>
-                      <span>-₱{cartSummary.discountAmount.toFixed(2)}</span>
+                      <span>-₱{cartSummary.discountAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                     </div>
                   )}
-                  <div className="border-t pt-3 flex justify-between font-bold text-lg">
-                    <span>Total:</span>
-                    <span className="text-green-600">₱{cartSummary.totalAmount.toFixed(2)}</span>
-                  </div>
+                </div>
+
+                {/* Total */}
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-lg font-bold text-gray-900 dark:text-white">Total:</span>
+                  <span className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">₱{cartSummary.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                 </div>
 
                 {/* Promo Code */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Promo Code</label>
+                  <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Promo Code</label>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       value={promoCode}
                       onChange={(e) => setPromoCode(e.target.value)}
                       placeholder="Enter code"
-                      className="flex-1 p-2 border border-gray-300 rounded"
+                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       disabled={!!appliedPromo}
                     />
                     <button
                       onClick={handleApplyPromo}
                       disabled={!!appliedPromo}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:bg-gray-400"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors disabled:bg-gray-400 dark:disabled:bg-gray-600"
                     >
                       Apply
                     </button>
                   </div>
                   {appliedPromo && (
-                    <p className="text-sm text-green-600 mt-2">Promo code "{appliedPromo}" applied</p>
+                    <p className="text-sm text-emerald-600 dark:text-emerald-400 mt-2 font-semibold">✓ Promo code "{appliedPromo}" applied</p>
                   )}
                 </div>
 
                 {/* Checkout Button */}
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded mb-3"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-bold rounded-lg transition-all duration-200 mb-3 flex items-center justify-center gap-2"
                 >
+                  <ShoppingCart className="w-5 h-5" />
                   Proceed to Checkout
                 </button>
-                <Link href="/products" className="block w-full text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 rounded">
+                <Link href="/products" className="block w-full text-center px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors">
                   Continue Shopping
                 </Link>
               </div>
@@ -366,9 +386,9 @@ export default function CartPage() {
         )}
       </div>
 
-      <footer className="bg-gray-800 text-white py-8 mt-12">
+      <footer className="bg-gray-900 dark:bg-black text-white py-12 px-4 md:px-8 mt-12">
         <div className="container mx-auto text-center">
-          <p>&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-gray-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>

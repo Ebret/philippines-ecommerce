@@ -75,7 +75,7 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
         {/* Main Image */}
         <div
           ref={mainImageRef}
-          className="relative h-96 w-full overflow-hidden rounded-lg bg-neutral-100"
+          className="group relative h-96 w-full overflow-hidden rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 shadow-lg"
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -87,8 +87,8 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
                 alt={selectedImage.alt || title}
                 fill
                 className={cn(
-                  'object-cover transition-transform',
-                  isZoomed && 'scale-150'
+                  'object-cover transition-transform duration-300 cursor-zoom-in',
+                  isZoomed && 'scale-150 cursor-zoom-out'
                 )}
                 style={
                   isZoomed
@@ -102,8 +102,15 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
 
               {/* Zoom Indicator */}
               {isZoomed && (
-                <div className="absolute bottom-2 right-2 rounded bg-black/50 px-2 py-1 text-xs text-white">
-                  Zoom
+                <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-black/70 text-white text-xs font-semibold backdrop-blur-sm">
+                  🔍 Zoomed
+                </div>
+              )}
+
+              {/* Zoom Hint */}
+              {!isZoomed && (
+                <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-black/50 text-white text-xs font-semibold backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  Hover to zoom
                 </div>
               )}
             </>
@@ -112,16 +119,16 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
 
         {/* Thumbnails */}
         {images.length > 1 && (
-          <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="flex gap-3 overflow-x-auto pb-2">
             {images.map((image) => (
               <button
                 key={image.id}
                 onClick={() => handleImageSelect(image.id)}
                 className={cn(
-                  'relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-colors',
+                  'relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200',
                   selectedImageId === image.id
-                    ? 'border-primary-600'
-                    : 'border-neutral-200 hover:border-neutral-300'
+                    ? 'border-emerald-500 shadow-lg ring-2 ring-emerald-300 dark:ring-emerald-600'
+                    : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600'
                 )}
                 aria-label={`Select ${image.alt || 'product image'}`}
               >
@@ -130,7 +137,7 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
                   alt={image.alt || title}
                   fill
                   className="object-cover"
-                  sizes="80px"
+                  sizes="96px"
                 />
               </button>
             ))}
@@ -139,7 +146,7 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
 
         {/* Image Counter */}
         {images.length > 1 && (
-          <div className="text-center text-sm text-neutral-500">
+          <div className="text-center text-sm font-semibold text-gray-600 dark:text-gray-400">
             {images.findIndex((img) => img.id === selectedImageId) + 1} / {images.length}
           </div>
         )}
