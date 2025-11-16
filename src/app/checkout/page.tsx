@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { Check, ChevronRight, Lock, Truck, CreditCard } from 'lucide-react';
 
 interface CheckoutFormData {
   recipientName: string;
@@ -177,52 +178,68 @@ export default function CheckoutPage() {
 
   if (!session?.user) {
     return (
-      <main className="min-h-screen bg-white">
-        <nav className="bg-gray-800 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
+      <main className="min-h-screen bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4 md:px-8 py-20 text-center">
+          <div className="inline-block">
+            <div className="text-6xl mb-4">🔐</div>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium text-lg">Please log in to proceed with checkout</p>
+            <Link href="/auth/login" className="inline-block px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200">
+              Log In
+            </Link>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-gray-600 mb-4">Please log in to proceed with checkout</p>
-          <Link href="/auth/login" className="text-green-600 hover:text-green-700 font-semibold">
-            Log In
-          </Link>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <nav className="bg-gray-800 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-          <ul className="flex gap-6">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/cart">Cart</Link></li>
-          </ul>
-        </div>
-      </nav>
-
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto">
-          <div className="flex gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-green-600">Home</Link>
+    <main className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Breadcrumb */}
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/cart" className="hover:text-green-600">Cart</Link>
+            <Link href="/cart" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Cart</Link>
             <span>/</span>
-            <span className="text-gray-900">Checkout</span>
+            <span className="text-gray-900 dark:text-white font-semibold">Checkout</span>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto py-12">
-        <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+      <div className="container mx-auto px-4 md:px-8 py-12">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Secure Checkout</h1>
+          <p className="text-gray-600 dark:text-gray-400">Complete your order securely</p>
+        </div>
+
+        {/* Progress Steps */}
+        <div className="mb-12 flex items-center justify-between max-w-2xl">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 text-white font-bold">
+              <Check className="w-5 h-5" />
+            </div>
+            <span className="font-semibold text-gray-900 dark:text-white">Cart</span>
+          </div>
+          <div className="flex-1 h-1 bg-emerald-600 mx-2"></div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-600 text-white font-bold">
+              2
+            </div>
+            <span className="font-semibold text-gray-900 dark:text-white">Checkout</span>
+          </div>
+          <div className="flex-1 h-1 bg-gray-300 dark:bg-gray-700 mx-2"></div>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-400 font-bold">
+              3
+            </div>
+            <span className="font-semibold text-gray-600 dark:text-gray-400">Confirmation</span>
+          </div>
+        </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-700">
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400 font-medium">
             {error}
           </div>
         )}
@@ -232,42 +249,45 @@ export default function CheckoutPage() {
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Shipping Address */}
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h2 className="text-xl font-bold mb-4">Shipping Address</h2>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-6">
+                  <Truck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Shipping Address</h2>
+                </div>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold mb-1">Recipient Name *</label>
+                    <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Recipient Name *</label>
                     <input
                       type="text"
                       name="recipientName"
                       value={formData.recipientName}
                       onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-1">Phone Number *</label>
+                    <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Phone Number *</label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="09XXXXXXXXX"
-                      className="w-full p-2 border border-gray-300 rounded"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       required
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Region *</label>
+                      <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Region *</label>
                       <select
                         name="region"
                         value={formData.region}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         required
                       >
                         <option value="">Select Region</option>
@@ -278,13 +298,13 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Province *</label>
+                      <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Province *</label>
                       <input
                         type="text"
                         name="province"
                         value={formData.province}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         required
                       />
                     </div>
@@ -292,85 +312,88 @@ export default function CheckoutPage() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold mb-1">City/Municipality *</label>
+                      <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">City/Municipality *</label>
                       <input
                         type="text"
                         name="cityMunicipality"
                         value={formData.cityMunicipality}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold mb-1">Barangay *</label>
+                      <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Barangay *</label>
                       <input
                         type="text"
                         name="barangay"
                         value={formData.barangay}
                         onChange={handleInputChange}
-                        className="w-full p-2 border border-gray-300 rounded"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         required
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-1">Street Address *</label>
+                    <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Street Address *</label>
                     <input
                       type="text"
                       name="streetAddress"
                       value={formData.streetAddress}
                       onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-1">Landmark (Optional)</label>
+                    <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">Landmark (Optional)</label>
                     <input
                       type="text"
                       name="landmark"
                       value={formData.landmark}
                       onChange={handleInputChange}
-                      className="w-full p-2 border border-gray-300 rounded"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Payment Method */}
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h2 className="text-xl font-bold mb-4">Payment Method</h2>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 mb-6">
+                  <CreditCard className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Payment Method</h2>
+                </div>
                 <div className="space-y-3">
                   {PAYMENT_METHODS.map(method => (
-                    <label key={method.id} className="flex items-center p-3 border border-gray-300 rounded cursor-pointer hover:bg-gray-100">
+                    <label key={method.id} className="flex items-center p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-emerald-300 dark:hover:border-emerald-600 transition-colors" style={{borderColor: formData.paymentMethod === method.id ? '#22c55e' : undefined}}>
                       <input
                         type="radio"
                         name="paymentMethod"
                         value={method.id}
                         checked={formData.paymentMethod === method.id}
                         onChange={handleInputChange}
-                        className="mr-3"
+                        className="w-4 h-4 text-emerald-600 mr-3"
                       />
-                      <span className="mr-2">{method.icon}</span>
-                      <span className="font-semibold">{method.name}</span>
+                      <span className="text-2xl mr-3">{method.icon}</span>
+                      <span className="font-semibold text-gray-900 dark:text-white">{method.name}</span>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* Order Notes */}
-              <div className="bg-gray-50 p-6 rounded-lg">
-                <h2 className="text-xl font-bold mb-4">Order Notes (Optional)</h2>
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Order Notes (Optional)</h2>
                 <textarea
                   name="notes"
                   value={formData.notes}
                   onChange={handleInputChange}
                   placeholder="Add any special instructions for your order..."
-                  className="w-full p-2 border border-gray-300 rounded h-24"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 h-24 resize-none"
                 />
               </div>
 
@@ -378,43 +401,45 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded disabled:bg-gray-400"
+                className="w-full px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-bold rounded-lg transition-all duration-200 disabled:bg-gray-400 dark:disabled:bg-gray-600 flex items-center justify-center gap-2"
               >
-                {isLoading ? 'Processing...' : 'Place Order'}
+                <Lock className="w-5 h-5" />
+                {isLoading ? 'Processing...' : 'Place Order Securely'}
               </button>
             </form>
           </div>
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-50 p-6 rounded-lg sticky top-4">
-              <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-              <div className="space-y-3 mb-4">
-                <div className="flex justify-between">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 sticky top-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
+              <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Subtotal:</span>
-                  <span>₱{cartSummary.subtotal.toFixed(2)}</span>
+                  <span className="font-semibold">₱{cartSummary.subtotal.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Tax (12%):</span>
-                  <span>₱{cartSummary.taxAmount.toFixed(2)}</span>
+                  <span className="font-semibold">₱{cartSummary.taxAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Shipping:</span>
-                  <span>₱{cartSummary.shippingFee.toFixed(2)}</span>
+                  <span className="font-semibold">₱{cartSummary.shippingFee.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                 </div>
                 {cartSummary.discountAmount > 0 && (
-                  <div className="flex justify-between text-green-600">
+                  <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-semibold">
                     <span>Discount:</span>
-                    <span>-₱{cartSummary.discountAmount.toFixed(2)}</span>
+                    <span>-₱{cartSummary.discountAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
                   </div>
                 )}
-                <div className="border-t pt-3 flex justify-between font-bold text-lg">
-                  <span>Total:</span>
-                  <span className="text-green-600">₱{cartSummary.totalAmount.toFixed(2)}</span>
-                </div>
               </div>
 
-              <Link href="/cart" className="block w-full text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 rounded">
+              <div className="flex justify-between items-center mb-6">
+                <span className="text-lg font-bold text-gray-900 dark:text-white">Total:</span>
+                <span className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">₱{cartSummary.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</span>
+              </div>
+
+              <Link href="/cart" className="block w-full text-center px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors">
                 Back to Cart
               </Link>
             </div>
@@ -422,9 +447,9 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      <footer className="bg-gray-800 text-white py-8 mt-12">
+      <footer className="bg-gray-900 dark:bg-black text-white py-12 px-4 md:px-8 mt-12">
         <div className="container mx-auto text-center">
-          <p>&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-gray-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>
