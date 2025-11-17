@@ -83,15 +83,15 @@ export default function HeroSection() {
         <div className="flex flex-col items-center gap-2">
           <p className="text-emerald-200 text-sm font-semibold">Scroll to explore</p>
           <svg
-            className="w-6 h-6 text-emerald-300"
+            className="w-5 h-5 text-emerald-300"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            strokeWidth="1.5"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
               d="M19 14l-7 7m0 0l-7-7m7 7V3"
             />
           </svg>
