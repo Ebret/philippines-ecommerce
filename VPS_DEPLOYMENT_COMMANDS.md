@@ -4,7 +4,7 @@
 
 ### Step 1: Navigate to App Directory
 ```bash
-cd /var/www/extremelifeherbal.com
+cd /var/www/html/ecom/app
 ```
 
 ### Step 2: Pull Latest Changes
@@ -78,7 +78,7 @@ pm2 logs --lines 50
 ## 📋 QUICK DEPLOYMENT (Copy & Paste)
 
 ```bash
-cd /var/www/extremelifeherbal.com && \
+cd /var/www/html/ecom/app && \
 git pull origin master && \
 npm install && \
 npm run build && \
@@ -91,7 +91,7 @@ pm2 status
 ## 🔄 ROLLBACK (If Needed)
 
 ```bash
-cd /var/www/extremelifeherbal.com && \
+cd /var/www/html/ecom/app && \
 git revert HEAD && \
 npm run build && \
 pm2 restart all
