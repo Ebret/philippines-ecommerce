@@ -1,10 +1,10 @@
 # Automated Deployment Status Report - Phase 23 Subtask 3
 
-## ⚠️ DEPLOYMENT STATUS: CONNECTION TIMEOUT
+## ⚠️ DEPLOYMENT STATUS: INTERMITTENT SSH CONNECTION TIMEOUTS
 
-**Date**: November 17, 2025  
-**Target**: https://extremelifeherbal.com (VPS: 109.205.181.119)  
-**Status**: ❌ SSH CONNECTION TIMEOUT
+**Date**: November 18, 2025
+**Target**: https://extremelifeherbal.com (VPS: 109.205.181.119)
+**Status**: ⚠️ SSH KEY-BASED AUTHENTICATION CONFIRMED WORKING, BUT EXPERIENCING INTERMITTENT TIMEOUTS
 
 ---
 
@@ -135,9 +135,9 @@ Once you confirm these items, I can retry the automated deployment.
 
 ---
 
-## 📝 ALTERNATIVE: MANUAL DEPLOYMENT
+## 📝 RECOMMENDED: MANUAL DEPLOYMENT
 
-If automated SSH deployment continues to fail, you can manually execute the deployment commands on the VPS:
+Since automated SSH deployment is experiencing intermittent timeouts, please manually execute the deployment commands on the VPS:
 
 ```bash
 ssh root@109.205.181.119
@@ -151,5 +151,33 @@ pm2 restart all
 pm2 status
 ```
 
-Then reply with the output and I will verify the deployment was successful.
+### Verification Commands (Execute After Deployment)
+
+```bash
+# Check git commit
+git log --oneline -1
+# Expected: 0eadc6f or later
+
+# Check website
+curl -I https://extremelifeherbal.com
+# Expected: HTTP/2 200
+
+# Check rate limit headers
+curl -I https://extremelifeherbal.com/api/products
+# Expected: x-ratelimit-limit: 100, x-ratelimit-remaining: 99
+
+# Test rate limit enforcement
+for i in {1..101}; do curl -s https://extremelifeherbal.com/api/products > /dev/null; done; curl -I https://extremelifeherbal.com/api/products
+# Expected: HTTP/2 429
+
+# Check PM2 status
+pm2 status
+# Expected: Both processes "online"
+
+# Check logs
+pm2 logs --lines 50
+# Expected: No errors
+```
+
+**Please reply with the output from these commands and I will verify the deployment was successful.**
 
