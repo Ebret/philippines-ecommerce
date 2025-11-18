@@ -84,8 +84,6 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-toast",
       "lucide-react",
     ],
-    // Suppress middleware deprecation warning - middleware.ts is correct location
-    middlewareWarning: false,
   },
 
   // NOTE: i18n configuration removed - incompatible with App Router in Next.js 16

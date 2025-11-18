@@ -6,6 +6,14 @@ import { ShieldCheck, Leaf, Zap } from 'lucide-react';
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 overflow-hidden">
+      {/* Hero Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+        style={{
+          backgroundImage: 'url(/hero-banner.png)',
+        }}
+      />
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
