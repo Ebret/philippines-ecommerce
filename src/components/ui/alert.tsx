@@ -3,18 +3,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const alertVariants = cva(
-  'relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-current',
+  'relative w-full rounded-lg border p-4 transition-all duration-200 [&>svg~*]:pl-7 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-current',
   {
     variants: {
       variant: {
-        default: 'bg-white text-neutral-900 border-neutral-200',
+        default: 'bg-white text-neutral-900 border-neutral-200 hover:border-neutral-300',
         success:
-          'border-success-200 bg-success-50 text-success-800 [&>svg]:text-success-600',
+          'border-success/30 bg-success/10 text-success hover:bg-success/15 [&>svg]:text-success',
         error:
-          'border-error-200 bg-error-50 text-error-800 [&>svg]:text-error-600',
+          'border-error/30 bg-error/10 text-error hover:bg-error/15 [&>svg]:text-error',
         warning:
-          'border-warning-200 bg-warning-50 text-warning-800 [&>svg]:text-warning-600',
-        info: 'border-primary-200 bg-primary-50 text-primary-800 [&>svg]:text-primary-600',
+          'border-warning/30 bg-warning/10 text-warning hover:bg-warning/15 [&>svg]:text-warning',
+        info: 'border-primary/30 bg-primary/10 text-primary hover:bg-primary/15 [&>svg]:text-primary',
       },
     },
     defaultVariants: {

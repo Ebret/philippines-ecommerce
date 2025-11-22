@@ -3,17 +3,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-colors',
+  'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-all duration-200',
   {
     variants: {
       variant: {
-        default: 'bg-primary-100 text-primary-800',
-        secondary: 'bg-secondary-100 text-secondary-800',
-        success: 'bg-success-100 text-success-800',
-        error: 'bg-error-100 text-error-800',
-        warning: 'bg-warning-100 text-warning-800',
-        neutral: 'bg-neutral-100 text-neutral-800',
-        outline: 'border border-primary-300 text-primary-700',
+        default: 'bg-primary/10 text-primary hover:bg-primary/20',
+        secondary: 'bg-secondary/10 text-secondary hover:bg-secondary/20',
+        success: 'bg-success/10 text-success hover:bg-success/20',
+        error: 'bg-error/10 text-error hover:bg-error/20',
+        warning: 'bg-warning/10 text-warning hover:bg-warning/20',
+        accent: 'bg-accent/10 text-accent hover:bg-accent/20',
+        neutral: 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200',
+        outline: 'border border-primary/30 text-primary hover:border-primary/50 hover:bg-primary/5',
       },
       size: {
         sm: 'px-2 py-0.5 text-xs',
@@ -21,7 +22,7 @@ const badgeVariants = cva(
         lg: 'px-4 py-1.5 text-base',
       },
       interactive: {
-        true: 'cursor-pointer hover:opacity-80',
+        true: 'cursor-pointer',
         false: '',
       },
     },
