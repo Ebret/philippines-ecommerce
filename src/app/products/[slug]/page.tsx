@@ -100,11 +100,11 @@ export default function ProductDetailPage() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-white dark:bg-gray-950">
+      <main className="min-h-screen bg-white dark:bg-neutral-950">
         <div className="container mx-auto py-20 text-center">
           <div className="inline-block">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 dark:border-emerald-400 mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400 font-medium">Loading product details...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 dark:border-primary-400 mb-4"></div>
+            <p className="text-neutral-600 dark:text-neutral-400 font-medium">Loading product details...</p>
           </div>
         </div>
       </main>
@@ -113,12 +113,12 @@ export default function ProductDetailPage() {
 
   if (error || !product) {
     return (
-      <main className="min-h-screen bg-white dark:bg-gray-950">
+      <main className="min-h-screen bg-white dark:bg-neutral-950">
         <div className="container mx-auto py-20 text-center">
           <div className="inline-block">
             <div className="text-6xl mb-4">⚠️</div>
-            <p className="text-red-600 dark:text-red-400 mb-6 font-semibold text-lg">{error || 'Product not found'}</p>
-            <Link href="/products" className="inline-block px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 text-white font-semibold rounded-lg transition-all duration-200">
+            <p className="text-error-600 dark:text-error-400 mb-6 font-semibold text-lg">{error || 'Product not found'}</p>
+            <Link href="/products" className="inline-block px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white font-semibold rounded-lg transition-all duration-200">
               Back to Products
             </Link>
           </div>
@@ -128,16 +128,16 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
+    <main className="min-h-screen bg-white dark:bg-neutral-950">
       {/* Breadcrumb */}
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 py-4 border-b border-neutral-200 dark:border-neutral-700">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Home</Link>
+          <div className="flex gap-2 text-sm text-neutral-600 dark:text-neutral-400">
+            <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/products" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Products</Link>
+            <Link href="/products" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Products</Link>
             <span>/</span>
-            <span className="text-gray-900 dark:text-white font-semibold">{product.name}</span>
+            <span className="text-neutral-900 dark:text-white font-semibold">{product.name}</span>
           </div>
         </div>
       </div>
@@ -165,11 +165,11 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Reviews Section */}
-      <div className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 py-16 border-t border-gray-200 dark:border-gray-800">
+      <div className="bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950 py-16 border-t border-neutral-200 dark:border-neutral-800">
         <div className="container mx-auto px-4 md:px-8">
           <div className="mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Customer Reviews</h2>
-            <p className="text-gray-600 dark:text-gray-400">See what customers think about this product</p>
+            <h2 className="text-4xl font-bold text-neutral-900 dark:text-white mb-2">Customer Reviews</h2>
+            <p className="text-neutral-600 dark:text-neutral-400">See what customers think about this product</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -183,9 +183,9 @@ export default function ProductDetailPage() {
                   createdAt: review.date,
                 }))} />
               ) : (
-                <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                <div className="text-center py-12 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
                   <div className="text-5xl mb-4">💬</div>
-                  <p className="text-gray-600 dark:text-gray-400 font-medium">No reviews yet. Be the first to review this product!</p>
+                  <p className="text-neutral-600 dark:text-neutral-400 font-medium">No reviews yet. Be the first to review this product!</p>
                 </div>
               )}
             </div>
@@ -197,9 +197,9 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 dark:bg-black text-white py-12 px-4 md:px-8">
+      <footer className="bg-neutral-900 dark:bg-black text-white py-12 px-4 md:px-8">
         <div className="container mx-auto text-center">
-          <p className="text-gray-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-neutral-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>

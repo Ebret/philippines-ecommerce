@@ -124,14 +124,14 @@ export default function ProductsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white dark:bg-neutral-950">
       {/* Navigation */}
-      <nav className="bg-gray-800 text-white p-4">
+      <nav className="bg-neutral-900 dark:bg-black text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
           <ul className="flex gap-6">
             <li><Link href="/">Home</Link></li>
-            <li><Link href="/products" className="text-green-400">Products</Link></li>
+            <li><Link href="/products" className="text-primary-400">Products</Link></li>
             <li><Link href="/about">About</Link></li>
             <li><Link href="/contact">Contact</Link></li>
           </ul>
@@ -139,10 +139,10 @@ export default function ProductsPage() {
       </nav>
 
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-green-500 to-green-700 text-white py-12">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-700 dark:to-primary-900 text-white py-12">
         <div className="container mx-auto">
           <h1 className="text-4xl font-bold mb-2">Our Products</h1>
-          <p className="text-lg">Discover our premium herbal products for health and wellness</p>
+          <p className="text-lg text-primary-100">Discover our premium herbal products for health and wellness</p>
         </div>
       </section>
 
@@ -151,8 +151,8 @@ export default function ProductsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-xl font-bold mb-6">Filters</h2>
+            <div className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-lg border border-neutral-200 dark:border-neutral-800">
+              <h2 className="text-xl font-bold mb-6 text-neutral-900 dark:text-white">Filters</h2>
 
               {/* Search */}
               <form onSubmit={handleSearch} className="mb-6">
@@ -163,21 +163,21 @@ export default function ProductsPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full"
                 />
-                <Button type="submit" className="w-full mt-2 bg-green-600 hover:bg-green-700">
+                <Button type="submit" variant="accent" className="w-full mt-2">
                   Search
                 </Button>
               </form>
 
               {/* Category Filter */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3">Category</h3>
+                <h3 className="font-semibold mb-3 text-neutral-900 dark:text-white">Category</h3>
                 <select
                   value={selectedCategory}
                   onChange={(e) => {
                     setSelectedCategory(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="w-full p-2 border border-gray-300 rounded"
+                  className="w-full p-2 border border-neutral-300 dark:border-neutral-700 rounded bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white"
                 >
                   <option value="">All Categories</option>
                   {categories.map((cat) => (
@@ -190,11 +190,11 @@ export default function ProductsPage() {
 
               {/* Sort */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3">Sort By</h3>
+                <h3 className="font-semibold mb-3 text-neutral-900 dark:text-white">Sort By</h3>
                 <select
                   value={sortBy}
                   onChange={(e) => handleSort(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
+                  className="w-full p-2 border border-neutral-300 dark:border-neutral-700 rounded bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white"
                 >
                   <option value="newest">Newest</option>
                   <option value="price-low">Price: Low to High</option>
@@ -209,7 +209,7 @@ export default function ProductsPage() {
           {/* Products Grid */}
           <div className="lg:col-span-3">
             <div className="mb-4 flex justify-between items-center">
-              <p className="text-gray-600">
+              <p className="text-neutral-600 dark:text-neutral-400">
                 Showing {products.length > 0 ? (currentPage - 1) * 12 + 1 : 0} to{' '}
                 {Math.min(currentPage * 12, pagination.total)} of {pagination.total} products
               </p>
@@ -241,9 +241,9 @@ export default function ProductsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-12">
+      <footer className="bg-neutral-900 dark:bg-black text-white py-8 mt-12">
         <div className="container mx-auto text-center">
-          <p>&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-neutral-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>

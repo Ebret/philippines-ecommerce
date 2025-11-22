@@ -140,18 +140,18 @@ const ProductDetail = React.forwardRef<HTMLDivElement, ProductDetailProps>(
             {category && (
               <Link
                 href={`/products?category=${category}`}
-                className="text-sm text-neutral-500 transition-colors hover:text-primary-600"
+                className="text-sm text-neutral-500 transition-colors hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400"
               >
                 {category}
               </Link>
             )}
-            <h1 className="mt-2 text-3xl font-bold text-neutral-900">{title}</h1>
+            <h1 className="mt-2 text-3xl font-bold text-neutral-900 dark:text-white">{title}</h1>
 
             {/* Rating */}
             {rating > 0 && (
               <div className="mt-3 flex items-center gap-2">
                 <Rating value={rating} maxValue={5} readOnly size="md" showLabel={false} />
-                <span className="text-sm text-neutral-600">
+                <span className="text-sm text-neutral-600 dark:text-neutral-400">
                   {rating.toFixed(1)} ({reviewCount} reviews)
                 </span>
               </div>
@@ -162,21 +162,21 @@ const ProductDetail = React.forwardRef<HTMLDivElement, ProductDetailProps>(
           {vendor && (
             <Link
               href={`/vendors/${vendor.id}`}
-              className="inline-flex w-fit items-center gap-2 rounded-lg bg-neutral-100 px-3 py-2 text-sm transition-colors hover:bg-neutral-200"
+              className="inline-flex w-fit items-center gap-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 px-3 py-2 text-sm transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-700"
             >
-              <span className="text-neutral-600">Sold by:</span>
-              <span className="font-medium text-primary-600">{vendor.name}</span>
+              <span className="text-neutral-600 dark:text-neutral-400">Sold by:</span>
+              <span className="font-medium text-primary-600 dark:text-primary-400">{vendor.name}</span>
             </Link>
           )}
 
           {/* Price */}
           <div className="flex items-baseline gap-3">
-            <span className="text-4xl font-bold text-primary-600">
+            <span className="text-4xl font-bold text-primary-600 dark:text-primary-400">
               ₱{price.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
             </span>
             {originalPrice && originalPrice > price && (
               <>
-                <span className="text-lg text-neutral-500 line-through">
+                <span className="text-lg text-neutral-500 dark:text-neutral-400 line-through">
                   ₱{originalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                 </span>
                 <Badge variant="error">-{discount}%</Badge>
@@ -195,7 +195,7 @@ const ProductDetail = React.forwardRef<HTMLDivElement, ProductDetailProps>(
 
           {/* SKU */}
           {sku && (
-            <div className="text-sm text-neutral-600">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">
               <span className="font-medium">SKU:</span> {sku}
             </div>
           )}
@@ -204,19 +204,19 @@ const ProductDetail = React.forwardRef<HTMLDivElement, ProductDetailProps>(
           {inStock && (
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium">Quantity:</span>
-                <div className="flex items-center gap-2 rounded-lg border border-neutral-200">
+                <span className="text-sm font-medium text-neutral-900 dark:text-white">Quantity:</span>
+                <div className="flex items-center gap-2 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-3 py-2 text-neutral-600 hover:bg-neutral-100"
+                    className="px-3 py-2 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                     aria-label="Decrease quantity"
                   >
                     −
                   </button>
-                  <span className="w-8 text-center">{quantity}</span>
+                  <span className="w-8 text-center text-neutral-900 dark:text-white">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="px-3 py-2 text-neutral-600 hover:bg-neutral-100"
+                    className="px-3 py-2 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                     aria-label="Increase quantity"
                   >
                     +
@@ -227,12 +227,15 @@ const ProductDetail = React.forwardRef<HTMLDivElement, ProductDetailProps>(
               <div className="flex gap-3">
                 <Button
                   variant="outline"
+                  size="lg"
                   className="flex-1"
                   onClick={() => onAddToCart?.()}
                 >
                   Add to Cart
                 </Button>
                 <Button
+                  variant="accent"
+                  size="lg"
                   className="flex-1"
                   onClick={() => onBuyNow?.()}
                 >
@@ -244,7 +247,7 @@ const ProductDetail = React.forwardRef<HTMLDivElement, ProductDetailProps>(
 
           {/* Tabs */}
           {tabItems.length > 0 && (
-            <div className="border-t border-neutral-200 pt-6">
+            <div className="border-t border-neutral-200 dark:border-neutral-700 pt-6">
               <Tabs items={tabItems} defaultTab={tabItems[0].id} />
             </div>
           )}

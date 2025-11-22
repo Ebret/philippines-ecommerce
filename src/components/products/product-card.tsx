@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Rating } from '@/components/ui/rating';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
 
@@ -57,12 +58,12 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
       <div
         ref={ref}
         className={cn(
-          'group flex flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-all duration-300 hover:shadow-2xl hover:border-emerald-300 dark:hover:border-emerald-600',
+          'group flex flex-col overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 transition-all duration-300 hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-600',
           className
         )}
       >
         {/* Image Container */}
-        <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 sm:h-56">
+        <div className="relative h-48 w-full overflow-hidden bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-700 dark:to-neutral-800 sm:h-56">
           <Image
             src={image}
             alt={imageAlt}
@@ -95,17 +96,17 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* Wishlist Button */}
           <button
-            className="absolute right-3 top-3 p-2 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-all duration-200 opacity-0 group-hover:opacity-100 backdrop-blur-sm"
+            className="absolute right-3 top-3 p-2 bg-white/90 dark:bg-neutral-800/90 rounded-full shadow-lg hover:bg-white dark:hover:bg-neutral-700 transition-all duration-200 opacity-0 group-hover:opacity-100 backdrop-blur-sm"
             aria-label="Add to wishlist"
           >
-            <Heart className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-red-500 transition-colors" />
+            <Heart className="w-5 h-5 text-neutral-600 dark:text-neutral-300 hover:text-red-500 transition-colors" />
           </button>
 
           {/* Add to Cart Button */}
           {inStock && onAddToCart && (
             <button
               onClick={onAddToCart}
-              className="absolute bottom-0 left-0 right-0 translate-y-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 dark:from-emerald-500 dark:to-emerald-600 dark:hover:from-emerald-600 dark:hover:to-emerald-700 py-3 text-sm font-semibold text-white transition-all duration-300 group-hover:translate-y-0 flex items-center justify-center gap-2"
+              className="absolute bottom-0 left-0 right-0 translate-y-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 py-3 text-sm font-semibold text-white transition-all duration-300 group-hover:translate-y-0 flex items-center justify-center gap-2"
               aria-label={`Add ${title} to cart`}
             >
               <ShoppingCart className="w-4 h-4" />
@@ -115,7 +116,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* In Stock Badge */}
           {inStock && (
-            <div className="absolute bottom-3 right-3 flex items-center gap-1 px-2.5 py-1 bg-emerald-500 text-white rounded-full text-xs font-semibold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-3 right-3 flex items-center gap-1 px-2.5 py-1 bg-primary-500 text-white rounded-full text-xs font-semibold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <Check className="w-3 h-3" />
               In Stock
             </div>
@@ -128,7 +129,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {vendor && (
             <Link
               href={`/vendors/${vendor.id}`}
-              className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 transition-colors hover:text-emerald-700 dark:hover:text-emerald-300 uppercase tracking-wide"
+              className="text-xs font-semibold text-primary-600 dark:text-primary-400 transition-colors hover:text-primary-700 dark:hover:text-primary-300 uppercase tracking-wide"
             >
               {vendor.name}
             </Link>
@@ -137,7 +138,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {/* Title */}
           <Link
             href={`/products/${id}`}
-            className="line-clamp-2 font-bold text-gray-900 dark:text-white transition-colors hover:text-emerald-600 dark:hover:text-emerald-400 text-base"
+            className="line-clamp-2 font-bold text-neutral-900 dark:text-white transition-colors hover:text-primary-600 dark:hover:text-primary-400 text-base"
           >
             {title}
           </Link>
@@ -146,19 +147,19 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {rating > 0 && (
             <div className="flex items-center gap-2">
               <Rating value={rating} maxValue={5} readOnly size="sm" showLabel={false} />
-              <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+              <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
                 ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
               </span>
             </div>
           )}
 
           {/* Price */}
-          <div className="flex items-baseline gap-2 pt-2 border-t border-gray-200 dark:border-gray-700">
-            <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+          <div className="flex items-baseline gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-700">
+            <span className="text-2xl font-bold text-primary-600 dark:text-primary-400">
               ₱{price.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
             </span>
             {originalPrice && originalPrice > price && (
-              <span className="text-sm font-medium text-gray-500 dark:text-gray-400 line-through">
+              <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400 line-through">
                 ₱{originalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
               </span>
             )}
@@ -166,7 +167,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
           {/* Stock Status */}
           {!inStock && (
-            <p className="text-xs font-semibold text-red-600 dark:text-red-400 mt-2">Currently unavailable</p>
+            <p className="text-xs font-semibold text-error-600 dark:text-error-400 mt-2">Currently unavailable</p>
           )}
         </div>
       </div>
