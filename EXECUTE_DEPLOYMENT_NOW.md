@@ -1,32 +1,38 @@
-# 🚀 EXECUTE DEPLOYMENT NOW - PHASE 24 PHASE 3.5
+# 🚀 EXECUTE DEPLOYMENT NOW - SESSION PROVIDER FIX
 
-**Status:** ✅ READY FOR IMMEDIATE DEPLOYMENT  
-**Date:** November 23, 2025  
+**Status:** ✅ READY FOR IMMEDIATE DEPLOYMENT
+**Date:** November 23, 2025
 **Time Required:** 10-15 minutes
 
 ---
 
-## 🎯 QUICK START - 3 SIMPLE STEPS
+## 🎯 CRITICAL FIXES DEPLOYED
 
-### Step 1: Connect to VPS
+1. ✅ SessionProvider wrapper (fixes client-side auth errors)
+2. ✅ Prisma client caching (fixes database connection errors)
+3. ✅ Auth error handling (better error messages)
+4. ✅ Connection pooling configuration (better performance)
+
+---
+
+## 🚀 QUICK START - COPY & PASTE ON VPS
+
+### Step 1: Navigate & Pull
 ```bash
-ssh root@109.205.181.119
+cd /var/www/html/ecom/app && git pull origin feature/relivator-ui-integration
 ```
 
-### Step 2: Run Deployment Commands
+### Step 2: Update DATABASE_URL
 ```bash
-cd /var/www/html/ecom/app
-git fetch origin
-git checkout feature/relivator-ui-integration
-git pull origin feature/relivator-ui-integration
-npm install --production
-npm run build
-pm2 restart ecom-app
-sleep 5
-pm2 status
+sed -i 's/DATABASE_URL=postgresql:\/\/\([^?]*\)$/DATABASE_URL=postgresql:\/\/\1?schema=public\&connection_limit=5\&pool_timeout=10/' .env.production && cat .env.production | grep DATABASE_URL
 ```
 
-### Step 3: Verify Deployment
+### Step 3: Build & Deploy
+```bash
+npm install && npm run build && pm2 restart ecosystem.config.js && sleep 15 && pm2 status
+```
+
+### Step 4: Verify
 ```bash
 # All should return 200
 curl -I https://extremelifeherbal.com/
