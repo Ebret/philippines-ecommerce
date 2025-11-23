@@ -84,71 +84,71 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
-          <p className="text-gray-600 mt-2">Manage your account information</p>
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">My Profile</h1>
+          <p className="text-neutral-600 dark:text-neutral-400 mt-2">Manage your account information</p>
         </div>
 
         {/* Navigation */}
-        <div className="mb-8 flex gap-4 border-b border-gray-200">
-          <Link href="/account/profile" className="px-4 py-2 border-b-2 border-green-600 text-green-600 font-medium">
+        <div className="mb-8 flex gap-4 border-b border-neutral-200 dark:border-neutral-700">
+          <Link href="/account/profile" className="px-4 py-2 border-b-2 border-primary-600 text-primary-600 dark:text-primary-400 font-medium">
             Profile
           </Link>
-          <Link href="/account/orders" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+          <Link href="/account/orders" className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             Orders
           </Link>
-          <Link href="/account/addresses" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+          <Link href="/account/addresses" className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             Addresses
           </Link>
-          <Link href="/account/settings" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+          <Link href="/account/settings" className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             Settings
           </Link>
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+          <div className="mb-4 p-4 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg text-error-700 dark:text-error-400">
             {error}
           </div>
         )}
 
         {/* Profile Card */}
-        <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md border border-neutral-200 dark:border-neutral-700 p-8">
           {!isEditing ? (
             <>
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Email</label>
-                  <p className="mt-1 text-gray-900">{profile?.email}</p>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Email</label>
+                  <p className="mt-1 text-neutral-900 dark:text-white">{profile?.email}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">First Name</label>
-                    <p className="mt-1 text-gray-900">{profile?.profile?.firstName || 'Not set'}</p>
+                    <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">First Name</label>
+                    <p className="mt-1 text-neutral-900 dark:text-white">{profile?.profile?.firstName || 'Not set'}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Last Name</label>
-                    <p className="mt-1 text-gray-900">{profile?.profile?.lastName || 'Not set'}</p>
+                    <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Last Name</label>
+                    <p className="mt-1 text-neutral-900 dark:text-white">{profile?.profile?.lastName || 'Not set'}</p>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Phone</label>
-                  <p className="mt-1 text-gray-900">{profile?.profile?.phone || 'Not set'}</p>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Phone</label>
+                  <p className="mt-1 text-neutral-900 dark:text-white">{profile?.profile?.phone || 'Not set'}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Bio</label>
-                  <p className="mt-1 text-gray-900">{profile?.profile?.bio || 'Not set'}</p>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Bio</label>
+                  <p className="mt-1 text-neutral-900 dark:text-white">{profile?.profile?.bio || 'Not set'}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Account Status</label>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Account Status</label>
                   <p className="mt-1">
-                    <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                    <span className="inline-block px-3 py-1 bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-400 rounded-full text-sm font-medium">
                       {profile?.status}
                     </span>
                   </p>
@@ -156,7 +156,7 @@ export default function ProfilePage() {
 
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 font-medium"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white py-2 px-4 rounded-lg font-medium transition-all duration-200"
                 >
                   Edit Profile
                 </button>
@@ -166,57 +166,57 @@ export default function ProfilePage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">First Name</label>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">First Name</label>
                   <input
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="mt-1 w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Last Name</label>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Last Name</label>
                   <input
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="mt-1 w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Phone</label>
+                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Phone</label>
                 <input
                   type="tel"
                   placeholder="09XXXXXXXXX"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="mt-1 w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Bio</label>
+                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">Bio</label>
                 <textarea
                   value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                   rows={4}
-                  className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="mt-1 w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white placeholder-neutral-500 dark:placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div className="flex gap-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 font-medium"
+                  className="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white py-2 px-4 rounded-lg font-medium transition-all duration-200"
                 >
                   Save Changes
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="flex-1 bg-gray-200 text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-300 font-medium"
+                  className="flex-1 bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-white py-2 px-4 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 font-medium transition-colors"
                 >
                   Cancel
                 </button>

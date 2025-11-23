@@ -64,10 +64,10 @@ export default function VendorDashboard() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-neutral-950">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-neutral-600 dark:text-neutral-400">Loading dashboard...</p>
         </div>
       </div>
     );
@@ -75,37 +75,37 @@ export default function VendorDashboard() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 p-8">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800">Error: {error}</p>
+      <div className="min-h-screen bg-white dark:bg-neutral-950 p-8">
+        <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+          <p className="text-error-800 dark:text-error-400">Error: {error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-white dark:bg-neutral-950 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Vendor Dashboard</h1>
-          <p className="text-gray-600 mt-2">Welcome back, {session?.user?.name}</p>
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">Vendor Dashboard</h1>
+          <p className="text-neutral-600 dark:text-neutral-400 mt-2">Welcome back, {session?.user?.name}</p>
         </div>
 
         {/* KPI Cards */}
         {kpis && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {/* Total Revenue */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm font-medium">Total Revenue</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-2">
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Total Revenue</p>
+                  <p className="text-2xl font-bold text-primary-600 dark:text-primary-400 mt-2">
                     ₱{kpis.totalRevenue.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                   </p>
                 </div>
-                <div className="bg-green-100 rounded-full p-3">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-primary-100 dark:bg-primary-900/30 rounded-full p-3">
+                  <svg className="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -113,14 +113,14 @@ export default function VendorDashboard() {
             </div>
 
             {/* Total Orders */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm font-medium">Total Orders</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-2">{kpis.totalOrders}</p>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Total Orders</p>
+                  <p className="text-2xl font-bold text-secondary-600 dark:text-secondary-400 mt-2">{kpis.totalOrders}</p>
                 </div>
-                <div className="bg-blue-100 rounded-full p-3">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-secondary-100 dark:bg-secondary-900/30 rounded-full p-3">
+                  <svg className="w-6 h-6 text-secondary-600 dark:text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
                 </div>
@@ -128,14 +128,14 @@ export default function VendorDashboard() {
             </div>
 
             {/* Pending Orders */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm font-medium">Pending Orders</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-2">{kpis.pendingOrders}</p>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Pending Orders</p>
+                  <p className="text-2xl font-bold text-warning-600 dark:text-warning-400 mt-2">{kpis.pendingOrders}</p>
                 </div>
-                <div className="bg-yellow-100 rounded-full p-3">
-                  <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-warning-100 dark:bg-warning-900/30 rounded-full p-3">
+                  <svg className="w-6 h-6 text-warning-600 dark:text-warning-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
@@ -143,14 +143,14 @@ export default function VendorDashboard() {
             </div>
 
             {/* Total Products */}
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-600 text-sm font-medium">Total Products</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-2">{kpis.totalProducts}</p>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Total Products</p>
+                  <p className="text-2xl font-bold text-accent-600 dark:text-accent-400 mt-2">{kpis.totalProducts}</p>
                 </div>
-                <div className="bg-purple-100 rounded-full p-3">
-                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-accent-100 dark:bg-accent-900/30 rounded-full p-3">
+                  <svg className="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m0 0l8 4m-8-4v10l8 4m0-10l8 4m-8-4v10M8 5v10m8-10v10" />
                   </svg>
                 </div>
@@ -161,67 +161,67 @@ export default function VendorDashboard() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Link href="/vendor/products" className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
-            <p className="font-semibold text-gray-900">View Products</p>
-            <p className="text-sm text-gray-600 mt-1">Manage your product catalog</p>
+          <Link href="/vendor/products" className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-4 hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+            <p className="font-semibold text-neutral-900 dark:text-white">View Products</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Manage your product catalog</p>
           </Link>
-          <Link href="/vendor/orders" className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
-            <p className="font-semibold text-gray-900">View Orders</p>
-            <p className="text-sm text-gray-600 mt-1">Manage customer orders</p>
+          <Link href="/vendor/orders" className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-4 hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+            <p className="font-semibold text-neutral-900 dark:text-white">View Orders</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Manage customer orders</p>
           </Link>
-          <Link href="/vendor/analytics" className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
-            <p className="font-semibold text-gray-900">View Analytics</p>
-            <p className="text-sm text-gray-600 mt-1">Detailed sales analytics</p>
+          <Link href="/vendor/analytics" className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-4 hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+            <p className="font-semibold text-neutral-900 dark:text-white">View Analytics</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Detailed sales analytics</p>
           </Link>
-          <Link href="/vendor/earnings" className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
-            <p className="font-semibold text-gray-900">View Earnings</p>
-            <p className="text-sm text-gray-600 mt-1">Track your earnings</p>
+          <Link href="/vendor/earnings" className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-4 hover:shadow-lg hover:border-primary-300 dark:hover:border-primary-700 transition-all">
+            <p className="font-semibold text-neutral-900 dark:text-white">View Earnings</p>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Track your earnings</p>
           </Link>
         </div>
 
         {/* Recent Orders */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Recent Orders</h2>
+        <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700">
+          <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white">Recent Orders</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-neutral-50 dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Order #</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Items</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Order #</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Items</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {recentOrders.length > 0 ? (
                   recentOrders.map((order) => (
-                    <tr key={order.id} className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">{order.orderNumber}</td>
+                    <tr key={order.id} className="border-b border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-700/50">
+                      <td className="px-6 py-4 text-sm font-medium text-neutral-900 dark:text-white">{order.orderNumber}</td>
                       <td className="px-6 py-4 text-sm">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
-                          order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-800' :
-                          order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
+                          order.status === 'DELIVERED' ? 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-400' :
+                          order.status === 'SHIPPED' ? 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-400' :
+                          order.status === 'PENDING' ? 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-400' :
+                          'bg-neutral-100 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300'
                         }`}>
                           {order.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{order.itemCount}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">{order.itemCount}</td>
+                      <td className="px-6 py-4 text-sm font-medium text-primary-600 dark:text-primary-400">
                         ₱{order.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
                         {new Date(order.createdAt).toLocaleDateString('en-PH')}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5} className="px-6 py-4 text-center text-gray-600">
+                    <td colSpan={5} className="px-6 py-4 text-center text-neutral-600 dark:text-neutral-400">
                       No recent orders
                     </td>
                   </tr>

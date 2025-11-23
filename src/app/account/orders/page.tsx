@@ -56,32 +56,32 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
-          <p className="text-gray-600 mt-2">View and manage your orders</p>
+          <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">My Orders</h1>
+          <p className="text-neutral-600 dark:text-neutral-400 mt-2">View and manage your orders</p>
         </div>
 
         {/* Navigation */}
-        <div className="mb-8 flex gap-4 border-b border-gray-200">
-          <Link href="/account/profile" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+        <div className="mb-8 flex gap-4 border-b border-neutral-200 dark:border-neutral-700">
+          <Link href="/account/profile" className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             Profile
           </Link>
-          <Link href="/account/orders" className="px-4 py-2 border-b-2 border-green-600 text-green-600 font-medium">
+          <Link href="/account/orders" className="px-4 py-2 border-b-2 border-primary-600 text-primary-600 dark:text-primary-400 font-medium">
             Orders
           </Link>
-          <Link href="/account/addresses" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+          <Link href="/account/addresses" className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             Addresses
           </Link>
-          <Link href="/account/settings" className="px-4 py-2 text-gray-600 hover:text-gray-900">
+          <Link href="/account/settings" className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
             Settings
           </Link>
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+          <div className="mb-4 p-4 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg text-error-700 dark:text-error-400">
             {error}
           </div>
         )}
@@ -94,7 +94,7 @@ export default function OrdersPage() {
               setStatusFilter(e.target.value);
               setPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
             <option value="">All Orders</option>
             <option value="PENDING">Pending</option>
@@ -107,28 +107,28 @@ export default function OrdersPage() {
 
         {/* Orders List */}
         {orders.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <p className="text-gray-600">No orders found</p>
-            <Link href="/products" className="mt-4 inline-block text-green-600 hover:text-green-700 font-medium">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md border border-neutral-200 dark:border-neutral-700 p-8 text-center">
+            <p className="text-neutral-600 dark:text-neutral-400">No orders found</p>
+            <Link href="/products" className="mt-4 inline-block text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium">
               Continue Shopping
             </Link>
           </div>
         ) : (
           <div className="space-y-4">
             {orders.map((order) => (
-              <div key={order.id} className="bg-white rounded-lg shadow-md p-6">
+              <div key={order.id} className="bg-white dark:bg-neutral-800 rounded-lg shadow-md border border-neutral-200 dark:border-neutral-700 p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Order #{order.id.slice(0, 8)}</h3>
-                    <p className="text-sm text-gray-600">
+                    <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Order #{order.id.slice(0, 8)}</h3>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
                       {new Date(order.createdAt).toLocaleDateString('en-PH')}
                     </p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
-                    order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-800' :
-                    order.status === 'CANCELLED' ? 'bg-red-100 text-red-800' :
-                    'bg-yellow-100 text-yellow-800'
+                    order.status === 'DELIVERED' ? 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-400' :
+                    order.status === 'SHIPPED' ? 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-400' :
+                    order.status === 'CANCELLED' ? 'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-400' :
+                    'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-400'
                   }`}>
                     {order.status}
                   </span>
@@ -137,26 +137,26 @@ export default function OrdersPage() {
                 <div className="mb-4 space-y-2">
                   {order.items.map((item: any) => (
                     <div key={item.id} className="flex justify-between text-sm">
-                      <span className="text-gray-600">
+                      <span className="text-neutral-600 dark:text-neutral-400">
                         {item.product.name} x {item.quantity}
                       </span>
-                      <span className="text-gray-900 font-medium">
+                      <span className="text-neutral-900 dark:text-white font-medium">
                         ₱{(item.price * item.quantity).toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div className="border-t border-gray-200 pt-4 flex justify-between items-center">
+                <div className="border-t border-neutral-200 dark:border-neutral-700 pt-4 flex justify-between items-center">
                   <div>
-                    <p className="text-sm text-gray-600">Total Amount</p>
-                    <p className="text-lg font-bold text-gray-900">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">Total Amount</p>
+                    <p className="text-lg font-bold text-primary-600 dark:text-primary-400">
                       ₱{order.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <Link
                     href={`/order-confirmation/${order.id}`}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                    className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white rounded-lg font-medium transition-all duration-200"
                   >
                     View Details
                   </Link>
