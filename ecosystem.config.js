@@ -4,7 +4,7 @@ module.exports = {
       name: 'philippines-ecommerce',
       script: 'npm',
       args: 'start',
-      cwd: '/var/www/html/philippines-ecommerce',
+      cwd: '/var/www/html/ecom/app',
       instances: 1,
       exec_mode: 'fork',
       env: {
