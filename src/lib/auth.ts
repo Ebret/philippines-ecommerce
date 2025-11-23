@@ -17,54 +17,59 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Invalid credentials");
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            throw new Error("Invalid credentials");
+          }
+
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+            include: { profile: true },
+          });
+
+          if (!user || !user.passwordHash) {
+            throw new Error("Invalid credentials");
+          }
+
+          // Check if user is active
+          if (user.status !== "ACTIVE") {
+            throw new Error("User account is not active");
+          }
+
+          // Verify password
+          const isPasswordValid = await bcrypt.compare(
+            credentials.password,
+            user.passwordHash
+          );
+
+          if (!isPasswordValid) {
+            throw new Error("Invalid credentials");
+          }
+
+          // Check if email is verified
+          if (!user.emailVerified) {
+            throw new Error("Please verify your email address");
+          }
+
+          // Update last login
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLogin: new Date() },
+          });
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.profile?.firstName
+              ? `${user.profile.firstName} ${user.profile.lastName || ""}`
+              : user.email,
+            image: user.profile?.avatarUrl,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("Authorization error:", error);
+          throw error;
         }
-
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-          include: { profile: true },
-        });
-
-        if (!user || !user.passwordHash) {
-          throw new Error("Invalid credentials");
-        }
-
-        // Check if user is active
-        if (user.status !== "ACTIVE") {
-          throw new Error("User account is not active");
-        }
-
-        // Verify password
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.passwordHash
-        );
-
-        if (!isPasswordValid) {
-          throw new Error("Invalid credentials");
-        }
-
-        // Check if email is verified
-        if (!user.emailVerified) {
-          throw new Error("Please verify your email address");
-        }
-
-        // Update last login
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { lastLogin: new Date() },
-        });
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.profile?.firstName
-            ? `${user.profile.firstName} ${user.profile.lastName || ""}`
-            : user.email,
-          image: user.profile?.avatarUrl,
-          role: user.role,
-        };
       },
     }),
     GoogleProvider({
@@ -107,35 +112,40 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ user, account, profile }) {
-      // For OAuth providers, verify email is provided
-      if (account?.provider !== "credentials") {
-        if (!user.email) {
-          return false;
+      try {
+        // For OAuth providers, verify email is provided
+        if (account?.provider !== "credentials") {
+          if (!user.email) {
+            return false;
+          }
+          // OAuth users are automatically verified by their provider
+          return true;
         }
-        // OAuth users are automatically verified by their provider
+
+        // For credentials, check if user exists and is verified
+        if (user.email) {
+          const dbUser = await prisma.user.findUnique({
+            where: { email: user.email },
+          });
+
+          if (!dbUser) {
+            return false;
+          }
+
+          if (dbUser.status !== "ACTIVE") {
+            return false;
+          }
+
+          if (!dbUser.emailVerified) {
+            return false;
+          }
+        }
+
         return true;
+      } catch (error) {
+        console.error("SignIn callback error:", error);
+        return false;
       }
-
-      // For credentials, check if user exists and is verified
-      if (user.email) {
-        const dbUser = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-
-        if (!dbUser) {
-          return false;
-        }
-
-        if (dbUser.status !== "ACTIVE") {
-          return false;
-        }
-
-        if (!dbUser.emailVerified) {
-          return false;
-        }
-      }
-
-      return true;
     },
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
@@ -147,12 +157,17 @@ export const authOptions: NextAuthOptions = {
   },
   events: {
     async signIn({ user, account }) {
-      if (account?.provider !== "credentials") {
-        // Update last login for OAuth users
-        await prisma.user.update({
-          where: { id: user.id },
-          data: { lastLogin: new Date() },
-        });
+      try {
+        if (account?.provider !== "credentials") {
+          // Update last login for OAuth users
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLogin: new Date() },
+          });
+        }
+      } catch (error) {
+        console.error("SignIn event error:", error);
+        // Don't throw - just log the error
       }
     },
   },

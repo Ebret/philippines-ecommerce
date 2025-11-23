@@ -8,5 +8,11 @@ export const prisma =
     log: process.env.NODE_ENV === "development" ? ["query"] : [],
   });
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+// Cache Prisma client in both development and production
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
+} else {
+  // In production, also cache to avoid creating multiple instances
+  globalForPrisma.prisma = prisma;
+}
 
