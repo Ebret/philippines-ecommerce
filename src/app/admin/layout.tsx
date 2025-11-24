@@ -1,55 +1,46 @@
-"use client";
-
-import { ReactNode } from "react";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { ReactNode } from "react";
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
-  const { data: session, status } = useSession();
-  const router = useRouter();
+export const dynamic = 'force-dynamic';
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/auth/login");
-    }
-    if (session && session.user?.role !== "ADMIN" && session.user?.role !== "SUPER_ADMIN") {
-      router.push("/");
-    }
-  }, [session, status, router]);
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const session = await getServerSession(authOptions);
 
-  if (status === "loading") {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  if (!session?.user?.email) {
+    redirect("/auth/login");
   }
 
-  if (!session || (session.user?.role !== "ADMIN" && session.user?.role !== "SUPER_ADMIN")) {
-    return null;
+  const user = session.user as any;
+  if (user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
+    redirect("/auth/unauthorized");
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg">
+      <aside className="w-64 bg-white dark:bg-gray-800 shadow-lg">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-800">Admin Panel</h1>
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Admin Panel</h1>
         </div>
         <nav className="mt-6">
           <Link
             href="/admin"
-            className="block px-6 py-3 text-gray-700 hover:bg-gray-100 border-l-4 border-transparent hover:border-blue-500"
+            className="block px-6 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-l-4 border-transparent hover:border-blue-500"
           >
             Dashboard
           </Link>
           <Link
             href="/admin/reports"
-            className="block px-6 py-3 text-gray-700 hover:bg-gray-100 border-l-4 border-transparent hover:border-blue-500"
+            className="block px-6 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-l-4 border-transparent hover:border-blue-500"
           >
             Reports
           </Link>
           <Link
             href="/admin/system"
-            className="block px-6 py-3 text-gray-700 hover:bg-gray-100 border-l-4 border-transparent hover:border-blue-500"
+            className="block px-6 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-l-4 border-transparent hover:border-blue-500"
           >
             System
           </Link>
