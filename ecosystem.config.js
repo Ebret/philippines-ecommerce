@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: 'philippines-ecommerce',
-      script: 'npm',
-      args: 'start',
+      script: '/var/www/html/ecom/app/node_modules/.bin/next',
+      args: 'start -p 3000',
       cwd: '/var/www/html/ecom/app',
       instances: 1,
       exec_mode: 'fork',
@@ -29,6 +29,8 @@ module.exports = {
       max_memory_restart: '1G',
       max_restarts: 10,
       min_uptime: '10s',
+      kill_timeout: 30000,
+      listen_timeout: 30000,
     },
   ],
 };
