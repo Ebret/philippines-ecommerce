@@ -9,6 +9,7 @@ module.exports = {
       exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
+        PORT: 3000,
         NEXTAUTH_SECRET: 'super-secret-key-change-this-in-production-12345678901234567890',
         NEXTAUTH_URL: 'https://extremelifeherbal.com',
         NEXT_PUBLIC_APP_URL: 'https://extremelifeherbal.com',
