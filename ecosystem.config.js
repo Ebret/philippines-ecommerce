@@ -2,15 +2,15 @@ module.exports = {
   apps: [
     {
       name: 'philippines-ecommerce',
-      script: '/var/www/html/ecom/app/node_modules/.bin/next',
-      args: 'start -p 3000',
+      script: 'npm',
+      args: 'start',
       cwd: '/var/www/html/ecom/app',
       instances: 1,
       exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
         PORT: 3000,
-        NEXTAUTH_SECRET: 'super-secret-key-change-this-in-production-12345678901234567890',
+        NEXTAUTH_SECRET: 'YAq6e3tHyzOPdAYv4z/u2uzJm6kv2g2q6GaerQL/m7I=',
         NEXTAUTH_URL: 'https://extremelifeherbal.com',
         NEXT_PUBLIC_APP_URL: 'https://extremelifeherbal.com',
         NEXT_PUBLIC_DEFAULT_CURRENCY: 'PHP',
