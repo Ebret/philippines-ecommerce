@@ -73,11 +73,114 @@ export default function VendorDashboard() {
     );
   }
 
+  // Mock data for fallback UI
+  const mockKpis = {
+    totalSales: 1250,
+    totalOrders: 45,
+    totalRevenue: 125000,
+    averageOrderValue: 2777.78,
+    pendingOrders: 8,
+    completedOrders: 37,
+    totalProducts: 24,
+    lowStockProducts: 3,
+    totalCustomers: 42,
+    returnRate: 2.5,
+  };
+
+  const mockRecentOrders = [
+    { id: '1', orderNumber: 'ORD-001', status: 'Completed', totalAmount: 5200, createdAt: new Date().toISOString(), itemCount: 3 },
+    { id: '2', orderNumber: 'ORD-002', status: 'Processing', totalAmount: 3800, createdAt: new Date().toISOString(), itemCount: 2 },
+    { id: '3', orderNumber: 'ORD-003', status: 'Shipped', totalAmount: 7500, createdAt: new Date().toISOString(), itemCount: 4 },
+  ];
+
   if (error) {
     return (
       <div className="min-h-screen bg-white dark:bg-neutral-950 p-8">
-        <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
-          <p className="text-error-800 dark:text-error-400">Error: {error}</p>
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-warning-50 dark:bg-warning-900/20 border border-warning-200 dark:border-warning-800 rounded-lg p-6 mb-8">
+            <h2 className="text-lg font-semibold text-warning-900 dark:text-warning-100 mb-2">⚠️ Unable to Load Live Data</h2>
+            <p className="text-warning-800 dark:text-warning-400 mb-4">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-warning-600 hover:bg-warning-700 text-white rounded-lg transition-colors"
+            >
+              Retry Loading
+            </button>
+          </div>
+
+          {/* Fallback UI with mock data */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">Vendor Dashboard</h1>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-2">Showing sample data (live data unavailable)</p>
+          </div>
+
+          {/* KPI Cards with Mock Data */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* Total Revenue */}
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6 opacity-75">
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Total Revenue</p>
+              <p className="text-2xl font-bold text-primary-600 dark:text-primary-400 mt-2">
+                ₱{mockKpis.totalRevenue.toLocaleString('en-PH')}
+              </p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">Sample data</p>
+            </div>
+
+            {/* Total Orders */}
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6 opacity-75">
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Total Orders</p>
+              <p className="text-2xl font-bold text-success-600 dark:text-success-400 mt-2">{mockKpis.totalOrders}</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">Sample data</p>
+            </div>
+
+            {/* Pending Orders */}
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6 opacity-75">
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Pending Orders</p>
+              <p className="text-2xl font-bold text-warning-600 dark:text-warning-400 mt-2">{mockKpis.pendingOrders}</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">Sample data</p>
+            </div>
+
+            {/* Total Products */}
+            <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6 opacity-75">
+              <p className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">Total Products</p>
+              <p className="text-2xl font-bold text-info-600 dark:text-info-400 mt-2">{mockKpis.totalProducts}</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">Sample data</p>
+            </div>
+          </div>
+
+          {/* Recent Orders Table */}
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 p-6 opacity-75">
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">Recent Orders (Sample)</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-neutral-200 dark:border-neutral-700">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Order #</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Status</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Amount</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Items</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mockRecentOrders.map((order) => (
+                    <tr key={order.id} className="border-b border-neutral-100 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-700/50">
+                      <td className="py-3 px-4 text-sm text-neutral-900 dark:text-white">{order.orderNumber}</td>
+                      <td className="py-3 px-4 text-sm">
+                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                          order.status === 'Completed' ? 'bg-success-100 text-success-800 dark:bg-success-900/30 dark:text-success-400' :
+                          order.status === 'Processing' ? 'bg-info-100 text-info-800 dark:bg-info-900/30 dark:text-info-400' :
+                          'bg-warning-100 text-warning-800 dark:bg-warning-900/30 dark:text-warning-400'
+                        }`}>
+                          {order.status}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-sm text-neutral-900 dark:text-white">₱{order.totalAmount.toLocaleString('en-PH')}</td>
+                      <td className="py-3 px-4 text-sm text-neutral-600 dark:text-neutral-400">{order.itemCount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     );
