@@ -39,9 +39,13 @@ async function main() {
 
     if (adminUser.role !== "ADMIN" && adminUser.role !== "SUPER_ADMIN") {
       console.log("⚠️  Updating role to ADMIN...");
-      adminUser = await prisma.user.update({
+      await prisma.user.update({
         where: { email: "admin@test.com" },
         data: { role: "ADMIN" },
+      });
+      // Refetch to get updated data
+      adminUser = await prisma.user.findUnique({
+        where: { email: "admin@test.com" },
         include: { profile: true },
       });
       console.log("✅ Role updated to ADMIN");
@@ -67,15 +71,19 @@ async function main() {
 
     if (sellerUser.role !== "SELLER") {
       console.log("⚠️  Updating role to SELLER...");
-      sellerUser = await prisma.user.update({
+      await prisma.user.update({
         where: { email: "seller@test.com" },
         data: { role: "SELLER" },
+      });
+      // Refetch to get updated data
+      sellerUser = await prisma.user.findUnique({
+        where: { email: "seller@test.com" },
         include: { vendor: true, profile: true },
       });
       console.log("✅ Role updated to SELLER");
     }
 
-    if (!sellerUser?.vendor) {
+    if (!sellerUser.vendor) {
       console.log("⚠️  Creating vendor profile...");
 
       const vendor = await prisma.vendor.create({
@@ -121,9 +129,13 @@ async function main() {
 
     if (buyerUser.role !== "BUYER") {
       console.log("⚠️  Updating role to BUYER...");
-      buyerUser = await prisma.user.update({
+      await prisma.user.update({
         where: { email: "buyer@test.com" },
         data: { role: "BUYER" },
+      });
+      // Refetch to get updated data
+      buyerUser = await prisma.user.findUnique({
+        where: { email: "buyer@test.com" },
         include: { profile: true },
       });
       console.log("✅ Role updated to BUYER");
