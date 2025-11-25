@@ -15,22 +15,22 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system');
   const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  // Initialize theme from localStorage
+  // Initialize theme from localStorage (client-side only)
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    if (typeof window === 'undefined') return;
+
+    const savedTheme = window.localStorage.getItem('theme') as Theme | null;
     if (savedTheme) {
       setThemeState(savedTheme);
     }
-    setMounted(true);
   }, []);
 
-  // Update theme and apply to DOM
+  // Update theme and apply to DOM (client-side only)
   useEffect(() => {
-    if (!mounted) return;
+    if (typeof window === 'undefined') return;
 
-    const html = document.documentElement;
+    const html = window.document.documentElement;
     let effectiveTheme = theme;
 
     if (theme === 'system') {
@@ -48,18 +48,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       html.classList.remove('dark');
     }
 
-    localStorage.setItem('theme', theme);
-  }, [theme, mounted]);
+    window.localStorage.setItem('theme', theme);
+  }, [theme]);
 
-  // Listen for system theme changes
+  // Listen for system theme changes (client-side only)
   useEffect(() => {
-    if (!mounted || theme !== 'system') return;
+    if (typeof window === 'undefined' || theme !== 'system') return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
       const isDarkMode = mediaQuery.matches;
       setIsDark(isDarkMode);
-      const html = document.documentElement;
+      const html = window.document.documentElement;
       if (isDarkMode) {
         html.classList.add('dark');
       } else {
@@ -69,15 +69,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme, mounted]);
+  }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
   };
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, isDark }}>

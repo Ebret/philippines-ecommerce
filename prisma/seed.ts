@@ -81,7 +81,7 @@ async function main() {
 
     // Create vendor profile for seller@test.com
     console.log("🏪 Creating vendor profile for seller@test.com...");
-    const sellerVendor = await prisma.vendor.upsert({
+    const initialSellerVendor = await prisma.vendor.upsert({
       where: { userId: sellerUser.id },
       update: {},
       create: {
@@ -95,7 +95,7 @@ async function main() {
       },
     });
     console.log("✅ Vendor profile created for seller@test.com");
-    console.log(`   Store: ${sellerVendor.storeName} (${sellerVendor.storeSlug})`);
+    console.log(`   Store: ${initialSellerVendor.storeName} (${initialSellerVendor.storeSlug})`);
 
     // 1. Create test vendor user
     console.log("📝 Creating vendor user...");
