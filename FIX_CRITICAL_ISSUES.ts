@@ -44,10 +44,13 @@ async function main() {
         data: { role: "ADMIN" },
       });
       // Refetch to get updated data
-      adminUser = await prisma.user.findUnique({
+      const refetchedAdminUser = await prisma.user.findUnique({
         where: { email: "admin@test.com" },
         include: { profile: true },
       });
+      if (refetchedAdminUser) {
+        adminUser = refetchedAdminUser;
+      }
       console.log("✅ Role updated to ADMIN");
     }
 
@@ -76,19 +79,22 @@ async function main() {
         data: { role: "SELLER" },
       });
       // Refetch to get updated data
-      sellerUser = await prisma.user.findUnique({
+      const refetchedSellerUser = await prisma.user.findUnique({
         where: { email: "seller@test.com" },
         include: { vendor: true, profile: true },
       });
+      if (refetchedSellerUser) {
+        sellerUser = refetchedSellerUser;
+      }
       console.log("✅ Role updated to SELLER");
     }
 
-    if (!sellerUser.vendor) {
+    if (!sellerUser?.vendor) {
       console.log("⚠️  Creating vendor profile...");
 
       const vendor = await prisma.vendor.create({
         data: {
-          userId: sellerUser.id,
+          userId: sellerUser!.id,
           storeName: "Test Seller Store",
           storeSlug: "test-seller-store",
           description: "Test seller store for development",
@@ -134,10 +140,13 @@ async function main() {
         data: { role: "BUYER" },
       });
       // Refetch to get updated data
-      buyerUser = await prisma.user.findUnique({
+      const refetchedBuyerUser = await prisma.user.findUnique({
         where: { email: "buyer@test.com" },
         include: { profile: true },
       });
+      if (refetchedBuyerUser) {
+        buyerUser = refetchedBuyerUser;
+      }
       console.log("✅ Role updated to BUYER");
     }
 
