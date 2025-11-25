@@ -76,7 +76,18 @@ export default function ProfilePage() {
   };
 
   if (status === 'loading' || loading) {
-    return <div className="p-8 text-center">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center justify-center min-h-96">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+              <p className="text-neutral-600 dark:text-neutral-400">Loading your profile...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!session) {
@@ -109,8 +120,22 @@ export default function ProfilePage() {
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg text-error-700 dark:text-error-400">
-            {error}
+          <div className="mb-6 p-4 bg-warning-50 dark:bg-warning-900/20 border border-warning-200 dark:border-warning-800 rounded-lg">
+            <div className="flex items-start gap-3">
+              <div className="text-warning-600 dark:text-warning-400 mt-0.5">⚠️</div>
+              <div className="flex-1">
+                <p className="text-warning-800 dark:text-warning-400 font-medium">{error}</p>
+                <button
+                  onClick={() => {
+                    setError('');
+                    fetchProfile();
+                  }}
+                  className="mt-2 text-sm text-warning-700 dark:text-warning-300 hover:underline"
+                >
+                  Try again
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
