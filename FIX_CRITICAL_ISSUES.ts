@@ -42,6 +42,7 @@ async function main() {
       adminUser = await prisma.user.update({
         where: { email: "admin@test.com" },
         data: { role: "ADMIN" },
+        include: { profile: true },
       });
       console.log("✅ Role updated to ADMIN");
     }
@@ -69,11 +70,12 @@ async function main() {
       sellerUser = await prisma.user.update({
         where: { email: "seller@test.com" },
         data: { role: "SELLER" },
+        include: { vendor: true, profile: true },
       });
       console.log("✅ Role updated to SELLER");
     }
 
-    if (!sellerUser.vendor) {
+    if (!sellerUser?.vendor) {
       console.log("⚠️  Creating vendor profile...");
 
       const vendor = await prisma.vendor.create({
@@ -122,6 +124,7 @@ async function main() {
       buyerUser = await prisma.user.update({
         where: { email: "buyer@test.com" },
         data: { role: "BUYER" },
+        include: { profile: true },
       });
       console.log("✅ Role updated to BUYER");
     }
