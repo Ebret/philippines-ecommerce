@@ -6,6 +6,7 @@ import { ProductGrid } from '@/components/products/product-grid';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
+import Navbar from '@/components/layout/navbar';
 
 interface Product {
   id: string;
@@ -126,17 +127,7 @@ export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-white dark:bg-neutral-950">
       {/* Navigation */}
-      <nav className="bg-neutral-900 dark:bg-black text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-          <ul className="flex gap-6">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products" className="text-primary-400">Products</Link></li>
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Page Header */}
       <section className="bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-700 dark:to-primary-900 text-white py-12">

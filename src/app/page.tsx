@@ -4,11 +4,12 @@ import { Star, Facebook, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Navbar from '@/components/layout/navbar';
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Hero Section */}
+      {/* Hero Section with Navbar */}
       <HeroSection />
 
       {/* Featured Products - Relivator Styling */}

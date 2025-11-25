@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import { ShieldCheck, Leaf, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Navbar from '@/components/layout/navbar';
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 dark:from-primary-950 dark:via-primary-900 dark:to-primary-950 overflow-hidden">
+      {/* Navigation Bar */}
+      <Navbar />
       {/* Hero Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
