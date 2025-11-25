@@ -92,7 +92,18 @@ export default function SettingsPage() {
   };
 
   if (status === 'loading') {
-    return <div className="p-8 text-center">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center justify-center min-h-96">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+              <p className="text-neutral-600 dark:text-neutral-400">Loading your settings...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!session) {
@@ -125,14 +136,24 @@ export default function SettingsPage() {
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg text-error-700 dark:text-error-400">
-            {error}
+          <div className="mb-6 p-4 bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg">
+            <div className="flex items-start gap-3">
+              <div className="text-error-600 dark:text-error-400 mt-0.5">❌</div>
+              <div className="flex-1">
+                <p className="text-error-800 dark:text-error-400 font-medium">{error}</p>
+              </div>
+            </div>
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-4 bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg text-success-700 dark:text-success-400">
-            {success}
+          <div className="mb-6 p-4 bg-success-50 dark:bg-success-900/20 border border-success-200 dark:border-success-800 rounded-lg">
+            <div className="flex items-start gap-3">
+              <div className="text-success-600 dark:text-success-400 mt-0.5">✅</div>
+              <div className="flex-1">
+                <p className="text-success-800 dark:text-success-400 font-medium">{success}</p>
+              </div>
+            </div>
           </div>
         )}
 
