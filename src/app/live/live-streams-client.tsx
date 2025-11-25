@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GridSkeleton } from '@/components/loading-skeleton';
 import { AlertCircle, RefreshCw } from 'lucide-react';
+import Navbar from '@/components/layout/navbar';
 
 interface LiveStream {
   id: string;
@@ -50,10 +51,12 @@ export default function LiveStreamsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8 animate-fade-in">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <Navbar />
+      <div className="p-4 md:p-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="mb-8 animate-fade-in">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
             🔴 Live Selling
           </h1>
@@ -169,6 +172,7 @@ export default function LiveStreamsClient() {
             </button>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { StreamListSkeleton } from '@/components/loading-skeleton';
 import { AlertCircle, RefreshCw, Play, Square, Eye, MessageCircle, Edit2, Trash2, PlayCircle, Zap, TrendingUp, Users } from 'lucide-react';
+import Navbar from '@/components/layout/navbar';
 
 interface LiveStream {
   id: string;
@@ -67,8 +68,10 @@ export default function VendorLiveStreamsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      <Navbar />
+      <div className="p-4 md:p-8">
+        <div className="max-w-7xl mx-auto">
         {/* Header with Enhanced Design */}
         <div className="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in">
           <div className="flex-1">
@@ -266,6 +269,7 @@ export default function VendorLiveStreamsClient() {
             </Link>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
