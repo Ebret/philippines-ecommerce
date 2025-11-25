@@ -79,6 +79,24 @@ async function main() {
     });
     console.log("✅ Seller account created: seller@test.com / Seller123!");
 
+    // Create vendor profile for seller@test.com
+    console.log("🏪 Creating vendor profile for seller@test.com...");
+    const sellerVendor = await prisma.vendor.upsert({
+      where: { userId: sellerUser.id },
+      update: {},
+      create: {
+        userId: sellerUser.id,
+        storeName: "Test Seller Store",
+        storeSlug: "test-seller-store",
+        description: "Test seller store for development and testing",
+        status: "APPROVED",
+        commissionRate: 5.0,
+        subscriptionPlan: "basic",
+      },
+    });
+    console.log("✅ Vendor profile created for seller@test.com");
+    console.log(`   Store: ${sellerVendor.storeName} (${sellerVendor.storeSlug})`);
+
     // 1. Create test vendor user
     console.log("📝 Creating vendor user...");
     const vendorUser = await prisma.user.upsert({
