@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Navbar from '@/components/layout/navbar';
 
 interface VendorOrder {
   id: string;
@@ -53,35 +54,43 @@ export default function VendorOrders() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading orders...</p>
+      <>
+        <Navbar />
+        <div className="flex items-center justify-center min-h-screen bg-white dark:bg-neutral-950">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+            <p className="text-neutral-600 dark:text-neutral-400">Loading orders...</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 p-8">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800">Error: {error}</p>
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-white dark:bg-neutral-950 p-8">
+          <div className="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4">
+            <p className="text-error-800 dark:text-error-400">Error: {error}</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-white dark:bg-neutral-950 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Order Management</h1>
-            <p className="text-gray-600 mt-2">Manage and track customer orders</p>
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">Order Management</h1>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-2">Manage and track customer orders</p>
           </div>
-          <Link href="/vendor/dashboard" className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+          <Link href="/vendor/dashboard" className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg text-sm font-medium hover:from-primary-700 hover:to-primary-800 transition-all duration-200">
             Back to Dashboard
           </Link>
         </div>
@@ -94,7 +103,7 @@ export default function VendorOrders() {
               setFilterStatus(e.target.value);
               setPage(1);
             }}
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
           >
             <option value="all">All Orders</option>
             <option value="PENDING">Pending</option>
@@ -107,53 +116,53 @@ export default function VendorOrders() {
         </div>
 
         {/* Orders Table */}
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md overflow-hidden border border-neutral-200 dark:border-neutral-700">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Order #</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Customer</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Items</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Order #</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Customer</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Items</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-700 dark:text-neutral-300 uppercase">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.length > 0 ? (
                   orders.map((order) => (
-                    <tr key={order.id} className="border-b border-gray-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                        <Link href={`/orders/${order.id}`} className="text-green-600 hover:text-green-700">
+                    <tr key={order.id} className="border-b border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-700/50 transition-colors duration-200">
+                      <td className="px-6 py-4 text-sm font-medium text-neutral-900 dark:text-white">
+                        <Link href={`/orders/${order.id}`} className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200">
                           {order.orderNumber}
                         </Link>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{order.customerName}</td>
+                      <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">{order.customerName}</td>
                       <td className="px-6 py-4 text-sm">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          order.status === 'DELIVERED' ? 'bg-green-100 text-green-800' :
-                          order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-800' :
-                          order.status === 'PROCESSING' ? 'bg-purple-100 text-purple-800' :
-                          order.status === 'CONFIRMED' ? 'bg-yellow-100 text-yellow-800' :
-                          order.status === 'PENDING' ? 'bg-orange-100 text-orange-800' :
-                          'bg-red-100 text-red-800'
+                          order.status === 'DELIVERED' ? 'bg-success-100 dark:bg-success-900/30 text-success-800 dark:text-success-400' :
+                          order.status === 'SHIPPED' ? 'bg-secondary-100 dark:bg-secondary-900/30 text-secondary-800 dark:text-secondary-400' :
+                          order.status === 'PROCESSING' ? 'bg-info-100 dark:bg-info-900/30 text-info-800 dark:text-info-400' :
+                          order.status === 'CONFIRMED' ? 'bg-warning-100 dark:bg-warning-900/30 text-warning-800 dark:text-warning-400' :
+                          order.status === 'PENDING' ? 'bg-accent-100 dark:bg-accent-900/30 text-accent-800 dark:text-accent-400' :
+                          'bg-error-100 dark:bg-error-900/30 text-error-800 dark:text-error-400'
                         }`}>
                           {order.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{order.itemCount}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">{order.itemCount}</td>
+                      <td className="px-6 py-4 text-sm font-medium text-neutral-900 dark:text-white">
                         ₱{order.totalAmount.toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
                         {new Date(order.createdAt).toLocaleDateString('en-PH')}
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="px-6 py-4 text-center text-gray-600">
+                    <td colSpan={6} className="px-6 py-4 text-center text-neutral-600 dark:text-neutral-400">
                       No orders found
                     </td>
                   </tr>
@@ -168,20 +177,21 @@ export default function VendorOrders() {
           <button
             onClick={() => setPage(Math.max(1, page - 1))}
             disabled={page === 1}
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+            className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 disabled:opacity-50 transition-colors duration-200"
           >
             Previous
           </button>
-          <span className="px-4 py-2 text-sm font-medium text-gray-700">Page {page}</span>
+          <span className="px-4 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">Page {page}</span>
           <button
             onClick={() => setPage(page + 1)}
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 rounded-lg text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors duration-200"
           >
             Next
           </button>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
