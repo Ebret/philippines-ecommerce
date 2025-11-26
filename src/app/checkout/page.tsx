@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Check, ChevronRight, Lock, Truck, CreditCard } from 'lucide-react';
+import Navbar from '@/components/layout/navbar';
 
 interface CheckoutFormData {
   recipientName: string;
@@ -178,7 +179,9 @@ export default function CheckoutPage() {
 
   if (!session?.user) {
     return (
-      <main className="min-h-screen bg-white dark:bg-neutral-950">
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-white dark:bg-neutral-950">
         <div className="container mx-auto px-4 md:px-8 py-20 text-center">
           <div className="inline-block">
             <div className="text-6xl mb-4">🔐</div>
@@ -189,11 +192,14 @@ export default function CheckoutPage() {
           </div>
         </div>
       </main>
+      </>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white dark:bg-neutral-950">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white dark:bg-neutral-950">
       {/* Breadcrumb */}
       <div className="bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 py-4 border-b border-neutral-200 dark:border-neutral-700">
         <div className="container mx-auto px-4 md:px-8">
@@ -453,6 +459,7 @@ export default function CheckoutPage() {
         </div>
       </footer>
     </main>
+    </>
   );
 }
 

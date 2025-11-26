@@ -4,6 +4,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Navbar from '@/components/layout/navbar';
 
 export default function SettingsPage() {
   const { data: session, status } = useSession();
@@ -93,7 +94,9 @@ export default function SettingsPage() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-center min-h-96">
             <div className="text-center">
@@ -103,6 +106,7 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
+      </>
     );
   }
 
@@ -111,7 +115,9 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -284,6 +290,7 @@ export default function SettingsPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

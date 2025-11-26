@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Navbar from '@/components/layout/navbar';
 
 interface OrderData {
   id: string;
@@ -69,52 +70,46 @@ export default function OrderConfirmationPage() {
 
   if (!session?.user) {
     return (
-      <main className="min-h-screen bg-white dark:bg-neutral-950">
-        <nav className="bg-neutral-800 dark:bg-neutral-900 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-white dark:bg-neutral-950">
+          <div className="container mx-auto py-12 text-center">
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4">Please log in to view your order</p>
+            <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold">
+              Log In
+            </Link>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">Please log in to view your order</p>
-          <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold">
-            Log In
-          </Link>
-        </div>
-      </main>
+        </main>
+      </>
     );
   }
 
   if (isLoading) {
     return (
-      <main className="min-h-screen bg-white dark:bg-neutral-950">
-        <nav className="bg-neutral-800 dark:bg-neutral-900 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-white dark:bg-neutral-950">
+          <div className="container mx-auto py-12 text-center">
+            <p className="text-neutral-600 dark:text-neutral-400">Loading order details...</p>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-neutral-600 dark:text-neutral-400">Loading order details...</p>
-        </div>
-      </main>
+        </main>
+      </>
     );
   }
 
   if (error || !order) {
     return (
-      <main className="min-h-screen bg-white dark:bg-neutral-950">
-        <nav className="bg-neutral-800 dark:bg-neutral-900 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
+      <>
+        <Navbar />
+        <main className="min-h-screen bg-white dark:bg-neutral-950">
+          <div className="container mx-auto py-12 text-center">
+            <p className="text-error-600 dark:text-error-400 mb-4">{error || 'Order not found'}</p>
+            <Link href="/products" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold">
+              Back to Products
+            </Link>
           </div>
-        </nav>
-        <div className="container mx-auto py-12 text-center">
-          <p className="text-error-600 dark:text-error-400 mb-4">{error || 'Order not found'}</p>
-          <Link href="/products" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold">
-            Back to Products
-          </Link>
-        </div>
-      </main>
+        </main>
+      </>
     );
   }
 
@@ -136,19 +131,10 @@ export default function OrderConfirmationPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-neutral-950">
-      <nav className="bg-neutral-800 dark:bg-neutral-900 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold">Extreme Life Herbal</Link>
-          <ul className="flex gap-6">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/cart">Cart</Link></li>
-          </ul>
-        </div>
-      </nav>
-
-      <div className="bg-neutral-50 dark:bg-neutral-900 py-4 border-b border-neutral-200 dark:border-neutral-800">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-white dark:bg-neutral-950">
+        <div className="bg-neutral-50 dark:bg-neutral-900 py-4 border-b border-neutral-200 dark:border-neutral-800">
         <div className="container mx-auto">
           <div className="flex gap-2 text-sm text-neutral-600 dark:text-neutral-400">
             <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400">Home</Link>
@@ -302,6 +288,7 @@ export default function OrderConfirmationPage() {
         </div>
       </footer>
     </main>
+    </>
   );
 }
 

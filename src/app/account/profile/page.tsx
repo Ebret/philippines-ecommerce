@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Navbar from '@/components/layout/navbar';
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -77,16 +78,19 @@ export default function ProfilePage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-center min-h-96">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-              <p className="text-neutral-600 dark:text-neutral-400">Loading your profile...</p>
+      <>
+        <Navbar />
+        <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl mx-auto">
+            <div className="flex items-center justify-center min-h-96">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+                <p className="text-neutral-600 dark:text-neutral-400">Loading your profile...</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -95,8 +99,10 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-white dark:bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">My Profile</h1>
@@ -251,6 +257,7 @@ export default function ProfilePage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
