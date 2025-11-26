@@ -44,7 +44,7 @@ export function LoginForm() {
     <div className="w-full max-w-md mx-auto">
       <form onSubmit={onSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-error-100 dark:bg-error-900/20 border border-error-200 dark:border-error-800 text-error-700 dark:text-error-400 px-4 py-3 rounded-lg">
             {error}
           </div>
         )}
@@ -81,12 +81,12 @@ export function LoginForm() {
       </form>
 
       <div className="mt-4 space-y-2 text-center text-sm">
-        <Link href="/auth/forgot-password" className="text-blue-600 hover:underline">
+        <Link href="/auth/forgot-password" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
           Forgot password?
         </Link>
-        <div>
+        <div className="text-neutral-600 dark:text-neutral-400">
           Don't have an account?{" "}
-          <Link href="/auth/register" className="text-blue-600 hover:underline">
+          <Link href="/auth/register" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
             Sign up
           </Link>
         </div>

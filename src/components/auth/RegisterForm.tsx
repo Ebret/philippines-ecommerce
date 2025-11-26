@@ -71,7 +71,7 @@ export function RegisterForm() {
     <div className="w-full max-w-md mx-auto">
       <form onSubmit={onSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-error-100 dark:bg-error-900/20 border border-error-200 dark:border-error-800 text-error-700 dark:text-error-400 px-4 py-3 rounded-lg">
             {error}
           </div>
         )}
@@ -166,9 +166,9 @@ export function RegisterForm() {
         </Button>
       </form>
 
-      <div className="mt-4 text-center text-sm">
+      <div className="mt-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
         Already have an account?{" "}
-        <Link href="/auth/login" className="text-blue-600 hover:underline">
+        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
           Sign in
         </Link>
       </div>

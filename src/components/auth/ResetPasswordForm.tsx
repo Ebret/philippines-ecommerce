@@ -68,7 +68,7 @@ function ResetPasswordFormContent() {
   if (success) {
     return (
       <div className="w-full max-w-md mx-auto text-center">
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+        <div className="bg-success-100 dark:bg-success-900/20 border border-success-200 dark:border-success-800 text-success-700 dark:text-success-400 px-4 py-3 rounded-lg">
           Password reset successfully! Redirecting to login...
         </div>
       </div>
@@ -79,7 +79,7 @@ function ResetPasswordFormContent() {
     <div className="w-full max-w-md mx-auto">
       <form onSubmit={onSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-error-100 dark:bg-error-900/20 border border-error-200 dark:border-error-800 text-error-700 dark:text-error-400 px-4 py-3 rounded-lg">
             {error}
           </div>
         )}
@@ -115,8 +115,8 @@ function ResetPasswordFormContent() {
         </Button>
       </form>
 
-      <div className="mt-4 text-center text-sm">
-        <Link href="/auth/login" className="text-blue-600 hover:underline">
+      <div className="mt-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
+        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
           Back to login
         </Link>
       </div>

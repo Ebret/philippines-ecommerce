@@ -41,10 +41,10 @@ export function ForgotPasswordForm() {
   if (submitted) {
     return (
       <div className="w-full max-w-md mx-auto text-center">
-        <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded mb-4">
+        <div className="bg-info-100 dark:bg-info-900/20 border border-info-200 dark:border-info-800 text-info-700 dark:text-info-400 px-4 py-3 rounded-lg mb-4">
           If an account exists with this email, a password reset link has been sent.
         </div>
-        <Link href="/auth/login" className="text-blue-600 hover:underline">
+        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
           Back to login
         </Link>
       </div>
@@ -55,7 +55,7 @@ export function ForgotPasswordForm() {
     <div className="w-full max-w-md mx-auto">
       <form onSubmit={onSubmit} className="space-y-4">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-error-100 dark:bg-error-900/20 border border-error-200 dark:border-error-800 text-error-700 dark:text-error-400 px-4 py-3 rounded-lg">
             {error}
           </div>
         )}
@@ -78,8 +78,8 @@ export function ForgotPasswordForm() {
         </Button>
       </form>
 
-      <div className="mt-4 text-center text-sm">
-        <Link href="/auth/login" className="text-blue-600 hover:underline">
+      <div className="mt-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
+        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
           Back to login
         </Link>
       </div>
