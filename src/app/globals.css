@@ -1,33 +1,48 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  /* Light mode colors - Relivator UI Integration */
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #10b981; /* Emerald Green - Health, Nature, Wellness */
-  --primary-dark: #047857;
-  --secondary: #2563eb; /* Blue - Trust, Reliability, Professional */
-  --secondary-dark: #1e40af;
-  --accent: #f59e0b; /* Amber Gold - Premium, Quality, Excellence */
-  --success: #10b981;
-  --error: #ef4444;
-  --warning: #f59e0b;
-  --info: #2563eb;
+  /* Light mode colors - Extreme Life Herbal (Earthy, Organic Palette) */
+  --background: hsl(40, 33%, 96%); /* #F9F7F2 - Cream/Beige */
+  --foreground: hsl(140, 15%, 18%); /* #27352B - Dark Green/Charcoal */
+  --primary: hsl(145, 24%, 23%); /* #2D4A3E - Deep Forest Green */
+  --primary-dark: hsl(145, 24%, 20%); /* Darker Forest Green */
+  --primary-light: hsl(145, 24%, 35%); /* Lighter Forest Green */
+  --secondary: hsl(96, 24%, 65%); /* #8FBC8F - Sage Green */
+  --secondary-dark: hsl(96, 24%, 55%); /* Darker Sage */
+  --accent: hsl(28, 87%, 67%); /* #F4A460 - Sandy Brown/Orange (Vitality) */
+  --accent-dark: hsl(28, 87%, 57%); /* Darker Sandy Brown */
+  --success: hsl(145, 24%, 35%); /* Forest Green */
+  --error: hsl(0, 84%, 60%); /* Red */
+  --warning: hsl(28, 87%, 67%); /* Sandy Brown */
+  --info: hsl(96, 24%, 65%); /* Sage Green */
+  --muted: hsl(40, 20%, 90%); /* Light Beige */
+  --muted-foreground: hsl(140, 10%, 40%); /* Muted Green */
+  --border: hsl(96, 24%, 85%); /* Light Sage Border */
+  --card: hsl(0, 0%, 100%); /* White */
+  --card-foreground: hsl(140, 15%, 18%); /* Dark Green */
 }
 
 html.dark {
-  /* Dark mode colors - Relivator UI Integration */
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --primary: #34d399; /* Emerald Green (lighter for dark mode) */
-  --primary-dark: #10b981;
-  --secondary: #60a5fa; /* Blue (lighter for dark mode) */
-  --secondary-dark: #3b82f6;
-  --accent: #fbbf24; /* Amber Gold (lighter for dark mode) */
-  --success: #34d399;
-  --error: #f87171;
-  --warning: #fbbf24;
-  --info: #60a5fa;
+  /* Dark mode colors - Extreme Life Herbal */
+  --background: hsl(140, 15%, 10%); /* Very Dark Green */
+  --foreground: hsl(40, 33%, 96%); /* Cream */
+  --primary: hsl(145, 24%, 35%); /* Lighter Forest Green */
+  --primary-dark: hsl(145, 24%, 30%); /* Medium Forest Green */
+  --primary-light: hsl(145, 24%, 45%); /* Even Lighter Forest Green */
+  --secondary: hsl(145, 20%, 20%); /* Dark Green */
+  --secondary-dark: hsl(145, 20%, 15%); /* Darker Green */
+  --accent: hsl(28, 87%, 67%); /* Sandy Brown/Orange */
+  --accent-dark: hsl(28, 87%, 57%); /* Darker Sandy Brown */
+  --success: hsl(145, 24%, 45%); /* Lighter Forest Green */
+  --error: hsl(0, 62%, 30%); /* Dark Red */
+  --warning: hsl(28, 87%, 67%); /* Sandy Brown */
+  --info: hsl(96, 24%, 65%); /* Sage Green */
+  --muted: hsl(145, 20%, 20%); /* Dark Green */
+  --muted-foreground: hsl(96, 24%, 65%); /* Sage Green */
+  --border: hsl(145, 20%, 20%); /* Dark Green Border */
+  --card: hsl(140, 15%, 13%); /* Very Dark Green Card */
+  --card-foreground: hsl(40, 33%, 96%); /* Cream */
 }
 
 @theme inline {
@@ -36,8 +51,15 @@ html.dark {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
+  --radius: 0.75rem; /* 12px - Extreme Life default */
 }
 
 * {
@@ -47,7 +69,16 @@ html.dark {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings use serif font - Extreme Life style */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 /* Animations */
