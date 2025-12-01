@@ -99,124 +99,126 @@ function SearchPageContent() {
   };
 
   if (!filters) {
-    return <div className="container mx-auto py-12">Loading filters...</div>;
+    return <div className="container mx-auto py-12 px-4">Loading filters...</div>;
   }
 
   return (
-    <div className="container mx-auto py-12">
-      <h1 className="text-3xl font-bold mb-8">Search Results</h1>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* Filters Sidebar */}
-        <div className="lg:col-span-1">
-          <div className="bg-gray-50 p-6 rounded-lg space-y-6">
-            <h2 className="text-xl font-bold">Filters</h2>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto py-12 px-4">
+        <h1 className="font-serif text-3xl font-bold mb-8 text-primary">Search Results</h1>
 
-            {/* Price Range */}
-            <div>
-              <label className="block text-sm font-semibold mb-2">Price Range</label>
-              <div className="space-y-2">
-                <Input
-                  type="number"
-                  placeholder="Min"
-                  value={selectedFilters.minPrice}
-                  onChange={(e) => handleFilterChange('minPrice', parseFloat(e.target.value))}
-                  className="w-full"
-                />
-                <Input
-                  type="number"
-                  placeholder="Max"
-                  value={selectedFilters.maxPrice}
-                  onChange={(e) => handleFilterChange('maxPrice', parseFloat(e.target.value))}
-                  className="w-full"
-                />
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Filters Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm space-y-6">
+              <h2 className="font-serif text-xl font-bold text-foreground">Filters</h2>
+
+              {/* Price Range */}
+              <div>
+                <label className="block text-sm font-serif font-semibold mb-2 text-foreground">Price Range</label>
+                <div className="space-y-2">
+                  <Input
+                    type="number"
+                    placeholder="Min"
+                    value={selectedFilters.minPrice}
+                    onChange={(e) => handleFilterChange('minPrice', parseFloat(e.target.value))}
+                    className="w-full"
+                  />
+                  <Input
+                    type="number"
+                    placeholder="Max"
+                    value={selectedFilters.maxPrice}
+                    onChange={(e) => handleFilterChange('maxPrice', parseFloat(e.target.value))}
+                    className="w-full"
+                  />
+                </div>
+              </div>
+
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-serif font-semibold mb-2 text-foreground">Category</label>
+                <select
+                  value={selectedFilters.categoryId}
+                  onChange={(e) => handleFilterChange('categoryId', e.target.value)}
+                  className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground"
+                >
+                  <option value="">All Categories</option>
+                  {filters.categories.map(cat => (
+                    <option key={cat.id} value={cat.id}>{cat.name} ({cat.count})</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Brand */}
+              <div>
+                <label className="block text-sm font-serif font-semibold mb-2 text-foreground">Brand</label>
+                <select
+                  value={selectedFilters.brand}
+                  onChange={(e) => handleFilterChange('brand', e.target.value)}
+                  className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground"
+                >
+                  <option value="">All Brands</option>
+                  {filters.brands.map(brand => (
+                    <option key={brand.name} value={brand.name}>{brand.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Condition */}
+              <div>
+                <label className="block text-sm font-serif font-semibold mb-2 text-foreground">Condition</label>
+                <select
+                  value={selectedFilters.condition}
+                  onChange={(e) => handleFilterChange('condition', e.target.value)}
+                  className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground"
+                >
+                  <option value="">All Conditions</option>
+                  {filters.conditions.map(cond => (
+                    <option key={cond} value={cond}>{cond}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Sort */}
+              <div>
+                <label className="block text-sm font-serif font-semibold mb-2 text-foreground">Sort By</label>
+                <select
+                  value={selectedFilters.sortBy}
+                  onChange={(e) => handleFilterChange('sortBy', e.target.value)}
+                  className="w-full border border-border rounded-lg px-3 py-2 bg-background text-foreground"
+                >
+                  <option value="newest">Newest</option>
+                  <option value="price_asc">Price: Low to High</option>
+                  <option value="price_desc">Price: High to Low</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="sales">Most Popular</option>
+                </select>
               </div>
             </div>
-
-            {/* Category */}
-            <div>
-              <label className="block text-sm font-semibold mb-2">Category</label>
-              <select
-                value={selectedFilters.categoryId}
-                onChange={(e) => handleFilterChange('categoryId', e.target.value)}
-                className="w-full border rounded px-3 py-2"
-              >
-                <option value="">All Categories</option>
-                {filters.categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name} ({cat.count})</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Brand */}
-            <div>
-              <label className="block text-sm font-semibold mb-2">Brand</label>
-              <select
-                value={selectedFilters.brand}
-                onChange={(e) => handleFilterChange('brand', e.target.value)}
-                className="w-full border rounded px-3 py-2"
-              >
-                <option value="">All Brands</option>
-                {filters.brands.map(brand => (
-                  <option key={brand.name} value={brand.name}>{brand.name}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Condition */}
-            <div>
-              <label className="block text-sm font-semibold mb-2">Condition</label>
-              <select
-                value={selectedFilters.condition}
-                onChange={(e) => handleFilterChange('condition', e.target.value)}
-                className="w-full border rounded px-3 py-2"
-              >
-                <option value="">All Conditions</option>
-                {filters.conditions.map(cond => (
-                  <option key={cond} value={cond}>{cond}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* Sort */}
-            <div>
-              <label className="block text-sm font-semibold mb-2">Sort By</label>
-              <select
-                value={selectedFilters.sortBy}
-                onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-                className="w-full border rounded px-3 py-2"
-              >
-                <option value="newest">Newest</option>
-                <option value="price_asc">Price: Low to High</option>
-                <option value="price_desc">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
-                <option value="sales">Most Popular</option>
-              </select>
-            </div>
           </div>
-        </div>
 
-        {/* Products */}
-        <div className="lg:col-span-3">
-          <ProductGrid
-            products={products.map(p => ({
-              id: p.id,
-              title: p.name,
-              price: p.price,
-              image: p.image,
-              rating: p.rating,
-              reviewCount: p.reviewCount,
-              vendor: p.vendor ? { name: p.vendor, id: '' } : undefined,
-              inStock: p.inStock,
-            }))}
-            isLoading={isLoading}
-            columns={3}
-            gap="md"
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-            emptyMessage="No products found matching your criteria."
-          />
+          {/* Products */}
+          <div className="lg:col-span-3">
+            <ProductGrid
+              products={products.map(p => ({
+                id: p.id,
+                title: p.name,
+                price: p.price,
+                image: p.image,
+                rating: p.rating,
+                reviewCount: p.reviewCount,
+                vendor: p.vendor ? { name: p.vendor, id: '' } : undefined,
+                inStock: p.inStock,
+              }))}
+              isLoading={isLoading}
+              columns={3}
+              gap="md"
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              emptyMessage="No products found matching your criteria."
+            />
+          </div>
         </div>
       </div>
     </div>

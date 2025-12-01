@@ -125,25 +125,25 @@ export default function ProductsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-neutral-950">
+    <main className="min-h-screen bg-background">
       {/* Navigation */}
       <Navbar />
 
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 dark:from-primary-700 dark:to-primary-900 text-white py-12">
-        <div className="container mx-auto">
-          <h1 className="text-4xl font-bold mb-2">Our Products</h1>
-          <p className="text-lg text-primary-100">Discover our premium herbal products for health and wellness</p>
+      <section className="bg-primary text-primary-foreground py-12">
+        <div className="container mx-auto px-4">
+          <h1 className="font-serif text-4xl font-bold mb-2">Our Products</h1>
+          <p className="text-lg text-primary-foreground/90">Discover our premium herbal products for health and wellness</p>
         </div>
       </section>
 
       {/* Main Content */}
-      <div className="container mx-auto py-12">
+      <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Filters */}
           <div className="lg:col-span-1">
-            <div className="bg-neutral-50 dark:bg-neutral-900 p-6 rounded-lg border border-neutral-200 dark:border-neutral-800">
-              <h2 className="text-xl font-bold mb-6 text-neutral-900 dark:text-white">Filters</h2>
+            <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
+              <h2 className="font-serif text-xl font-bold mb-6 text-foreground">Filters</h2>
 
               {/* Search */}
               <form onSubmit={handleSearch} className="mb-6">
@@ -154,21 +154,21 @@ export default function ProductsPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full"
                 />
-                <Button type="submit" variant="accent" className="w-full mt-2">
+                <Button type="submit" variant="accent" rounded="full" className="w-full mt-2">
                   Search
                 </Button>
               </form>
 
               {/* Category Filter */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3 text-neutral-900 dark:text-white">Category</h3>
+                <h3 className="font-serif font-semibold mb-3 text-foreground">Category</h3>
                 <select
                   value={selectedCategory}
                   onChange={(e) => {
                     setSelectedCategory(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="w-full p-2 border border-neutral-300 dark:border-neutral-700 rounded bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                  className="w-full p-2 border border-border rounded-lg bg-background text-foreground"
                 >
                   <option value="">All Categories</option>
                   {categories.map((cat) => (
@@ -181,11 +181,11 @@ export default function ProductsPage() {
 
               {/* Sort */}
               <div className="mb-6">
-                <h3 className="font-semibold mb-3 text-neutral-900 dark:text-white">Sort By</h3>
+                <h3 className="font-serif font-semibold mb-3 text-foreground">Sort By</h3>
                 <select
                   value={sortBy}
                   onChange={(e) => handleSort(e.target.value)}
-                  className="w-full p-2 border border-neutral-300 dark:border-neutral-700 rounded bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white"
+                  className="w-full p-2 border border-border rounded-lg bg-background text-foreground"
                 >
                   <option value="newest">Newest</option>
                   <option value="price-low">Price: Low to High</option>
@@ -200,7 +200,7 @@ export default function ProductsPage() {
           {/* Products Grid */}
           <div className="lg:col-span-3">
             <div className="mb-4 flex justify-between items-center">
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-muted-foreground">
                 Showing {products.length > 0 ? (currentPage - 1) * 12 + 1 : 0} to{' '}
                 {Math.min(currentPage * 12, pagination.total)} of {pagination.total} products
               </p>
@@ -232,9 +232,9 @@ export default function ProductsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-neutral-900 dark:bg-black text-white py-8 mt-12">
-        <div className="container mx-auto text-center">
-          <p className="text-neutral-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+      <footer className="bg-primary text-primary-foreground py-8 mt-12">
+        <div className="container mx-auto text-center px-4">
+          <p className="text-primary-foreground/80 text-sm">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>
