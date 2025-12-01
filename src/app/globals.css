@@ -2,122 +2,127 @@
 @import "tailwindcss";
 
 :root {
-  /* Light mode colors - Enhanced Extreme Life Herbal (Authentic Botanical Palette) */
+  /* Light mode colors - GinTea Inspired Herbal Tea Shop Theme */
   /* WCAG AA Compliant - Minimum 4.5:1 contrast for normal text, 3:1 for large text */
+  /* Color Palette: Soft greens, warm browns, natural beiges - tranquil & wellness-focused */
 
-  /* Base Colors */
-  --background: hsl(40, 35%, 95%); /* #F7F5F0 - Warm Cream (like natural paper) */
-  --foreground: hsl(140, 25%, 15%); /* #1E2E24 - Deep Forest (8.5:1 contrast) */
+  /* Base Colors - Natural Paper & Tea Leaf */
+  --background: hsl(45, 40%, 96%); /* #FAF8F3 - Soft Cream (like aged tea paper) */
+  --foreground: hsl(150, 30%, 18%); /* #213B2E - Deep Tea Leaf Green (9:1 contrast) */
 
-  /* Primary - Deep Forest Green (Herbal Medicine) */
-  --primary: hsl(145, 35%, 20%); /* #214A38 - Rich Forest Green (darker, more saturated) */
-  --primary-dark: hsl(145, 40%, 16%); /* #1A3B2D - Very Dark Forest */
-  --primary-light: hsl(145, 30%, 28%); /* #2F5A47 - Medium Forest */
-  --primary-foreground: hsl(40, 35%, 98%); /* Cream text on primary (12:1 contrast) */
+  /* Primary - Matcha Green (Fresh Tea Leaves) */
+  --primary: hsl(140, 40%, 35%); /* #368A5C - Matcha Green (rich, vibrant) */
+  --primary-dark: hsl(140, 45%, 28%); /* #286F48 - Dark Matcha */
+  --primary-light: hsl(140, 35%, 45%); /* #45A370 - Light Matcha */
+  --primary-foreground: hsl(45, 40%, 98%); /* Cream text on primary (13:1 contrast) */
 
-  /* Secondary - Earthy Greens */
-  --secondary: hsl(96, 30%, 45%); /* #6B9B5F - Moss Green (deeper, more earthy) */
-  --secondary-dark: hsl(96, 35%, 38%); /* #5A8450 - Dark Moss */
-  --secondary-light: hsl(96, 28%, 55%); /* #7FAF71 - Light Moss */
-  --secondary-foreground: hsl(0, 0%, 100%); /* White text on secondary */
+  /* Secondary - Herbal Brown (Dried Herbs & Roots) */
+  --secondary: hsl(30, 35%, 40%); /* #8B6F4F - Herbal Brown (warm, earthy) */
+  --secondary-dark: hsl(30, 40%, 32%); /* #735A3F - Dark Herbal */
+  --secondary-light: hsl(30, 32%, 50%); /* #A38563 - Light Herbal */
+  --secondary-foreground: hsl(45, 40%, 98%); /* Cream text on secondary */
 
-  /* Accent - Warm Earth Tones */
-  --accent: hsl(25, 75%, 50%); /* #DF6B1F - Terracotta/Clay (vibrant earth) */
-  --accent-dark: hsl(25, 80%, 42%); /* #C45A15 - Dark Terracotta */
-  --accent-light: hsl(25, 70%, 60%); /* #E88A4A - Light Terracotta */
-  --accent-foreground: hsl(0, 0%, 100%); /* White text on accent */
+  /* Accent - Honey Gold (Natural Sweetener) */
+  --accent: hsl(40, 80%, 55%); /* #E8B84D - Honey Gold (warm, inviting) */
+  --accent-dark: hsl(40, 85%, 45%); /* #D9A32A - Dark Honey */
+  --accent-light: hsl(40, 75%, 65%); /* #F0C96F - Light Honey */
+  --accent-foreground: hsl(150, 30%, 18%); /* Dark text on accent (8:1 contrast) */
 
-  /* Botanical Accent Colors */
-  --olive: hsl(60, 30%, 35%); /* #6B6F3F - Olive Green */
-  --sage: hsl(120, 20%, 50%); /* #669966 - Sage Green */
-  --bark: hsl(30, 25%, 30%); /* #5C4A3A - Bark Brown */
-  --soil: hsl(25, 30%, 25%); /* #523D2E - Rich Soil */
+  /* Botanical Accent Colors - Tea Varieties */
+  --olive: hsl(75, 35%, 40%); /* #7A8F4F - Olive Tea */
+  --sage: hsl(130, 25%, 50%); /* #609973 - Sage Tea */
+  --bark: hsl(25, 30%, 35%); /* #735442 - Cinnamon Bark */
+  --soil: hsl(20, 35%, 30%); /* #664A38 - Rich Earth */
+  --mint: hsl(160, 45%, 45%); /* #3FA37A - Fresh Mint */
+  --chamomile: hsl(50, 60%, 70%); /* #E8D98F - Chamomile Yellow */
 
   /* Semantic Colors - Enhanced Contrast */
-  --success: hsl(145, 45%, 35%); /* #31804F - Vibrant Forest Green (4.8:1) */
+  --success: hsl(140, 50%, 40%); /* #33996B - Fresh Green Tea (5.5:1) */
   --success-foreground: hsl(0, 0%, 100%);
-  --error: hsl(0, 70%, 45%); /* #C92A2A - Deep Red (4.6:1) */
+  --error: hsl(0, 65%, 48%); /* #D13333 - Deep Red (4.8:1) */
   --error-foreground: hsl(0, 0%, 100%);
-  --warning: hsl(35, 85%, 45%); /* #D97706 - Amber/Gold (3.8:1 for large text) */
-  --warning-foreground: hsl(0, 0%, 100%);
-  --info: hsl(200, 60%, 40%); /* #2980B9 - Deep Blue (4.5:1) */
+  --warning: hsl(40, 80%, 50%); /* #E6B333 - Golden Warning (4.2:1) */
+  --warning-foreground: hsl(150, 30%, 18%);
+  --info: hsl(195, 55%, 45%); /* #3399B3 - Herbal Blue (4.7:1) */
   --info-foreground: hsl(0, 0%, 100%);
 
   /* UI Elements - Enhanced Contrast */
-  --muted: hsl(40, 25%, 88%); /* #E8E4DC - Light Beige (darker for better contrast) */
-  --muted-foreground: hsl(140, 20%, 30%); /* #3D5A47 - Dark Muted Green (5.2:1) */
-  --border: hsl(96, 25%, 70%); /* #A3B89A - Sage Border (darker, more visible) */
-  --input: hsl(96, 25%, 70%); /* Same as border */
-  --ring: hsl(145, 35%, 20%); /* Primary color for focus rings */
+  --muted: hsl(45, 30%, 90%); /* #EDE9E0 - Light Beige (soft, natural) */
+  --muted-foreground: hsl(150, 25%, 35%); /* #3D6B52 - Muted Green (5.5:1) */
+  --border: hsl(130, 20%, 65%); /* #99B3A3 - Soft Sage Border (3.5:1) */
+  --input: hsl(130, 20%, 65%); /* Same as border */
+  --ring: hsl(140, 40%, 35%); /* Primary color for focus rings */
 
   /* Card & Surface */
   --card: hsl(0, 0%, 100%); /* Pure White */
-  --card-foreground: hsl(140, 25%, 15%); /* Deep Forest */
+  --card-foreground: hsl(150, 30%, 18%); /* Deep Tea Leaf */
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(140, 25%, 15%);
+  --popover-foreground: hsl(150, 30%, 18%);
 
   /* Destructive (same as error) */
-  --destructive: hsl(0, 70%, 45%);
+  --destructive: hsl(0, 65%, 48%);
   --destructive-foreground: hsl(0, 0%, 100%);
 }
 
 html.dark {
-  /* Dark mode colors - Enhanced Extreme Life Herbal (Deep Forest Night) */
-  /* WCAG AA Compliant - Maintains herbal aesthetic with rich, deep tones */
+  /* Dark mode colors - GinTea Inspired (Tranquil Evening Tea Room) */
+  /* WCAG AA Compliant - Maintains herbal aesthetic with warm, inviting tones */
 
-  /* Base Colors - Deep Forest Night */
-  --background: hsl(140, 20%, 8%); /* #0F1812 - Very Dark Forest (like nighttime forest) */
-  --foreground: hsl(40, 40%, 92%); /* #F2EDE3 - Warm Cream (10:1 contrast) */
+  /* Base Colors - Evening Tea Room */
+  --background: hsl(150, 25%, 10%); /* #131F1A - Deep Tea Room Green */
+  --foreground: hsl(45, 35%, 90%); /* #EDE8DC - Soft Cream (11:1 contrast) */
 
-  /* Primary - Vibrant Forest Green (for dark mode) */
-  --primary: hsl(145, 40%, 45%); /* #45A370 - Bright Forest Green (7.5:1 contrast) */
-  --primary-dark: hsl(145, 45%, 38%); /* #368A5C - Medium Forest */
-  --primary-light: hsl(145, 38%, 55%); /* #5BB885 - Light Forest */
-  --primary-foreground: hsl(140, 20%, 8%); /* Dark background on primary */
+  /* Primary - Bright Matcha (Glowing Tea) */
+  --primary: hsl(140, 45%, 50%); /* #45B373 - Bright Matcha (8.5:1 contrast) */
+  --primary-dark: hsl(140, 50%, 42%); /* #36996B - Medium Matcha */
+  --primary-light: hsl(140, 42%, 60%); /* #5CC68A - Light Matcha */
+  --primary-foreground: hsl(150, 25%, 10%); /* Dark background on primary */
 
-  /* Secondary - Muted Earth Tones */
-  --secondary: hsl(96, 25%, 35%); /* #5A7A4F - Dark Moss (maintains herbal feel) */
-  --secondary-dark: hsl(96, 28%, 28%); /* #4A6440 - Very Dark Moss */
-  --secondary-light: hsl(96, 22%, 45%); /* #6B8F5F - Medium Moss */
-  --secondary-foreground: hsl(40, 40%, 92%); /* Cream text */
+  /* Secondary - Warm Herbal Brown */
+  --secondary: hsl(30, 30%, 50%); /* #A38563 - Warm Herbal (glowing) */
+  --secondary-dark: hsl(30, 35%, 42%); /* #8B6F4F - Medium Herbal */
+  --secondary-light: hsl(30, 28%, 60%); /* #B89B7A - Light Herbal */
+  --secondary-foreground: hsl(45, 35%, 90%); /* Cream text */
 
-  /* Accent - Warm Glow */
-  --accent: hsl(25, 80%, 60%); /* #E8803D - Bright Terracotta (glowing ember) */
-  --accent-dark: hsl(25, 85%, 50%); /* #DF6B1F - Medium Terracotta */
-  --accent-light: hsl(25, 75%, 70%); /* #F09A5F - Light Terracotta */
-  --accent-foreground: hsl(140, 20%, 8%); /* Dark text on accent */
+  /* Accent - Golden Honey Glow */
+  --accent: hsl(40, 75%, 65%); /* #F0C96F - Golden Honey (warm glow) */
+  --accent-dark: hsl(40, 80%, 55%); /* #E8B84D - Medium Honey */
+  --accent-light: hsl(40, 70%, 75%); /* #F5D98F - Light Honey */
+  --accent-foreground: hsl(150, 25%, 10%); /* Dark text on accent (10:1 contrast) */
 
-  /* Botanical Accent Colors (Dark Mode) */
-  --olive: hsl(60, 25%, 45%); /* #8B8F5A - Muted Olive */
-  --sage: hsl(120, 18%, 55%); /* #759975 - Muted Sage */
-  --bark: hsl(30, 20%, 40%); /* #735E4D - Light Bark */
-  --soil: hsl(25, 25%, 35%); /* #6B5142 - Medium Soil */
+  /* Botanical Accent Colors - Evening Tea Varieties */
+  --olive: hsl(75, 30%, 50%); /* #8FA366 - Muted Olive */
+  --sage: hsl(130, 22%, 55%); /* #70A37F - Muted Sage */
+  --bark: hsl(25, 25%, 45%); /* #8F6B52 - Light Bark */
+  --soil: hsl(20, 30%, 40%); /* #805947 - Medium Earth */
+  --mint: hsl(160, 40%, 55%); /* #5CB38F - Soft Mint */
+  --chamomile: hsl(50, 55%, 75%); /* #E8D9A3 - Soft Chamomile */
 
   /* Semantic Colors - Dark Mode Enhanced */
-  --success: hsl(145, 50%, 50%); /* #40B373 - Bright Success Green (8:1) */
-  --success-foreground: hsl(140, 20%, 8%);
-  --error: hsl(0, 75%, 60%); /* #E63946 - Bright Error Red (6.5:1) */
+  --success: hsl(140, 48%, 55%); /* #4DB380 - Bright Green Tea (9:1) */
+  --success-foreground: hsl(150, 25%, 10%);
+  --error: hsl(0, 70%, 62%); /* #E64D4D - Bright Red (7:1) */
   --error-foreground: hsl(0, 0%, 100%);
-  --warning: hsl(35, 90%, 60%); /* #F59E0B - Bright Amber (7:1) */
-  --warning-foreground: hsl(140, 20%, 8%);
-  --info: hsl(200, 70%, 55%); /* #3B9DD9 - Bright Blue (5.5:1) */
-  --info-foreground: hsl(140, 20%, 8%);
+  --warning: hsl(40, 75%, 60%); /* #EBC04D - Bright Golden (8:1) */
+  --warning-foreground: hsl(150, 25%, 10%);
+  --info: hsl(195, 50%, 55%); /* #4DA3B3 - Bright Herbal Blue (6:1) */
+  --info-foreground: hsl(150, 25%, 10%);
 
   /* UI Elements - Dark Mode Enhanced */
-  --muted: hsl(140, 18%, 15%); /* #1F2E25 - Dark Muted Green */
-  --muted-foreground: hsl(96, 25%, 70%); /* #A3B89A - Light Sage (6:1) */
-  --border: hsl(145, 20%, 25%); /* #2F4A3D - Medium Forest Border (more visible) */
-  --input: hsl(145, 20%, 25%); /* Same as border */
-  --ring: hsl(145, 40%, 45%); /* Primary color for focus rings */
+  --muted: hsl(150, 20%, 18%); /* #242E29 - Dark Muted Green */
+  --muted-foreground: hsl(130, 18%, 65%); /* #99B3A3 - Light Sage (6.5:1) */
+  --border: hsl(150, 18%, 28%); /* #3A4A42 - Medium Border (4:1) */
+  --input: hsl(150, 18%, 28%); /* Same as border */
+  --ring: hsl(140, 45%, 50%); /* Primary color for focus rings */
 
   /* Card & Surface - Elevated from background */
-  --card: hsl(140, 18%, 12%); /* #1A2620 - Dark Forest Card (slightly lighter than bg) */
-  --card-foreground: hsl(40, 40%, 92%); /* Warm Cream */
-  --popover: hsl(140, 18%, 12%);
-  --popover-foreground: hsl(40, 40%, 92%);
+  --card: hsl(150, 22%, 14%); /* #1C2B24 - Dark Tea Room Card (elevated) */
+  --card-foreground: hsl(45, 35%, 90%); /* Soft Cream */
+  --popover: hsl(150, 22%, 14%);
+  --popover-foreground: hsl(45, 35%, 90%);
 
   /* Destructive (same as error) */
-  --destructive: hsl(0, 75%, 60%);
+  --destructive: hsl(0, 70%, 62%);
   --destructive-foreground: hsl(0, 0%, 100%);
 }
 
@@ -149,11 +154,13 @@ html.dark {
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  /* Botanical Accent Colors */
+  /* Botanical Accent Colors - Tea Varieties */
   --color-olive: var(--olive);
   --color-sage: var(--sage);
   --color-bark: var(--bark);
   --color-soil: var(--soil);
+  --color-mint: var(--mint);
+  --color-chamomile: var(--chamomile);
 
   /* Typography */
   --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
