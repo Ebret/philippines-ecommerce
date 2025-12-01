@@ -1,0 +1,224 @@
+# GinTea Theme Deployment - Copy & Paste Commands
+
+========================================
+STEP 1: CONNECT TO VPS
+========================================
+
+Open PuTTY or your SSH client and connect to:
+Host: 109.205.181.119
+Port: 22
+Username: root
+
+Or use this command:
+ssh root@109.205.181.119
+
+
+========================================
+STEP 2: NAVIGATE TO APPLICATION
+========================================
+
+cd /var/www/html/ecom/app
+pwd
+
+
+========================================
+STEP 3: CREATE BACKUP
+========================================
+
+git branch backup-gintea-theme-$(date +%Y%m%d-%H%M%S)
+git branch | grep backup
+
+
+========================================
+STEP 4: FETCH AND CHECKOUT
+========================================
+
+git fetch origin
+git checkout feature/relivator-ui-integration
+git pull origin feature/relivator-ui-integration
+
+
+========================================
+STEP 5: VERIFY COMMIT
+========================================
+
+git log -3 --oneline
+
+Expected to see:
+- 0ea6f21 docs: add comprehensive theme comparison guide
+- f07d0bf feat: implement GinTea-inspired herbal tea shop theme
+- cc1e791 docs: add quick deployment guide and commands
+
+
+========================================
+STEP 6: BUILD APPLICATION
+========================================
+
+npm run build
+
+Wait for: "✓ Compiled successfully"
+This takes 1-2 minutes
+
+
+========================================
+STEP 7: RESTART PM2
+========================================
+
+pm2 kill
+sleep 3
+pm2 start ecosystem.config.js
+pm2 save
+
+
+========================================
+STEP 8: VERIFY DEPLOYMENT
+========================================
+
+pm2 status
+
+Both processes should show "online"
+
+
+========================================
+STEP 9: TEST SITE
+========================================
+
+curl -I http://localhost:3000
+curl -I https://extremelifeherbal.com
+
+Both should return HTTP 200 or 304
+
+
+========================================
+STEP 10: CHECK LOGS
+========================================
+
+pm2 logs --lines 20
+
+Press Ctrl+C to exit
+
+
+========================================
+DEPLOYMENT COMPLETE!
+========================================
+
+Now open in your browser:
+https://extremelifeherbal.com
+
+You should see:
+✓ Matcha green header (brighter than before)
+✓ Soft cream background (lighter, more elegant)
+✓ Honey gold accents (warmer than terracotta)
+✓ Herbal brown secondary elements
+
+Test dark mode:
+✓ Click theme toggle (moon/sun icon)
+✓ Background should be deep tea room green
+✓ Text should be soft cream
+✓ Primary should be bright glowing matcha
+
+
+========================================
+ROLLBACK (IF NEEDED)
+========================================
+
+If something goes wrong:
+
+git branch | grep backup
+git checkout backup-gintea-theme-YYYYMMDD-HHMMSS
+npm run build
+pm2 restart all
+
+
+========================================
+VISUAL VERIFICATION CHECKLIST
+========================================
+
+After deployment, verify these changes:
+
+Homepage:
+[ ] Header is matcha green (not dark forest green)
+[ ] Background is soft cream (lighter than before)
+[ ] Primary buttons are vibrant matcha green
+[ ] Accent buttons are honey gold (not terracotta)
+
+Product Cards:
+[ ] Borders are visible (2px sage green)
+[ ] Hover state shows matcha green border
+[ ] Cards lift up on hover
+
+Navigation:
+[ ] Active state is matcha green
+[ ] Secondary elements are herbal brown
+[ ] Hover states work smoothly
+
+Dark Mode:
+[ ] Background is deep tea room green (not black)
+[ ] Text is soft cream (highly readable)
+[ ] Primary color is bright glowing matcha
+[ ] Accent is golden honey glow
+
+Typography:
+[ ] Headings use Libre Baskerville serif
+[ ] Body text is comfortable to read (1.7 line-height)
+[ ] All text has excellent contrast
+
+
+========================================
+TROUBLESHOOTING
+========================================
+
+Build fails:
+rm -rf .next
+npm run build
+
+PM2 won't start:
+pm2 kill
+sleep 5
+pm2 start ecosystem.config.js
+
+Old theme still showing:
+Hard refresh: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
+
+Site not accessible:
+systemctl status nginx
+systemctl restart nginx
+
+
+========================================
+SUCCESS INDICATORS
+========================================
+
+✓ Build completed without errors
+✓ PM2 shows 2 processes online
+✓ Site returns HTTP 200
+✓ Matcha green visible in browser
+✓ Honey gold accents visible
+✓ Dark mode toggle works
+✓ No console errors
+
+
+========================================
+SUPPORT
+========================================
+
+All documentation available in:
+- GINTEA_THEME_GUIDE.md (complete color reference)
+- THEME_COMPARISON.md (before/after comparison)
+- QUICK_DEPLOY_GUIDE.md (detailed deployment guide)
+
+Latest commit: 0ea6f21
+Branch: feature/relivator-ui-integration
+Build time: ~1-2 minutes
+Downtime: ~10 seconds
+
+
+========================================
+READY TO DEPLOY!
+========================================
+
+Copy the commands from STEP 2 onwards and paste them
+into your SSH session one section at a time.
+
+Good luck! 🚀
+
