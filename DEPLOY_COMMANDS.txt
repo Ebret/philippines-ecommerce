@@ -1,0 +1,92 @@
+# Enhanced Botanical Theme Deployment Commands
+# Copy and paste these commands one by one into your SSH session
+
+# ============================================
+# STEP 1: Connect to VPS
+# ============================================
+ssh root@109.205.181.119
+
+# ============================================
+# STEP 2: Navigate to application directory
+# ============================================
+cd /var/www/html/ecom/app
+
+# ============================================
+# STEP 3: Check current status
+# ============================================
+echo "Current branch: $(git branch --show-current)"
+echo "Current commit: $(git log -1 --oneline)"
+pm2 status
+
+# ============================================
+# STEP 4: Create backup branch
+# ============================================
+git branch backup-enhanced-theme-$(date +%Y%m%d-%H%M%S)
+echo "Backup created"
+
+# ============================================
+# STEP 5: Fetch and checkout feature branch
+# ============================================
+git fetch origin
+git checkout feature/relivator-ui-integration
+git pull origin feature/relivator-ui-integration
+
+# ============================================
+# STEP 6: Verify latest commit
+# ============================================
+git log -3 --oneline
+# Should show commit 5d1c5fe or later
+
+# ============================================
+# STEP 7: Install dependencies (if needed)
+# ============================================
+npm install
+
+# ============================================
+# STEP 8: Build application
+# ============================================
+npm run build
+# This will take 1-2 minutes
+
+# ============================================
+# STEP 9: Restart PM2
+# ============================================
+pm2 kill
+sleep 3
+pm2 start ecosystem.config.js
+pm2 save
+
+# ============================================
+# STEP 10: Check PM2 status
+# ============================================
+pm2 status
+pm2 logs --lines 20
+
+# ============================================
+# STEP 11: Test local access
+# ============================================
+curl -I http://localhost:3000
+
+# ============================================
+# STEP 12: Test external access
+# ============================================
+curl -I https://extremelifeherbal.com
+
+# ============================================
+# STEP 13: Check Nginx logs
+# ============================================
+tail -20 /var/log/nginx/error.log
+
+# ============================================
+# DEPLOYMENT COMPLETE!
+# ============================================
+# Now open https://extremelifeherbal.com in your browser
+# and verify the new botanical theme is visible
+
+# ============================================
+# ROLLBACK (if needed)
+# ============================================
+# git checkout backup-enhanced-theme-YYYYMMDD-HHMMSS
+# npm run build
+# pm2 restart all
+
