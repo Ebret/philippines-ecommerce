@@ -81,12 +81,12 @@ export function LoginForm() {
       </form>
 
       <div className="mt-4 space-y-2 text-center text-sm">
-        <Link href="/auth/forgot-password" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
+        <Link href="/auth/forgot-password" className="text-primary hover:underline transition-colors duration-200">
           Forgot password?
         </Link>
-        <div className="text-neutral-600 dark:text-neutral-400">
+        <div className="text-muted-foreground">
           Don't have an account?{" "}
-          <Link href="/auth/register" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
+          <Link href="/auth/register" className="text-primary hover:underline transition-colors duration-200">
             Sign up
           </Link>
         </div>

@@ -44,7 +44,7 @@ export function ForgotPasswordForm() {
         <div className="bg-info-100 dark:bg-info-900/20 border border-info-200 dark:border-info-800 text-info-700 dark:text-info-400 px-4 py-3 rounded-lg mb-4">
           If an account exists with this email, a password reset link has been sent.
         </div>
-        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
+        <Link href="/auth/login" className="text-primary hover:underline transition-colors duration-200">
           Back to login
         </Link>
       </div>
@@ -78,8 +78,8 @@ export function ForgotPasswordForm() {
         </Button>
       </form>
 
-      <div className="mt-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
-        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
+      <div className="mt-4 text-center text-sm text-muted-foreground">
+        <Link href="/auth/login" className="text-primary hover:underline transition-colors duration-200">
           Back to login
         </Link>
       </div>

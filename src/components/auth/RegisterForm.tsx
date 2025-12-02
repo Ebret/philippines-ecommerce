@@ -166,9 +166,9 @@ export function RegisterForm() {
         </Button>
       </form>
 
-      <div className="mt-4 text-center text-sm text-neutral-600 dark:text-neutral-400">
+      <div className="mt-4 text-center text-sm text-muted-foreground">
         Already have an account?{" "}
-        <Link href="/auth/login" className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-200">
+        <Link href="/auth/login" className="text-primary hover:underline transition-colors duration-200">
           Sign in
         </Link>
       </div>
