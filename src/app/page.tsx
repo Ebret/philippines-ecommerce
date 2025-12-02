@@ -1,10 +1,10 @@
 import HeroSection from '@/components/hero/hero-section';
+import FeaturedProducts from '@/components/home/featured-products';
 import Link from 'next/link';
 import { Star, Facebook, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Navbar from '@/components/layout/navbar';
 
 export default function Home() {
   return (
@@ -12,122 +12,8 @@ export default function Home() {
       {/* Hero Section with Navbar */}
       <HeroSection />
 
-      {/* Featured Products - Extreme Life Styling */}
-      <section className="py-20 px-4 md:px-8 bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">
-              Featured Products
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Discover our most popular herbal wellness products trusted by thousands
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Product 1 */}
-            <Card variant="product" className="group">
-              <div className="relative h-48 bg-muted flex items-center justify-center overflow-hidden">
-                <span className="text-6xl transition-transform duration-500 group-hover:scale-105">🍃</span>
-                <Badge variant="category" size="sm" className="absolute top-3 right-3">
-                  Herbal Tea
-                </Badge>
-              </div>
-              <div className="p-6">
-                <h3 className="font-serif text-lg font-bold leading-tight text-foreground mb-2 group-hover:text-primary transition-colors">
-                  Premium Herbal Tea Blend
-                </h3>
-                <p className="text-muted-foreground mb-4 text-sm">Premium herbal tea blend for relaxation and wellness</p>
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                  ))}
-                  <span className="text-sm text-muted-foreground ml-2">(128)</span>
-                </div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-primary">₱199</span>
-                  <Badge variant="default" size="sm">Popular</Badge>
-                </div>
-                <Button className="w-full" rounded="full">
-                  Add to Cart
-                </Button>
-              </div>
-            </Card>
-
-            {/* Product 2 */}
-            <Card variant="product" className="group">
-              <div className="relative h-48 bg-muted flex items-center justify-center overflow-hidden">
-                <span className="text-6xl transition-transform duration-500 group-hover:scale-105">💊</span>
-                <Badge variant="category" size="sm" className="absolute top-3 right-3">
-                  Supplements
-                </Badge>
-                <Badge variant="discount" size="sm" className="absolute top-3 left-3">
-                  -20%
-                </Badge>
-              </div>
-              <div className="p-6">
-                <h3 className="font-serif text-lg font-bold leading-tight text-foreground mb-2 group-hover:text-primary transition-colors">
-                  Natural Vitamin Supplement
-                </h3>
-                <p className="text-muted-foreground mb-4 text-sm">Natural vitamin supplement for daily vitality</p>
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                  ))}
-                  <span className="text-sm text-muted-foreground ml-2">(256)</span>
-                </div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-primary">₱299</span>
-                  <Badge variant="accent" size="sm">Best Seller</Badge>
-                </div>
-                <Button className="w-full" rounded="full">
-                  Add to Cart
-                </Button>
-              </div>
-            </Card>
-
-            {/* Product 3 */}
-            <Card variant="product" className="group">
-              <div className="relative h-48 bg-muted flex items-center justify-center overflow-hidden">
-                <span className="text-6xl transition-transform duration-500 group-hover:scale-105">🌿</span>
-                <Badge variant="category" size="sm" className="absolute top-3 right-3">
-                  Essential Oils
-                </Badge>
-                <Badge variant="inStock" size="sm" className="absolute bottom-3 left-3">
-                  In Stock
-                </Badge>
-              </div>
-              <div className="p-6">
-                <h3 className="font-serif text-lg font-bold leading-tight text-foreground mb-2 group-hover:text-primary transition-colors">
-                  Pure Herbal Oil Extract
-                </h3>
-                <p className="text-muted-foreground mb-4 text-sm">Pure herbal oil extract for natural healing</p>
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                  ))}
-                  <span className="text-sm text-muted-foreground ml-2">(89)</span>
-                </div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-primary">₱399</span>
-                  <Badge variant="secondary" size="sm">Premium</Badge>
-                </div>
-                <Button className="w-full" rounded="full">
-                  Add to Cart
-                </Button>
-              </div>
-            </Card>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/products">
-              <Button size="lg" rounded="full" className="px-8">
-                View All Products
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Featured Products with Staggered Animations */}
+      <FeaturedProducts />
 
       {/* Customer Testimonials Section - Extreme Life Styling */}
       <section className="py-20 px-4 md:px-8 bg-muted/30">
