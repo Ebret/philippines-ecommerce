@@ -1,5 +1,6 @@
 import HeroSection from '@/components/hero/hero-section';
 import FeaturedProducts from '@/components/home/featured-products';
+import ClientOnly from '@/components/client-only';
 import Link from 'next/link';
 import { Star, Facebook, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,11 +10,15 @@ import { Badge } from '@/components/ui/badge';
 export default function Home() {
   return (
     <main className="min-h-screen bg-background">
-      {/* Hero Section with Navbar */}
-      <HeroSection />
+      {/* Hero Section with Navbar - Client-only to prevent hydration issues */}
+      <ClientOnly>
+        <HeroSection />
+      </ClientOnly>
 
-      {/* Featured Products with Staggered Animations */}
-      <FeaturedProducts />
+      {/* Featured Products with Staggered Animations - Client-only to prevent hydration issues */}
+      <ClientOnly>
+        <FeaturedProducts />
+      </ClientOnly>
 
       {/* Customer Testimonials Section - Extreme Life Styling */}
       <section className="py-20 px-4 md:px-8 bg-muted/30">
