@@ -66,8 +66,8 @@ export function RatingComponent({
             disabled={readOnly}
             className={`${sizeClasses[size]} transition-all ${
               star <= displayRating
-                ? 'text-yellow-400 drop-shadow-md'
-                : 'text-gray-300'
+                ? 'text-accent drop-shadow-md'
+                : 'text-muted-foreground/30'
             } ${!readOnly ? 'cursor-pointer hover:scale-110' : 'cursor-default'}`}
           >
             ★
@@ -78,15 +78,15 @@ export function RatingComponent({
       {/* Label and Count */}
       <div className="flex items-center gap-2">
         {showLabel && (
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-medium text-foreground">
             {getRatingLabel(displayRating)}
           </span>
         )}
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-muted-foreground">
           {displayRating}/5
         </span>
         {totalRatings !== undefined && (
-          <span className="text-xs text-gray-500">
+          <span className="text-xs text-muted-foreground">
             ({totalRatings} rating{totalRatings !== 1 ? 's' : ''})
           </span>
         )}
@@ -95,17 +95,17 @@ export function RatingComponent({
       {/* Rating Distribution (optional) */}
       {totalRatings && totalRatings > 0 && (
         <div className="mt-4 space-y-2">
-          <p className="text-xs font-medium text-gray-700">Rating Distribution</p>
+          <p className="text-xs font-medium text-foreground">Rating Distribution</p>
           {[5, 4, 3, 2, 1].map((rate) => (
             <div key={rate} className="flex items-center gap-2">
-              <span className="text-xs text-gray-600 w-8">{rate}★</span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+              <span className="text-xs text-muted-foreground w-8">{rate}★</span>
+              <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-yellow-400 transition-all"
+                  className="h-full bg-accent transition-all"
                   style={{ width: `${(Math.random() * 100).toFixed(0)}%` }}
                 />
               </div>
-              <span className="text-xs text-gray-600 w-12 text-right">
+              <span className="text-xs text-muted-foreground w-12 text-right">
                 {Math.floor(Math.random() * totalRatings)}
               </span>
             </div>

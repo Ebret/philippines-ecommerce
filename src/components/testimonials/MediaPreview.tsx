@@ -36,7 +36,7 @@ export function MediaPreview({
   if (mediaType === 'photo') {
     return (
       <div className="space-y-4">
-        <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
+        <div className="relative w-full aspect-video bg-muted rounded-lg overflow-hidden">
           <Image
             src={mediaUrl}
             alt={title || 'Media preview'}
@@ -46,10 +46,10 @@ export function MediaPreview({
             priority
           />
           {isLoading && (
-            <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+            <div className="absolute inset-0 bg-muted animate-pulse" />
           )}
         </div>
-        {title && <p className="text-sm text-gray-600">{title}</p>}
+        {title && <p className="text-sm text-muted-foreground">{title}</p>}
       </div>
     );
   }
@@ -70,8 +70,8 @@ export function MediaPreview({
           Your browser does not support the video tag.
         </video>
         {isLoading && (
-          <div className="absolute inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white" />
+          <div className="absolute inset-0 bg-foreground/50 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-background" />
           </div>
         )}
       </div>
@@ -79,7 +79,7 @@ export function MediaPreview({
       {/* Quality Selector */}
       {availableQualities.length > 0 && (
         <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-700">Quality:</label>
+          <label className="text-sm font-medium text-foreground">Quality:</label>
           <div className="flex gap-2">
             {availableQualities.map((quality) => (
               <button
@@ -87,8 +87,8 @@ export function MediaPreview({
                 onClick={() => handleQualityChange(quality)}
                 className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                   selectedQuality === quality
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-foreground hover:bg-muted/80'
                 }`}
               >
                 {quality}
@@ -99,13 +99,13 @@ export function MediaPreview({
       )}
 
       {/* Info */}
-      {title && <p className="text-sm text-gray-600">{title}</p>}
+      {title && <p className="text-sm text-muted-foreground">{title}</p>}
 
       {/* Video Info */}
-      <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-600 space-y-1">
+      <div className="bg-muted rounded-lg p-4 text-sm text-muted-foreground space-y-1">
         <p>📹 Video Preview</p>
-        <p>Current Quality: <span className="font-medium">{selectedQuality}</span></p>
-        <p>Available Qualities: <span className="font-medium">{availableQualities.join(', ')}</span></p>
+        <p>Current Quality: <span className="font-medium text-foreground">{selectedQuality}</span></p>
+        <p>Available Qualities: <span className="font-medium text-foreground">{availableQualities.join(', ')}</span></p>
       </div>
     </div>
   );

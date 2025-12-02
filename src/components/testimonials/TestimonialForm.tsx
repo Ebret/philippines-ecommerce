@@ -70,28 +70,28 @@ export function TestimonialForm({
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 max-w-2xl">
       {submitError && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+        <div className="p-4 bg-error/10 border border-error/30 rounded-lg text-error">
           {submitError}
         </div>
       )}
 
       {/* Title */}
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="title" className="block text-sm font-medium text-foreground mb-2">
           Title *
         </label>
         <Input
           id="title"
           placeholder="Enter testimonial title"
           {...register('title')}
-          className={errors.title ? 'border-red-500' : ''}
+          className={errors.title ? 'border-error' : ''}
         />
-        {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+        {errors.title && <p className="text-error text-sm mt-1">{errors.title.message}</p>}
       </div>
 
       {/* Content */}
       <div>
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="content" className="block text-sm font-medium text-foreground mb-2">
           Content *
         </label>
         <Textarea
@@ -99,20 +99,20 @@ export function TestimonialForm({
           placeholder="Enter your testimonial content"
           rows={6}
           {...register('content')}
-          className={errors.content ? 'border-red-500' : ''}
+          className={errors.content ? 'border-error' : ''}
         />
-        {errors.content && <p className="text-red-500 text-sm mt-1">{errors.content.message}</p>}
+        {errors.content && <p className="text-error text-sm mt-1">{errors.content.message}</p>}
       </div>
 
       {/* Rating */}
       <div>
-        <label htmlFor="rating" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="rating" className="block text-sm font-medium text-foreground mb-2">
           Rating (1-5) *
         </label>
         <select
           id="rating"
           {...register('rating', { valueAsNumber: true })}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
         >
           <option value={1}>1 - Poor</option>
           <option value={2}>2 - Fair</option>
@@ -120,26 +120,26 @@ export function TestimonialForm({
           <option value={4}>4 - Very Good</option>
           <option value={5}>5 - Excellent</option>
         </select>
-        {errors.rating && <p className="text-red-500 text-sm mt-1">{errors.rating.message}</p>}
+        {errors.rating && <p className="text-error text-sm mt-1">{errors.rating.message}</p>}
       </div>
 
       {/* Author Information */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="authorName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="authorName" className="block text-sm font-medium text-foreground mb-2">
             Author Name *
           </label>
           <Input
             id="authorName"
             placeholder="Your name"
             {...register('authorName')}
-            className={errors.authorName ? 'border-red-500' : ''}
+            className={errors.authorName ? 'border-error' : ''}
           />
-          {errors.authorName && <p className="text-red-500 text-sm mt-1">{errors.authorName.message}</p>}
+          {errors.authorName && <p className="text-error text-sm mt-1">{errors.authorName.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="authorEmail" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="authorEmail" className="block text-sm font-medium text-foreground mb-2">
             Email *
           </label>
           <Input
@@ -147,16 +147,16 @@ export function TestimonialForm({
             type="email"
             placeholder="your@email.com"
             {...register('authorEmail')}
-            className={errors.authorEmail ? 'border-red-500' : ''}
+            className={errors.authorEmail ? 'border-error' : ''}
           />
-          {errors.authorEmail && <p className="text-red-500 text-sm mt-1">{errors.authorEmail.message}</p>}
+          {errors.authorEmail && <p className="text-error text-sm mt-1">{errors.authorEmail.message}</p>}
         </div>
       </div>
 
       {/* Optional Fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="authorRole" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="authorRole" className="block text-sm font-medium text-foreground mb-2">
             Role/Position
           </label>
           <Input
@@ -167,7 +167,7 @@ export function TestimonialForm({
         </div>
 
         <div>
-          <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="companyName" className="block text-sm font-medium text-foreground mb-2">
             Company Name
           </label>
           <Input
@@ -181,7 +181,7 @@ export function TestimonialForm({
       {/* Media URLs */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="videoUrl" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="videoUrl" className="block text-sm font-medium text-foreground mb-2">
             Video URL
           </label>
           <Input
@@ -189,13 +189,13 @@ export function TestimonialForm({
             type="url"
             placeholder="https://example.com/video.mp4"
             {...register('videoUrl')}
-            className={errors.videoUrl ? 'border-red-500' : ''}
+            className={errors.videoUrl ? 'border-error' : ''}
           />
-          {errors.videoUrl && <p className="text-red-500 text-sm mt-1">{errors.videoUrl.message}</p>}
+          {errors.videoUrl && <p className="text-error text-sm mt-1">{errors.videoUrl.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="photoUrl" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="photoUrl" className="block text-sm font-medium text-foreground mb-2">
             Photo URL
           </label>
           <Input
@@ -203,9 +203,9 @@ export function TestimonialForm({
             type="url"
             placeholder="https://example.com/photo.jpg"
             {...register('photoUrl')}
-            className={errors.photoUrl ? 'border-red-500' : ''}
+            className={errors.photoUrl ? 'border-error' : ''}
           />
-          {errors.photoUrl && <p className="text-red-500 text-sm mt-1">{errors.photoUrl.message}</p>}
+          {errors.photoUrl && <p className="text-error text-sm mt-1">{errors.photoUrl.message}</p>}
         </div>
       </div>
 
@@ -214,7 +214,7 @@ export function TestimonialForm({
         <Button
           type="submit"
           disabled={isLoading}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+          className="bg-primary hover:bg-primary-dark text-primary-foreground"
         >
           {isLoading ? 'Submitting...' : isEditing ? 'Update Testimonial' : 'Create Testimonial'}
         </Button>

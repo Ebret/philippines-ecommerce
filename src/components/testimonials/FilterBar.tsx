@@ -67,11 +67,11 @@ export function FilterBar({
           placeholder="Search testimonials..."
           value={filters.searchQuery || ''}
           onChange={(e) => handleFilterChange({ searchQuery: e.target.value })}
-          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 px-4 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
         />
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg font-medium transition-colors"
+          className="px-4 py-2 bg-muted hover:bg-muted/80 text-foreground rounded-lg font-medium transition-colors"
         >
           {isExpanded ? '▲ Filters' : '▼ Filters'}
         </button>
@@ -79,10 +79,10 @@ export function FilterBar({
 
       {/* Expanded Filters */}
       {isExpanded && (
-        <div className="p-4 bg-gray-50 rounded-lg space-y-4 border border-gray-200">
+        <div className="p-4 bg-muted rounded-lg space-y-4 border border-border">
           {/* Rating Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Minimum Rating
             </label>
             <div className="flex gap-2">
@@ -92,8 +92,8 @@ export function FilterBar({
                   onClick={() => handleFilterChange({ minRating: rating })}
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                     filters.minRating === rating
-                      ? 'bg-yellow-400 text-white'
-                      : 'bg-white border border-gray-300 hover:border-gray-400'
+                      ? 'bg-accent text-accent-foreground'
+                      : 'bg-card border border-border hover:border-primary/50 text-foreground'
                   }`}
                 >
                   {rating}★
@@ -103,8 +103,8 @@ export function FilterBar({
                 onClick={() => handleFilterChange({ minRating: undefined })}
                 className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                   filters.minRating === undefined
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white border border-gray-300 hover:border-gray-400'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-card border border-border hover:border-primary/50 text-foreground'
                 }`}
               >
                 All
@@ -114,7 +114,7 @@ export function FilterBar({
 
           {/* Media Type Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Media Type
             </label>
             <div className="flex gap-2">
@@ -124,8 +124,8 @@ export function FilterBar({
                   onClick={() => handleFilterChange({ mediaType: type as any })}
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                     filters.mediaType === type
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-300 hover:border-gray-400'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-card border border-border hover:border-primary/50 text-foreground'
                   }`}
                 >
                   {type === 'all' ? 'All' : type === 'video' ? '🎥 Video' : '📷 Photo'}
@@ -136,13 +136,13 @@ export function FilterBar({
 
           {/* Date Range Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Date Range
             </label>
             <select
               value={filters.dateRange || 'all'}
               onChange={(e) => handleFilterChange({ dateRange: e.target.value as any })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="all">All Time</option>
               <option value="week">This Week</option>
@@ -154,7 +154,7 @@ export function FilterBar({
           {/* Reset Button */}
           <button
             onClick={handleReset}
-            className="w-full px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-900 rounded-lg font-medium transition-colors"
+            className="w-full px-4 py-2 bg-muted hover:bg-muted/80 text-foreground rounded-lg font-medium transition-colors"
           >
             Reset Filters
           </button>
@@ -163,15 +163,15 @@ export function FilterBar({
 
       {/* Sort Options */}
       <div className="flex gap-2 flex-wrap">
-        <span className="text-sm font-medium text-gray-700 self-center">Sort by:</span>
+        <span className="text-sm font-medium text-foreground self-center">Sort by:</span>
         {['newest', 'oldest', 'rating', 'popular'].map((option) => (
           <button
             key={option}
             onClick={() => handleSortChange(option as SortOption)}
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
               sortBy === option
-                ? 'bg-blue-600 text-white'
-                : 'bg-white border border-gray-300 hover:border-gray-400'
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-card border border-border hover:border-primary/50 text-foreground'
             }`}
           >
             {option === 'newest' && '📅 Newest'}

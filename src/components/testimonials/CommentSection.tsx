@@ -76,17 +76,17 @@ export function CommentSection({
 
   const renderComment = (comment: Comment, isReply = false) => (
     <div key={comment.id} className={`space-y-3 ${isReply ? 'ml-8 mt-3' : ''}`}>
-      <div className={`p-4 rounded-lg ${isReply ? 'bg-gray-50' : 'bg-white border border-gray-200'}`}>
+      <div className={`p-4 rounded-lg ${isReply ? 'bg-muted' : 'bg-card border border-border'}`}>
         {/* Comment Header */}
         <div className="flex items-start justify-between mb-2">
           <div>
-            <p className="font-medium text-gray-900">{comment.author}</p>
-            <p className="text-xs text-gray-600">{formatDate(comment.createdAt)}</p>
+            <p className="font-medium text-foreground">{comment.author}</p>
+            <p className="text-xs text-muted-foreground">{formatDate(comment.createdAt)}</p>
           </div>
           {onDeleteComment && (
             <button
               onClick={() => onDeleteComment(comment.id)}
-              className="text-red-600 hover:text-red-700 text-sm"
+              className="text-error hover:text-error/80 text-sm"
             >
               Delete
             </button>
@@ -94,15 +94,15 @@ export function CommentSection({
         </div>
 
         {/* Comment Content */}
-        <p className="text-gray-700 text-sm">{comment.content}</p>
+        <p className="text-muted-foreground text-sm">{comment.content}</p>
 
         {/* Comment Actions */}
-        <div className="flex items-center gap-4 mt-3 text-xs text-gray-600">
-          <button className="hover:text-blue-600">👍 Like {comment.likes ? `(${comment.likes})` : ''}</button>
+        <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+          <button className="hover:text-primary">👍 Like {comment.likes ? `(${comment.likes})` : ''}</button>
           {!isReply && (
             <button
               onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-              className="hover:text-blue-600"
+              className="hover:text-primary"
             >
               💬 Reply
             </button>
@@ -117,14 +117,14 @@ export function CommentSection({
             value={replyContent}
             onChange={(e) => setReplyContent(e.target.value)}
             placeholder="Write a reply..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-border rounded-lg text-sm bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             rows={2}
           />
           <div className="flex gap-2">
             <button
               onClick={() => handleAddReply(comment.id)}
               disabled={isSubmitting || !replyContent.trim()}
-              className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded disabled:opacity-50"
+              className="px-3 py-1 bg-primary hover:bg-primary-dark text-primary-foreground text-sm rounded disabled:opacity-50"
             >
               Reply
             </button>
@@ -133,7 +133,7 @@ export function CommentSection({
                 setReplyingTo(null);
                 setReplyContent('');
               }}
-              className="px-3 py-1 bg-gray-300 hover:bg-gray-400 text-gray-900 text-sm rounded"
+              className="px-3 py-1 bg-muted hover:bg-muted/80 text-foreground text-sm rounded"
             >
               Cancel
             </button>
@@ -152,25 +152,25 @@ export function CommentSection({
 
   return (
     <div className="space-y-6">
-      <h3 className="font-semibold text-lg text-gray-900">
+      <h3 className="font-semibold text-lg text-foreground">
         Comments ({comments.length})
       </h3>
 
       {/* Add Comment Form */}
       {allowComments && (
-        <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
+        <div className="space-y-3 p-4 bg-muted rounded-lg">
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Share your thoughts..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             rows={3}
             disabled={isLoading || isSubmitting}
           />
           <button
             onClick={handleAddComment}
             disabled={isLoading || isSubmitting || !newComment.trim()}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium disabled:opacity-50"
+            className="px-4 py-2 bg-primary hover:bg-primary-dark text-primary-foreground rounded-lg font-medium disabled:opacity-50"
           >
             {isSubmitting ? 'Posting...' : 'Post Comment'}
           </button>
@@ -179,7 +179,7 @@ export function CommentSection({
 
       {/* Comments List */}
       {comments.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-muted-foreground">
           <p>No comments yet. Be the first to comment!</p>
         </div>
       ) : (
