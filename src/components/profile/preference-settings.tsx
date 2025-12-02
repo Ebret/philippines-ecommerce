@@ -65,26 +65,26 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
   };
 
   return (
-    <div className={cn('bg-white rounded-lg shadow-md p-6 space-y-6', className)}>
-      <h2 className="text-2xl font-bold text-gray-900">Preferences</h2>
+    <div className={cn('bg-card text-card-foreground rounded-lg shadow-md border border-border p-6 space-y-6', className)}>
+      <h2 className="text-2xl font-bold text-foreground">Preferences</h2>
 
       {saveSuccess && (
-        <div className="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded-lg">
+        <div className="bg-success/10 border border-success/30 text-success px-4 py-3 rounded-lg">
           ✓ Preferences saved successfully
         </div>
       )}
 
       {/* Display Settings */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Display Settings
         </h3>
         <div className="space-y-4">
           {/* Language */}
           <div className="flex items-center justify-between">
             <div>
-              <label className="font-medium text-gray-900">Language</label>
-              <p className="text-sm text-gray-600">Choose your preferred language</p>
+              <label className="font-medium text-foreground">Language</label>
+              <p className="text-sm text-muted-foreground">Choose your preferred language</p>
             </div>
             <select
               value={settings.language}
@@ -92,7 +92,7 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
                 handleSelectChange('language', e.target.value)
               }
               disabled={isSaving || isLoading}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="en">English</option>
               <option value="tl">Tagalog</option>
@@ -101,10 +101,10 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
           </div>
 
           {/* Currency */}
-          <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+          <div className="flex items-center justify-between border-t border-border pt-4">
             <div>
-              <label className="font-medium text-gray-900">Currency</label>
-              <p className="text-sm text-gray-600">Choose your preferred currency</p>
+              <label className="font-medium text-foreground">Currency</label>
+              <p className="text-sm text-muted-foreground">Choose your preferred currency</p>
             </div>
             <select
               value={settings.currency}
@@ -112,7 +112,7 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
                 handleSelectChange('currency', e.target.value)
               }
               disabled={isSaving || isLoading}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="PHP">Philippine Peso (₱)</option>
               <option value="USD">US Dollar ($)</option>
@@ -120,16 +120,16 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
           </div>
 
           {/* Theme */}
-          <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+          <div className="flex items-center justify-between border-t border-border pt-4">
             <div>
-              <label className="font-medium text-gray-900">Theme</label>
-              <p className="text-sm text-gray-600">Choose your preferred theme</p>
+              <label className="font-medium text-foreground">Theme</label>
+              <p className="text-sm text-muted-foreground">Choose your preferred theme</p>
             </div>
             <select
               value={settings.theme}
               onChange={(e) => handleSelectChange('theme', e.target.value)}
               disabled={isSaving || isLoading}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="light">Light</option>
               <option value="dark">Dark</option>
@@ -141,7 +141,7 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
 
       {/* Notification Settings */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Notification Settings
         </h3>
         <div className="space-y-3">
@@ -174,11 +174,11 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
           ].map(({ key, label, description }) => (
             <div
               key={key}
-              className="flex items-center justify-between border-b border-gray-200 pb-3 last:border-b-0"
+              className="flex items-center justify-between border-b border-border pb-3 last:border-b-0"
             >
               <div>
-                <label className="font-medium text-gray-900">{label}</label>
-                <p className="text-sm text-gray-600">{description}</p>
+                <label className="font-medium text-foreground">{label}</label>
+                <p className="text-sm text-muted-foreground">{description}</p>
               </div>
               <button
                 onClick={() => handleToggle(key)}
@@ -186,13 +186,13 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
                 className={cn(
                   'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
                   settings[key]
-                    ? 'bg-blue-600'
-                    : 'bg-gray-300'
+                    ? 'bg-primary'
+                    : 'bg-muted'
                 )}
               >
                 <span
                   className={cn(
-                    'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
+                    'inline-block h-4 w-4 transform rounded-full bg-card transition-transform shadow-sm',
                     settings[key] ? 'translate-x-6' : 'translate-x-1'
                   )}
                 />
@@ -204,7 +204,7 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
 
       {/* Marketing Settings */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Marketing Settings
         </h3>
         <div className="space-y-3">
@@ -222,11 +222,11 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
           ].map(({ key, label, description }) => (
             <div
               key={key}
-              className="flex items-center justify-between border-b border-gray-200 pb-3 last:border-b-0"
+              className="flex items-center justify-between border-b border-border pb-3 last:border-b-0"
             >
               <div>
-                <label className="font-medium text-gray-900">{label}</label>
-                <p className="text-sm text-gray-600">{description}</p>
+                <label className="font-medium text-foreground">{label}</label>
+                <p className="text-sm text-muted-foreground">{description}</p>
               </div>
               <button
                 onClick={() => handleToggle(key)}
@@ -234,13 +234,13 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
                 className={cn(
                   'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
                   settings[key]
-                    ? 'bg-blue-600'
-                    : 'bg-gray-300'
+                    ? 'bg-primary'
+                    : 'bg-muted'
                 )}
               >
                 <span
                   className={cn(
-                    'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
+                    'inline-block h-4 w-4 transform rounded-full bg-card transition-transform shadow-sm',
                     settings[key] ? 'translate-x-6' : 'translate-x-1'
                   )}
                 />
@@ -252,13 +252,13 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
 
       {/* Privacy Settings */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Privacy Settings
         </h3>
         <div className="flex items-center justify-between">
           <div>
-            <label className="font-medium text-gray-900">Privacy Level</label>
-            <p className="text-sm text-gray-600">Control who can see your profile</p>
+            <label className="font-medium text-foreground">Privacy Level</label>
+            <p className="text-sm text-muted-foreground">Control who can see your profile</p>
           </div>
           <select
             value={settings.privacyLevel}
@@ -266,7 +266,7 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
               handleSelectChange('privacyLevel', e.target.value)
             }
             disabled={isSaving || isLoading}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="public">Public</option>
             <option value="friends">Friends Only</option>
@@ -276,11 +276,11 @@ export const PreferenceSettings: React.FC<PreferenceSettingsProps> = ({
       </div>
 
       {/* Save Button */}
-      <div className="flex gap-3 pt-4 border-t border-gray-200">
+      <div className="flex gap-3 pt-4 border-t border-border">
         <button
           onClick={handleSave}
           disabled={isSaving || isLoading}
-          className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+          className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:bg-primary-dark disabled:opacity-50 transition-colors"
         >
           {isSaving || isLoading ? 'Saving...' : 'Save Preferences'}
         </button>

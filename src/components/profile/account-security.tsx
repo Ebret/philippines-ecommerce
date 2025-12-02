@@ -66,18 +66,18 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
   });
 
   return (
-    <div className={cn('bg-white rounded-lg shadow-md p-6 space-y-6', className)}>
-      <h2 className="text-2xl font-bold text-gray-900">Account Security</h2>
+    <div className={cn('bg-card text-card-foreground rounded-lg shadow-md border border-border p-6 space-y-6', className)}>
+      <h2 className="text-2xl font-bold text-foreground">Account Security</h2>
 
       {/* Password Section */}
-      <div className="border-b border-gray-200 pb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Password</h3>
+      <div className="border-b border-border pb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">Password</h3>
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-gray-700">
+            <p className="text-foreground">
               Last changed: <span className="font-semibold">{lastPasswordChangeDate}</span>
             </p>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Change your password regularly to keep your account secure
             </p>
           </div>
@@ -85,7 +85,7 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
             <button
               onClick={onChangePassword}
               disabled={isLoading}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+              className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:bg-primary-dark disabled:opacity-50 transition-colors"
             >
               Change Password
             </button>
@@ -94,8 +94,8 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
       </div>
 
       {/* Two-Factor Authentication */}
-      <div className="border-b border-gray-200 pb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="border-b border-border pb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Two-Factor Authentication
         </h3>
         <div className="flex items-center justify-between">
@@ -104,14 +104,14 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
               <span
                 className={cn(
                   'inline-block w-3 h-3 rounded-full',
-                  settings.twoFactorEnabled ? 'bg-green-600' : 'bg-gray-400'
+                  settings.twoFactorEnabled ? 'bg-success' : 'bg-muted'
                 )}
               />
-              <span className="font-semibold text-gray-900">
+              <span className="font-semibold text-foreground">
                 {settings.twoFactorEnabled ? 'Enabled' : 'Disabled'}
               </span>
             </div>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Add an extra layer of security to your account
             </p>
           </div>
@@ -120,7 +120,7 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
               <button
                 onClick={onDisable2FA}
                 disabled={isLoading}
-                className="text-red-600 hover:text-red-700 font-semibold disabled:text-gray-400 transition-colors"
+                className="text-error hover:text-error/80 font-semibold disabled:opacity-50 transition-colors"
               >
                 Disable
               </button>
@@ -130,7 +130,7 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
               <button
                 onClick={onEnable2FA}
                 disabled={isLoading}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+                className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:bg-primary-dark disabled:opacity-50 transition-colors"
               >
                 Enable
               </button>
@@ -140,16 +140,16 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
       </div>
 
       {/* Active Sessions */}
-      <div className="border-b border-gray-200 pb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="border-b border-border pb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Active Sessions
         </h3>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-gray-700">
+            <p className="text-foreground">
               You have <span className="font-semibold">{settings.activeSessions}</span> active session(s)
             </p>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Logout from all other sessions for security
             </p>
           </div>
@@ -157,7 +157,7 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
             <button
               onClick={handleLogoutAllSessions}
               disabled={isLoading || isLoggingOut}
-              className="text-red-600 hover:text-red-700 font-semibold disabled:text-gray-400 transition-colors"
+              className="text-error hover:text-error/80 font-semibold disabled:opacity-50 transition-colors"
             >
               {isLoggingOut ? 'Logging out...' : 'Logout All'}
             </button>
@@ -166,18 +166,18 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
       </div>
 
       {/* Login Attempts */}
-      <div className="border-b border-gray-200 pb-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="border-b border-border pb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Login Attempts
         </h3>
         <div className="flex items-center gap-3">
           <span
             className={cn(
               'inline-block w-3 h-3 rounded-full',
-              settings.loginAttempts > 3 ? 'bg-red-600' : 'bg-green-600'
+              settings.loginAttempts > 3 ? 'bg-error' : 'bg-success'
             )}
           />
-          <p className="text-gray-700">
+          <p className="text-foreground">
             <span className="font-semibold">{settings.loginAttempts}</span> failed login attempt(s) in the last 24 hours
           </p>
         </div>
@@ -185,11 +185,11 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
 
       {/* Trusted Devices */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Trusted Devices
         </h3>
         {settings.trustedDevices.length === 0 ? (
-          <p className="text-gray-600">No trusted devices</p>
+          <p className="text-muted-foreground">No trusted devices</p>
         ) : (
           <div className="space-y-3">
             {settings.trustedDevices.map((device) => {
@@ -202,11 +202,11 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
               return (
                 <div
                   key={device.id}
-                  className="flex items-center justify-between border border-gray-200 rounded-lg p-4"
+                  className="flex items-center justify-between border border-border rounded-lg p-4 bg-muted/30"
                 >
                   <div>
-                    <p className="font-semibold text-gray-900">{device.name}</p>
-                    <p className="text-sm text-gray-600">
+                    <p className="font-semibold text-foreground">{device.name}</p>
+                    <p className="text-sm text-muted-foreground">
                       Last used: {lastUsedDate}
                     </p>
                   </div>
@@ -214,7 +214,7 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
                     <button
                       onClick={() => handleRemoveDevice(device.id)}
                       disabled={isLoading || removingDeviceId === device.id}
-                      className="text-red-600 hover:text-red-700 font-semibold text-sm disabled:text-gray-400 transition-colors"
+                      className="text-error hover:text-error/80 font-semibold text-sm disabled:opacity-50 transition-colors"
                     >
                       {removingDeviceId === device.id ? 'Removing...' : 'Remove'}
                     </button>
@@ -227,9 +227,9 @@ export const AccountSecurity: React.FC<AccountSecurityProps> = ({
       </div>
 
       {/* Security Tips */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h4 className="font-semibold text-blue-900 mb-2">Security Tips</h4>
-        <ul className="text-sm text-blue-800 space-y-1">
+      <div className="bg-info/10 border border-info/30 rounded-lg p-4">
+        <h4 className="font-semibold text-info mb-2">Security Tips</h4>
+        <ul className="text-sm text-info/90 space-y-1">
           <li>• Use a strong, unique password</li>
           <li>• Enable two-factor authentication</li>
           <li>• Review your active sessions regularly</li>

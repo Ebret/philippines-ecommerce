@@ -27,9 +27,9 @@ interface AddressManagementProps {
 }
 
 const typeColors = {
-  home: 'bg-blue-100 text-blue-800',
-  work: 'bg-purple-100 text-purple-800',
-  other: 'bg-gray-100 text-gray-800',
+  home: 'bg-info/10 text-info',
+  work: 'bg-accent/20 text-accent-foreground',
+  other: 'bg-muted text-muted-foreground',
 };
 
 export const AddressManagement: React.FC<AddressManagementProps> = ({
@@ -65,14 +65,14 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
   };
 
   return (
-    <div className={cn('bg-white rounded-lg shadow-md p-6', className)}>
+    <div className={cn('bg-card text-card-foreground rounded-lg shadow-md border border-border p-6', className)}>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Addresses</h2>
+        <h2 className="text-2xl font-bold text-foreground">Addresses</h2>
         {onAdd && (
           <button
             onClick={onAdd}
             disabled={isLoading}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:bg-primary-dark disabled:opacity-50 transition-colors"
           >
             + Add Address
           </button>
@@ -81,11 +81,11 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
 
       {addresses.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">No addresses added yet</p>
+          <p className="text-muted-foreground mb-4">No addresses added yet</p>
           {onAdd && (
             <button
               onClick={onAdd}
-              className="text-blue-600 hover:text-blue-700 font-semibold"
+              className="text-primary hover:text-primary-dark font-semibold"
             >
               Add your first address
             </button>
@@ -99,14 +99,14 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
               className={cn(
                 'border rounded-lg p-4 transition-all',
                 address.isDefault
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary/50'
               )}
             >
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-gray-900">
+                  <h3 className="font-semibold text-foreground">
                     {address.label}
                   </h3>
                   <span
@@ -119,14 +119,14 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
                   </span>
                 </div>
                 {address.isDefault && (
-                  <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                  <span className="bg-primary text-primary-foreground px-2 py-1 rounded text-xs font-semibold">
                     Default
                   </span>
                 )}
               </div>
 
               {/* Address Details */}
-              <div className="space-y-2 mb-4 text-sm text-gray-700">
+              <div className="space-y-2 mb-4 text-sm text-foreground">
                 <p>{address.street}</p>
                 <p>
                   {address.city}, {address.province} {address.zipCode}
@@ -136,12 +136,12 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-2 pt-3 border-t border-gray-200">
+              <div className="flex gap-2 pt-3 border-t border-border">
                 {onEdit && (
                   <button
                     onClick={() => onEdit(address)}
                     disabled={isLoading}
-                    className="flex-1 text-blue-600 hover:text-blue-700 font-semibold text-sm disabled:text-gray-400 transition-colors"
+                    className="flex-1 text-primary hover:text-primary-dark font-semibold text-sm disabled:opacity-50 transition-colors"
                   >
                     Edit
                   </button>
@@ -150,7 +150,7 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
                   <button
                     onClick={() => handleDelete(address.id)}
                     disabled={isLoading || deletingId === address.id}
-                    className="flex-1 text-red-600 hover:text-red-700 font-semibold text-sm disabled:text-gray-400 transition-colors"
+                    className="flex-1 text-error hover:text-error/80 font-semibold text-sm disabled:opacity-50 transition-colors"
                   >
                     {deletingId === address.id ? 'Deleting...' : 'Delete'}
                   </button>
@@ -159,7 +159,7 @@ export const AddressManagement: React.FC<AddressManagementProps> = ({
                   <button
                     onClick={() => handleSetDefault(address.id)}
                     disabled={isLoading || settingDefaultId === address.id}
-                    className="flex-1 text-green-600 hover:text-green-700 font-semibold text-sm disabled:text-gray-400 transition-colors"
+                    className="flex-1 text-success hover:text-success/80 font-semibold text-sm disabled:opacity-50 transition-colors"
                   >
                     {settingDefaultId === address.id ? 'Setting...' : 'Set Default'}
                   </button>

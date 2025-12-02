@@ -26,7 +26,7 @@ export default function UserMenu() {
 
   if (status === 'loading') {
     return (
-      <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+      <div className="w-10 h-10 rounded-full bg-muted animate-pulse" />
     );
   }
 
@@ -34,7 +34,7 @@ export default function UserMenu() {
     return (
       <Link
         href="/auth/login"
-        className="px-4 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 dark:hover:bg-emerald-500 transition-colors font-semibold text-sm"
+        className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary-dark transition-colors font-semibold text-sm"
       >
         Login
       </Link>
@@ -86,23 +86,23 @@ export default function UserMenu() {
       {/* User Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
         aria-label="User menu"
       >
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white text-sm font-bold">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center text-primary-foreground text-sm font-bold">
           {userInitials}
         </div>
-        <ChevronDown className={cn('w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform', isOpen && 'rotate-180')} />
+        <ChevronDown className={cn('w-4 h-4 text-muted-foreground transition-transform', isOpen && 'rotate-180')} />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 animate-in fade-in slide-in-from-top-2">
+        <div className="absolute right-0 mt-2 w-56 bg-card rounded-lg shadow-lg border border-border z-50 animate-in fade-in slide-in-from-top-2">
           {/* User Info */}
-          <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-            <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{userName}</p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{user?.email}</p>
-            <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">
+          <div className="px-4 py-3 border-b border-border">
+            <p className="text-sm font-semibold text-foreground truncate">{userName}</p>
+            <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+            <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary">
               {userRole}
             </span>
           </div>
@@ -116,7 +116,7 @@ export default function UserMenu() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                 >
                   <Icon className="w-4 h-4" />
                   {item.label}
@@ -126,11 +126,11 @@ export default function UserMenu() {
           </div>
 
           {/* Logout Button */}
-          <div className="border-t border-gray-200 dark:border-gray-700 p-2">
+          <div className="border-t border-border p-2">
             <button
               onClick={handleLogout}
               disabled={isLoading}
-              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-50"
+              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-error hover:bg-error/10 rounded-lg transition-colors disabled:opacity-50"
             >
               {isLoading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />

@@ -97,17 +97,17 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cn('bg-white rounded-lg shadow-md p-6 space-y-6', className)}
+      className={cn('bg-card text-card-foreground rounded-lg shadow-md border border-border p-6 space-y-6', className)}
     >
       {/* Personal Information */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Personal Information
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Full Name *
             </label>
             <input
@@ -117,18 +117,18 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
               className={cn(
-                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-                errors.name ? 'border-red-500' : 'border-gray-300'
+                'w-full px-3 py-2 border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary',
+                errors.name ? 'border-error' : 'border-border'
               )}
             />
             {errors.name && (
-              <p className="text-red-600 text-sm mt-1">{errors.name}</p>
+              <p className="text-error text-sm mt-1">{errors.name}</p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Email *
             </label>
             <input
@@ -138,18 +138,18 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
               className={cn(
-                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-                errors.email ? 'border-red-500' : 'border-gray-300'
+                'w-full px-3 py-2 border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary',
+                errors.email ? 'border-error' : 'border-border'
               )}
             />
             {errors.email && (
-              <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+              <p className="text-error text-sm mt-1">{errors.email}</p>
             )}
           </div>
 
           {/* Phone */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Phone Number
             </label>
             <input
@@ -159,18 +159,18 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
               className={cn(
-                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-                errors.phone ? 'border-red-500' : 'border-gray-300'
+                'w-full px-3 py-2 border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary',
+                errors.phone ? 'border-error' : 'border-border'
               )}
             />
             {errors.phone && (
-              <p className="text-red-600 text-sm mt-1">{errors.phone}</p>
+              <p className="text-error text-sm mt-1">{errors.phone}</p>
             )}
           </div>
 
           {/* Gender */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Gender
             </label>
             <select
@@ -178,7 +178,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               value={formData.gender || ''}
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">Select Gender</option>
               <option value="male">Male</option>
@@ -189,7 +189,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
 
           {/* Date of Birth */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Date of Birth
             </label>
             <input
@@ -198,7 +198,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               value={formData.dateOfBirth || ''}
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
         </div>
@@ -206,7 +206,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
 
       {/* Bio */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-foreground mb-1">
           Bio
         </label>
         <textarea
@@ -215,20 +215,20 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           onChange={handleChange}
           disabled={isSubmitting || isLoading}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
           placeholder="Tell us about yourself..."
         />
       </div>
 
       {/* Address Information */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-lg font-semibold text-foreground mb-4">
           Address Information
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Address */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Street Address
             </label>
             <input
@@ -237,13 +237,13 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               value={formData.address || ''}
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           {/* City */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               City
             </label>
             <input
@@ -252,13 +252,13 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               value={formData.city || ''}
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           {/* Province */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Province
             </label>
             <input
@@ -267,13 +267,13 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               value={formData.province || ''}
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           {/* Zip Code */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Zip Code
             </label>
             <input
@@ -283,23 +283,23 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               onChange={handleChange}
               disabled={isSubmitting || isLoading}
               className={cn(
-                'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-                errors.zipCode ? 'border-red-500' : 'border-gray-300'
+                'w-full px-3 py-2 border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary',
+                errors.zipCode ? 'border-error' : 'border-border'
               )}
             />
             {errors.zipCode && (
-              <p className="text-red-600 text-sm mt-1">{errors.zipCode}</p>
+              <p className="text-error text-sm mt-1">{errors.zipCode}</p>
             )}
           </div>
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3 pt-4 border-t border-gray-200">
+      <div className="flex gap-3 pt-4 border-t border-border">
         <button
           type="submit"
           disabled={isSubmitting || isLoading}
-          className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+          className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:bg-primary-dark disabled:opacity-50 transition-colors"
         >
           {isSubmitting || isLoading ? 'Saving...' : 'Save Changes'}
         </button>
@@ -308,7 +308,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
             type="button"
             onClick={onCancel}
             disabled={isSubmitting || isLoading}
-            className="flex-1 bg-gray-200 text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-300 disabled:bg-gray-100 transition-colors"
+            className="flex-1 bg-muted text-foreground px-4 py-2 rounded-lg font-semibold hover:bg-muted/80 disabled:opacity-50 transition-colors"
           >
             Cancel
           </button>
