@@ -1,0 +1,182 @@
+# Deploy GinTea Theme via PuTTY
+
+## Step 1: Open PuTTY
+
+1. Open PuTTY application
+2. Enter Host: 109.205.181.119
+3. Port: 22
+4. Click "Open"
+5. Login as: root
+6. Enter password
+
+## Step 2: Copy & Paste These Commands
+
+Once logged in, copy and paste each block below:
+
+### Block 1: Navigate and Check Status
+```bash
+cd /var/www/html/ecom/app
+pwd
+git branch --show-current
+git log -1 --oneline
+```
+
+### Block 2: Create Backup
+```bash
+git branch backup-gintea-$(date +%Y%m%d-%H%M%S)
+git branch | grep backup | tail -1
+```
+
+### Block 3: Fetch and Checkout
+```bash
+git fetch origin
+git checkout feature/relivator-ui-integration
+git pull origin feature/relivator-ui-integration
+```
+
+### Block 4: Verify Latest Commit
+```bash
+git log -1 --oneline
+```
+
+Expected output: `1a6f56a docs: add comprehensive local testing guide for GinTea theme`
+
+### Block 5: Clear Build Cache (IMPORTANT!)
+```bash
+rm -rf .next
+ls -la | grep -v .next
+```
+
+### Block 6: Install Dependencies
+```bash
+npm install
+```
+
+Wait for completion (30-60 seconds)
+
+### Block 7: Build Application
+```bash
+npm run build
+```
+
+Wait for completion (1-2 minutes)
+
+Expected output: `✓ Compiled successfully`
+
+### Block 8: Restart PM2
+```bash
+pm2 restart all
+sleep 3
+pm2 status
+```
+
+Expected output: 2 processes showing "online"
+
+### Block 9: Save PM2 Configuration
+```bash
+pm2 save
+```
+
+## Step 3: Verify Deployment
+
+1. Open https://extremelifeherbal.com
+2. Press Ctrl + Shift + R (hard refresh)
+3. Check colors:
+   - Background: Soft cream (not pure white)
+   - Text: Deep tea leaf green (not black)
+   - Buttons: Matcha green (bright green)
+   - Accents: Honey gold (warm yellow)
+
+4. Test dark mode:
+   - Click theme toggle (moon/sun icon)
+   - Background: Deep tea room green
+   - Text: Soft cream
+   - Buttons: Bright matcha green
+
+## Troubleshooting
+
+### If colors don't show:
+
+1. Clear browser cache:
+   - Press Ctrl + Shift + Delete
+   - Select "Cached images and files"
+   - Click "Clear data"
+
+2. Hard refresh again:
+   - Press Ctrl + Shift + R
+
+3. Check browser console:
+   - Press F12
+   - Go to Console tab
+   - Look for CSS errors
+
+4. Verify CSS is loaded:
+   - Press F12
+   - Go to Network tab
+   - Refresh page
+   - Look for CSS files
+   - Check if they're loading (status 200)
+
+### If build fails:
+
+1. Check error message
+2. Run: `npm install` again
+3. Try build again: `npm run build`
+4. If still fails, rollback:
+   ```bash
+   git branch | grep backup | tail -1
+   git checkout backup-gintea-YYYYMMDD-HHMMSS
+   npm run build
+   pm2 restart all
+   ```
+
+### If PM2 doesn't restart:
+
+```bash
+pm2 kill
+sleep 3
+pm2 start ecosystem.config.js
+pm2 save
+pm2 status
+```
+
+## Expected Timeline
+
+- Block 1-4: 10 seconds
+- Block 5: 5 seconds
+- Block 6: 30-60 seconds
+- Block 7: 1-2 minutes
+- Block 8-9: 10 seconds
+
+**Total: ~3-4 minutes**
+
+## Success Indicators
+
+✅ Build completes without errors
+✅ PM2 shows 2 processes "online"
+✅ Site loads at https://extremelifeherbal.com
+✅ Background is soft cream (not white)
+✅ Buttons are matcha green (not dark green)
+✅ Dark mode toggle works
+✅ No console errors in browser
+
+## Rollback (if needed)
+
+If something goes wrong:
+
+```bash
+cd /var/www/html/ecom/app
+git branch | grep backup
+git checkout backup-gintea-YYYYMMDD-HHMMSS
+npm run build
+pm2 restart all
+```
+
+Replace YYYYMMDD-HHMMSS with the actual backup branch name.
+
+---
+
+**Ready to deploy!**
+
+Just follow the 9 command blocks above in PuTTY.
+
