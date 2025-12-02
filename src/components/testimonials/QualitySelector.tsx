@@ -46,7 +46,7 @@ export function QualitySelector({
       <button
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled}
-        className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-left flex items-center justify-between hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-4 py-2 bg-card border border-border rounded-lg text-left flex items-center justify-between text-foreground hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <span className="font-medium">{getQualityLabel(selectedQuality)}</span>
         <span className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}>
@@ -56,7 +56,7 @@ export function QualitySelector({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-lg shadow-lg z-10">
           {availableQualities.map((quality) => (
             <button
               key={quality}
@@ -64,17 +64,17 @@ export function QualitySelector({
                 onQualityChange(quality);
                 setIsOpen(false);
               }}
-              className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b last:border-b-0 ${
-                selectedQuality === quality ? 'bg-blue-50 border-l-4 border-l-blue-600' : ''
+              className={`w-full px-4 py-3 text-left hover:bg-muted transition-colors border-b border-border last:border-b-0 ${
+                selectedQuality === quality ? 'bg-primary/10 border-l-4 border-l-primary' : ''
               }`}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">{getQualityLabel(quality)}</p>
-                  <p className="text-xs text-gray-600">{getQualityDescription(quality)}</p>
+                  <p className="font-medium text-foreground">{getQualityLabel(quality)}</p>
+                  <p className="text-xs text-muted-foreground">{getQualityDescription(quality)}</p>
                 </div>
                 {selectedQuality === quality && (
-                  <span className="text-blue-600 font-bold">✓</span>
+                  <span className="text-primary font-bold">✓</span>
                 )}
               </div>
             </button>
@@ -91,7 +91,7 @@ export function QualitySelector({
       )}
 
       {/* Info Text */}
-      <p className="mt-2 text-xs text-gray-600">
+      <p className="mt-2 text-xs text-muted-foreground">
         Current: {getQualityDescription(selectedQuality)}
       </p>
     </div>

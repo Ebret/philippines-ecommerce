@@ -59,7 +59,7 @@ export function ImageGallery({
 
   if (images.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-muted-foreground">
         No images to display
       </div>
     );
@@ -77,7 +77,7 @@ export function ImageGallery({
         {images.map((image, index) => (
           <div
             key={image.id}
-            className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer group"
+            className="relative aspect-square bg-muted rounded-lg overflow-hidden cursor-pointer group"
             onClick={() => handleImageClick(image, index)}
           >
             <Image
@@ -86,8 +86,8 @@ export function ImageGallery({
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-300"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-              <span className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/30 transition-all duration-300 flex items-center justify-center">
+              <span className="text-background text-2xl opacity-0 group-hover:opacity-100 transition-opacity">
                 🔍
               </span>
             </div>
@@ -98,7 +98,7 @@ export function ImageGallery({
       {/* Lightbox Modal */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-foreground/90 z-50 flex items-center justify-center p-4"
           onClick={handleClose}
           onKeyDown={handleKeyDown}
           role="dialog"
@@ -107,7 +107,7 @@ export function ImageGallery({
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 transition-colors z-10"
+            className="absolute top-4 right-4 text-background text-3xl hover:text-background/70 transition-colors z-10"
             aria-label="Close lightbox"
           >
             ✕
@@ -135,7 +135,7 @@ export function ImageGallery({
                   e.stopPropagation();
                   handlePrevious();
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-gray-300 transition-colors"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-background text-3xl hover:text-background/70 transition-colors"
                 aria-label="Previous image"
               >
                 ‹
@@ -145,7 +145,7 @@ export function ImageGallery({
                   e.stopPropagation();
                   handleNext();
                 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-gray-300 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-background text-3xl hover:text-background/70 transition-colors"
                 aria-label="Next image"
               >
                 ›
@@ -154,17 +154,17 @@ export function ImageGallery({
           )}
 
           {/* Image Info */}
-          <div className="absolute bottom-4 left-4 right-4 text-white text-sm">
+          <div className="absolute bottom-4 left-4 right-4 text-background text-sm">
             <p className="font-medium">{selectedImage.alt}</p>
             {images.length > 1 && (
-              <p className="text-gray-400">
+              <p className="text-background/60">
                 {currentIndex + 1} / {images.length}
               </p>
             )}
           </div>
 
           {/* Keyboard Hint */}
-          <div className="absolute bottom-4 right-4 text-gray-400 text-xs">
+          <div className="absolute bottom-4 right-4 text-background/60 text-xs">
             <p>← → to navigate • ESC to close</p>
           </div>
         </div>

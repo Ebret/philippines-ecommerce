@@ -75,8 +75,8 @@ export function ThumbnailGenerator({
       {/* Thumbnail Preview */}
       {thumbnail && (
         <div className="space-y-2">
-          <h3 className="font-semibold text-gray-900">Generated Thumbnail</h3>
-          <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
+          <h3 className="font-semibold text-foreground">Generated Thumbnail</h3>
+          <div className="relative w-full aspect-video bg-muted rounded-lg overflow-hidden">
             <Image
               src={thumbnail}
               alt="Generated thumbnail"
@@ -90,10 +90,10 @@ export function ThumbnailGenerator({
       {/* Video Timestamp Selector */}
       {mediaType === 'video' && (
         <div className="space-y-4">
-          <h3 className="font-semibold text-gray-900">Select Thumbnail Timestamp</h3>
+          <h3 className="font-semibold text-foreground">Select Thumbnail Timestamp</h3>
 
           {/* Video Preview */}
-          <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
+          <div className="relative w-full aspect-video bg-foreground rounded-lg overflow-hidden">
             <video
               src={mediaUrl}
               onLoadedMetadata={handleVideoMetadata}
@@ -104,10 +104,10 @@ export function ThumbnailGenerator({
           {/* Timestamp Slider */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-foreground">
                 Timestamp: {formatTime(selectedTimestamp)}
               </label>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-muted-foreground">
                 / {formatTime(videoDuration)}
               </span>
             </div>
@@ -117,7 +117,7 @@ export function ThumbnailGenerator({
               max={Math.floor(videoDuration)}
               value={selectedTimestamp}
               onChange={(e) => setSelectedTimestamp(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg cursor-pointer"
+              className="w-full h-2 bg-muted rounded-lg cursor-pointer accent-primary"
               disabled={isGenerating || isLoading}
             />
           </div>
@@ -131,8 +131,8 @@ export function ThumbnailGenerator({
                   onClick={() => setSelectedTimestamp(time)}
                   className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
                     selectedTimestamp === time
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-foreground hover:bg-muted/80'
                   }`}
                   disabled={isGenerating || isLoading}
                 >
@@ -148,13 +148,13 @@ export function ThumbnailGenerator({
       <Button
         onClick={generateThumbnail}
         disabled={isGenerating || isLoading}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+        className="w-full bg-primary hover:bg-primary-dark text-primary-foreground"
       >
         {isGenerating ? 'Generating...' : 'Generate Thumbnail'}
       </Button>
 
       {/* Info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-700">
+      <div className="bg-info/10 border border-info/30 rounded-lg p-4 text-sm text-info">
         <p className="font-medium mb-2">💡 Thumbnail Tips:</p>
         <ul className="list-disc list-inside space-y-1">
           <li>Choose a clear, representative frame from the video</li>

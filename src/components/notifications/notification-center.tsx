@@ -26,10 +26,10 @@ interface NotificationCenterProps {
 }
 
 const typeColors = {
-  success: 'bg-green-50 border-l-4 border-green-500 text-green-800',
-  error: 'bg-red-50 border-l-4 border-red-500 text-red-800',
-  info: 'bg-blue-50 border-l-4 border-blue-500 text-blue-800',
-  warning: 'bg-yellow-50 border-l-4 border-yellow-500 text-yellow-800',
+  success: 'bg-success/10 border-l-4 border-success text-success',
+  error: 'bg-error/10 border-l-4 border-error text-error',
+  info: 'bg-info/10 border-l-4 border-info text-info',
+  warning: 'bg-warning/10 border-l-4 border-warning text-warning',
 };
 
 const typeIcons = {
@@ -69,18 +69,18 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
   return (
     <div className={cn('w-full max-w-2xl mx-auto', className)}>
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center justify-between p-4 border-b border-border">
         <div>
-          <h2 className="text-lg font-semibold">Notifications</h2>
+          <h2 className="text-lg font-semibold text-foreground">Notifications</h2>
           {unreadCount > 0 && (
-            <p className="text-sm text-gray-600">{unreadCount} unread</p>
+            <p className="text-sm text-muted-foreground">{unreadCount} unread</p>
           )}
         </div>
         <div className="flex gap-2">
           {unreadCount > 0 && (
             <button
               onClick={onMarkAllAsRead}
-              className="px-3 py-1 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded"
+              className="px-3 py-1 text-sm font-medium text-primary hover:bg-primary/10 rounded"
             >
               Mark all as read
             </button>
@@ -88,7 +88,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
           {notifications.length > 0 && (
             <button
               onClick={onDeleteAll}
-              className="px-3 py-1 text-sm font-medium text-red-600 hover:bg-red-50 rounded"
+              className="px-3 py-1 text-sm font-medium text-error hover:bg-error/10 rounded"
             >
               Clear all
             </button>
@@ -97,14 +97,14 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex gap-4 px-4 py-3 border-b">
+      <div className="flex gap-4 px-4 py-3 border-b border-border">
         <button
           onClick={() => setFilter('all')}
           className={cn(
             'pb-2 font-medium transition-colors',
             filter === 'all'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'text-primary border-b-2 border-primary'
+              : 'text-muted-foreground hover:text-foreground'
           )}
         >
           All ({notifications.length})
@@ -114,8 +114,8 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
           className={cn(
             'pb-2 font-medium transition-colors',
             filter === 'unread'
-              ? 'text-blue-600 border-b-2 border-blue-600'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'text-primary border-b-2 border-primary'
+              : 'text-muted-foreground hover:text-foreground'
           )}
         >
           Unread ({unreadCount})
@@ -123,9 +123,9 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       </div>
 
       {/* Notifications List */}
-      <div className="divide-y max-h-96 overflow-y-auto">
+      <div className="divide-y divide-border max-h-96 overflow-y-auto">
         {filteredNotifications.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-muted-foreground">
             <p className="text-lg font-medium">No notifications</p>
             <p className="text-sm">You're all caught up!</p>
           </div>
@@ -134,8 +134,8 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
             <div
               key={notification.id}
               className={cn(
-                'p-4 hover:bg-gray-50 transition-colors cursor-pointer',
-                !notification.read && 'bg-blue-50'
+                'p-4 hover:bg-muted transition-colors cursor-pointer',
+                !notification.read && 'bg-primary/5'
               )}
               onClick={() => onMarkAsRead(notification.id)}
             >
@@ -151,19 +151,19 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="font-semibold text-gray-900">
+                      <h3 className="font-semibold text-foreground">
                         {notification.title}
                       </h3>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <p className="text-sm text-muted-foreground mt-1">
                         {notification.message}
                       </p>
                     </div>
                     {!notification.read && (
-                      <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 mt-2" />
+                      <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-2" />
                     )}
                   </div>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-muted-foreground">
                       {formatTime(notification.timestamp)}
                     </span>
                     {notification.action && (
@@ -172,7 +172,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                           e.stopPropagation();
                           notification.action?.onClick();
                         }}
-                        className="text-xs font-medium text-blue-600 hover:text-blue-700"
+                        className="text-xs font-medium text-primary hover:text-primary-dark"
                       >
                         {notification.action.label}
                       </button>
@@ -184,7 +184,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                     e.stopPropagation();
                     onDelete(notification.id);
                   }}
-                  className="text-gray-400 hover:text-gray-600 flex-shrink-0"
+                  className="text-muted-foreground hover:text-foreground flex-shrink-0"
                   aria-label="Delete notification"
                 >
                   ×

@@ -70,7 +70,7 @@ export function MediaLibrary({
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="bg-gray-200 rounded-lg h-48 animate-pulse" />
+          <div key={i} className="bg-muted rounded-lg h-48 animate-pulse" />
         ))}
       </div>
     );
@@ -78,7 +78,7 @@ export function MediaLibrary({
 
   if (media.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-muted-foreground">
         <p className="text-lg font-medium">No media files</p>
         <p className="text-sm">Upload media to get started</p>
       </div>
@@ -92,15 +92,15 @@ export function MediaLibrary({
         {media.map((mediaFile) => (
           <div
             key={mediaFile.id}
-            className={`rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+            className={`rounded-lg overflow-hidden border-2 transition-all cursor-pointer bg-card ${
               selectedMedia === mediaFile.id
-                ? 'border-blue-600 shadow-lg'
-                : 'border-gray-200 hover:border-gray-300'
+                ? 'border-primary shadow-lg'
+                : 'border-border hover:border-primary/50'
             }`}
             onClick={() => handleSelect(mediaFile)}
           >
             {/* Thumbnail */}
-            <div className="relative w-full h-32 bg-gray-100">
+            <div className="relative w-full h-32 bg-muted">
               {mediaFile.thumbnailUrl ? (
                 <Image
                   src={mediaFile.thumbnailUrl}
@@ -113,15 +113,15 @@ export function MediaLibrary({
                   {mediaFile.type === 'video' ? '🎥' : '📷'}
                 </div>
               )}
-              <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded text-xs font-medium">
+              <div className="absolute top-2 right-2 bg-foreground/60 text-background px-2 py-1 rounded text-xs font-medium">
                 {mediaFile.type === 'video' ? 'Video' : 'Photo'}
               </div>
             </div>
 
             {/* Info */}
             <div className="p-3 space-y-2">
-              <p className="font-medium text-sm truncate">{mediaFile.name}</p>
-              <div className="text-xs text-gray-600 space-y-1">
+              <p className="font-medium text-sm truncate text-foreground">{mediaFile.name}</p>
+              <div className="text-xs text-muted-foreground space-y-1">
                 <p>Size: {formatFileSize(mediaFile.size)}</p>
                 {mediaFile.duration && (
                   <p>Duration: {formatDuration(mediaFile.duration)}</p>
@@ -167,7 +167,7 @@ export function MediaLibrary({
       </div>
 
       {/* Summary */}
-      <div className="text-sm text-gray-600 text-center">
+      <div className="text-sm text-muted-foreground text-center">
         {media.length} media file{media.length !== 1 ? 's' : ''}
       </div>
     </div>

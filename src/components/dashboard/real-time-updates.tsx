@@ -84,10 +84,10 @@ export const RealTimeUpdates: React.FC<RealTimeUpdatesProps> = ({
   };
 
   const getStatusColor = (): string => {
-    if (error) return 'text-red-600';
-    if (isLoading) return 'text-yellow-600';
-    if (isRunning) return 'text-green-600';
-    return 'text-gray-600';
+    if (error) return 'text-error';
+    if (isLoading) return 'text-warning';
+    if (isRunning) return 'text-success';
+    return 'text-muted-foreground';
   };
 
   const getStatusLabel = (): string => {
@@ -98,7 +98,7 @@ export const RealTimeUpdates: React.FC<RealTimeUpdatesProps> = ({
   };
 
   return (
-    <div className={`inline-flex items-center gap-3 px-4 py-2 bg-white border border-gray-200 rounded-lg ${className}`}>
+    <div className={`inline-flex items-center gap-3 px-4 py-2 bg-card border border-border rounded-lg ${className}`}>
       {/* Status Indicator */}
       <div className="flex items-center gap-2">
         <div className={`w-2 h-2 rounded-full ${getStatusColor()} animate-pulse`}></div>
@@ -108,12 +108,12 @@ export const RealTimeUpdates: React.FC<RealTimeUpdatesProps> = ({
       </div>
 
       {/* Last Update Time */}
-      <div className="text-xs text-gray-600">
+      <div className="text-xs text-muted-foreground">
         Last: {formatTime(lastUpdate)}
       </div>
 
       {/* Update Count */}
-      <div className="text-xs text-gray-600">
+      <div className="text-xs text-muted-foreground">
         Updates: {updateCount}
       </div>
 
@@ -121,7 +121,7 @@ export const RealTimeUpdates: React.FC<RealTimeUpdatesProps> = ({
       <button
         onClick={handleManualRefresh}
         disabled={disabled || isLoading}
-        className="p-1 text-gray-600 hover:text-blue-600 disabled:text-gray-400 transition-colors"
+        className="p-1 text-muted-foreground hover:text-primary disabled:opacity-50 transition-colors"
         aria-label="Refresh data"
         title="Refresh now"
       >
@@ -132,7 +132,7 @@ export const RealTimeUpdates: React.FC<RealTimeUpdatesProps> = ({
       <button
         onClick={handleToggle}
         disabled={disabled}
-        className="p-1 text-gray-600 hover:text-blue-600 disabled:text-gray-400 transition-colors"
+        className="p-1 text-muted-foreground hover:text-primary disabled:opacity-50 transition-colors"
         aria-label={isRunning ? 'Pause updates' : 'Resume updates'}
         title={isRunning ? 'Pause' : 'Resume'}
       >
@@ -141,7 +141,7 @@ export const RealTimeUpdates: React.FC<RealTimeUpdatesProps> = ({
 
       {/* Error Indicator */}
       {error && (
-        <div className="flex items-center gap-1 text-red-600">
+        <div className="flex items-center gap-1 text-error">
           <AlertCircle size={16} />
           <span className="text-xs">{error.message}</span>
         </div>

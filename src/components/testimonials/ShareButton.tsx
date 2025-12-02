@@ -87,7 +87,7 @@ export function ShareButton({
       {/* Share Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+        className="px-4 py-2 bg-primary hover:bg-primary-dark text-primary-foreground rounded-lg font-medium transition-colors flex items-center gap-2"
       >
         <span>📤</span>
         Share
@@ -95,7 +95,7 @@ export function ShareButton({
 
       {/* Share Menu */}
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-10 min-w-max">
+        <div className="absolute top-full right-0 mt-2 bg-card border border-border rounded-lg shadow-lg z-10 min-w-max">
           {/* Share Options */}
           {shareOptions.map((option) => (
             <button
@@ -104,15 +104,15 @@ export function ShareButton({
                 option.action();
                 setIsOpen(false);
               }}
-              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b last:border-b-0 flex items-center gap-3"
+              className="w-full px-4 py-3 text-left hover:bg-muted transition-colors border-b border-border last:border-b-0 flex items-center gap-3"
             >
               <span className="text-xl">{option.icon}</span>
-              <span className="font-medium text-gray-900">{option.name}</span>
+              <span className="font-medium text-foreground">{option.name}</span>
             </button>
           ))}
 
           {/* Divider */}
-          <div className="border-t" />
+          <div className="border-t border-border" />
 
           {/* Copy Link */}
           <button
@@ -120,10 +120,10 @@ export function ShareButton({
               handleCopyLink();
               setIsOpen(false);
             }}
-            className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors flex items-center gap-3"
+            className="w-full px-4 py-3 text-left hover:bg-muted transition-colors flex items-center gap-3"
           >
             <span className="text-xl">🔗</span>
-            <span className="font-medium text-gray-900">
+            <span className="font-medium text-foreground">
               {copied ? 'Copied!' : 'Copy Link'}
             </span>
           </button>
@@ -139,7 +139,7 @@ export function ShareButton({
       )}
 
       {/* Info */}
-      <div className="mt-2 text-xs text-gray-600">
+      <div className="mt-2 text-xs text-muted-foreground">
         Share this testimonial with your network
       </div>
     </div>
