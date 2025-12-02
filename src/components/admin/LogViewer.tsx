@@ -64,10 +64,10 @@ const LogViewer = React.forwardRef<HTMLDivElement, LogViewerProps>(
 
     const getLevelColor = (level: string) => {
       switch (level) {
-        case 'error': return 'bg-red-100 text-red-800';
-        case 'warning': return 'bg-yellow-100 text-yellow-800';
-        case 'info': return 'bg-blue-100 text-blue-800';
-        default: return 'bg-gray-100 text-gray-800';
+        case 'error': return 'bg-error/10 text-error';
+        case 'warning': return 'bg-warning/10 text-warning';
+        case 'info': return 'bg-info/10 text-info';
+        default: return 'bg-muted text-foreground';
       }
     };
 
@@ -89,29 +89,29 @@ const LogViewer = React.forwardRef<HTMLDivElement, LogViewerProps>(
       a.click();
     };
 
-    if (loading) return <div className="text-center py-8">Loading logs...</div>;
+    if (loading) return <div className="text-center py-8 text-foreground">Loading logs...</div>;
 
     return (
-      <div ref={ref} className={`bg-white p-6 rounded-lg shadow ${className}`}>
+      <div ref={ref} className={`bg-card text-card-foreground p-6 rounded-lg shadow border border-border ${className}`}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">System Logs</h2>
+          <h2 className="text-2xl font-bold text-foreground">System Logs</h2>
           <button
             onClick={exportLogs}
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm"
+            className="bg-primary hover:bg-primary-dark text-primary-foreground px-4 py-2 rounded text-sm transition-colors"
           >
             Export Logs
           </button>
         </div>
 
-        {error && <div className="text-red-600 mb-4">Error: {error}</div>}
+        {error && <div className="text-error mb-4">Error: {error}</div>}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div>
-            <label className="block text-sm font-semibold mb-2">Filter by Level</label>
+            <label className="block text-sm font-semibold mb-2 text-foreground">Filter by Level</label>
             <select
               value={logLevel}
               onChange={(e) => { setLogLevel(e.target.value); setPage(1); }}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-border rounded px-3 py-2 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="all">All Levels</option>
               <option value="info">Info</option>
@@ -121,19 +121,19 @@ const LogViewer = React.forwardRef<HTMLDivElement, LogViewerProps>(
           </div>
 
           <div>
-            <label className="block text-sm font-semibold mb-2">Search</label>
+            <label className="block text-sm font-semibold mb-2 text-foreground">Search</label>
             <input
               type="text"
               placeholder="Search logs..."
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setPage(1); }}
-              className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-border rounded px-3 py-2 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold mb-2">Results</label>
-            <div className="text-sm text-gray-600 py-2">
+            <label className="block text-sm font-semibold mb-2 text-foreground">Results</label>
+            <div className="text-sm text-muted-foreground py-2">
               Showing {paginatedLogs.length > 0 ? (page - 1) * itemsPerPage + 1 : 0} - {Math.min(page * itemsPerPage, filteredLogs.length)} of {filteredLogs.length}
             </div>
           </div>
@@ -141,23 +141,23 @@ const LogViewer = React.forwardRef<HTMLDivElement, LogViewerProps>(
 
         <div className="overflow-x-auto mb-4">
           <table className="w-full text-sm">
-            <thead className="bg-gray-100">
+            <thead className="bg-muted">
               <tr>
-                <th className="px-4 py-2 text-left">Level</th>
-                <th className="px-4 py-2 text-left">Message</th>
-                <th className="px-4 py-2 text-left">Timestamp</th>
+                <th className="px-4 py-2 text-left text-foreground">Level</th>
+                <th className="px-4 py-2 text-left text-foreground">Message</th>
+                <th className="px-4 py-2 text-left text-foreground">Timestamp</th>
               </tr>
             </thead>
             <tbody>
               {paginatedLogs.map((log) => (
-                <tr key={log.id} className="border-b hover:bg-gray-50">
+                <tr key={log.id} className="border-b border-border hover:bg-muted/50 transition-colors">
                   <td className="px-4 py-2">
                     <span className={`px-2 py-1 rounded text-xs font-semibold ${getLevelColor(log.level)}`}>
                       {log.level.toUpperCase()}
                     </span>
                   </td>
-                  <td className="px-4 py-2 max-w-md truncate">{log.message}</td>
-                  <td className="px-4 py-2 text-gray-600 whitespace-nowrap">
+                  <td className="px-4 py-2 max-w-md truncate text-foreground">{log.message}</td>
+                  <td className="px-4 py-2 text-muted-foreground whitespace-nowrap">
                     {new Date(log.timestamp).toLocaleString()}
                   </td>
                 </tr>
@@ -171,15 +171,15 @@ const LogViewer = React.forwardRef<HTMLDivElement, LogViewerProps>(
             <button
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-3 py-1 border rounded disabled:opacity-50"
+              className="px-3 py-1 border border-border rounded bg-background text-foreground hover:bg-muted disabled:opacity-50 transition-colors"
             >
               Previous
             </button>
-            <span className="px-3 py-1">Page {page} of {totalPages}</span>
+            <span className="px-3 py-1 text-foreground">Page {page} of {totalPages}</span>
             <button
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-3 py-1 border rounded disabled:opacity-50"
+              className="px-3 py-1 border border-border rounded bg-background text-foreground hover:bg-muted disabled:opacity-50 transition-colors"
             >
               Next
             </button>

@@ -49,7 +49,7 @@ const SystemHealthMonitor = React.forwardRef<HTMLDivElement, SystemHealthMonitor
     }, [autoRefresh, refreshInterval]);
 
     const getStatusColor = (status: string) => {
-      return status === 'healthy' ? 'text-green-600' : 'text-yellow-600';
+      return status === 'healthy' ? 'text-success' : 'text-warning';
     };
 
     const getMemoryPercentage = () => {
@@ -57,16 +57,16 @@ const SystemHealthMonitor = React.forwardRef<HTMLDivElement, SystemHealthMonitor
       return Math.round((health.memory.used / health.memory.total) * 100);
     };
 
-    if (loading) return <div className="text-center py-8">Loading system health...</div>;
-    if (error) return <div className="text-red-600 py-8">Error: {error}</div>;
+    if (loading) return <div className="text-center py-8 text-foreground">Loading system health...</div>;
+    if (error) return <div className="text-error py-8">Error: {error}</div>;
 
     return (
-      <div ref={ref} className={`bg-white p-6 rounded-lg shadow ${className}`}>
+      <div ref={ref} className={`bg-card text-card-foreground p-6 rounded-lg shadow border border-border ${className}`}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">System Health Monitor</h2>
+          <h2 className="text-2xl font-bold text-foreground">System Health Monitor</h2>
           <button
             onClick={fetchHealth}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm"
+            className="bg-primary hover:bg-primary-dark text-primary-foreground px-4 py-2 rounded text-sm transition-colors"
           >
             Refresh Now
           </button>
@@ -75,50 +75,50 @@ const SystemHealthMonitor = React.forwardRef<HTMLDivElement, SystemHealthMonitor
         {health && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-gray-50 p-4 rounded border-l-4 border-green-500">
-                <p className="text-gray-600 text-sm">Overall Status</p>
+              <div className="bg-muted p-4 rounded border-l-4 border-success">
+                <p className="text-muted-foreground text-sm">Overall Status</p>
                 <p className={`text-2xl font-bold ${getStatusColor(health.status)}`}>
                   {health.status.toUpperCase()}
                 </p>
               </div>
-              <div className="bg-gray-50 p-4 rounded border-l-4 border-blue-500">
-                <p className="text-gray-600 text-sm">Database</p>
+              <div className="bg-muted p-4 rounded border-l-4 border-info">
+                <p className="text-muted-foreground text-sm">Database</p>
                 <p className={`text-lg font-bold ${getStatusColor(health.database.status)}`}>
                   {health.database.status} ({health.database.responseTime})
                 </p>
               </div>
-              <div className="bg-gray-50 p-4 rounded border-l-4 border-purple-500">
-                <p className="text-gray-600 text-sm">API Response</p>
-                <p className="text-lg font-bold text-purple-600">{health.api.responseTime}</p>
+              <div className="bg-muted p-4 rounded border-l-4 border-accent">
+                <p className="text-muted-foreground text-sm">API Response</p>
+                <p className="text-lg font-bold text-accent">{health.api.responseTime}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-blue-50 p-4 rounded">
-                <p className="text-gray-600 text-sm">Total Users</p>
-                <p className="text-2xl font-bold text-blue-600">{health.metrics.totalUsers}</p>
+              <div className="bg-info/10 p-4 rounded">
+                <p className="text-muted-foreground text-sm">Total Users</p>
+                <p className="text-2xl font-bold text-info">{health.metrics.totalUsers}</p>
               </div>
-              <div className="bg-green-50 p-4 rounded">
-                <p className="text-gray-600 text-sm">Total Orders</p>
-                <p className="text-2xl font-bold text-green-600">{health.metrics.totalOrders}</p>
+              <div className="bg-success/10 p-4 rounded">
+                <p className="text-muted-foreground text-sm">Total Orders</p>
+                <p className="text-2xl font-bold text-success">{health.metrics.totalOrders}</p>
               </div>
-              <div className="bg-purple-50 p-4 rounded">
-                <p className="text-gray-600 text-sm">Total Products</p>
-                <p className="text-2xl font-bold text-purple-600">{health.metrics.totalProducts}</p>
+              <div className="bg-accent/10 p-4 rounded">
+                <p className="text-muted-foreground text-sm">Total Products</p>
+                <p className="text-2xl font-bold text-accent">{health.metrics.totalProducts}</p>
               </div>
-              <div className="bg-orange-50 p-4 rounded">
-                <p className="text-gray-600 text-sm">Memory Usage</p>
-                <p className="text-2xl font-bold text-orange-600">{getMemoryPercentage()}%</p>
-                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div className="bg-warning/10 p-4 rounded">
+                <p className="text-muted-foreground text-sm">Memory Usage</p>
+                <p className="text-2xl font-bold text-warning">{getMemoryPercentage()}%</p>
+                <div className="w-full bg-muted rounded-full h-2 mt-2">
                   <div
-                    className="bg-orange-600 h-2 rounded-full"
+                    className="bg-warning h-2 rounded-full transition-all duration-300"
                     style={{ width: `${getMemoryPercentage()}%` }}
                   />
                 </div>
               </div>
             </div>
 
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               Last updated: {lastUpdated?.toLocaleTimeString()}
               {autoRefresh && ` (Auto-refresh every ${refreshInterval / 1000}s)`}
             </div>
