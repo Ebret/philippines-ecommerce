@@ -5,14 +5,14 @@ import React from "react";
 export const DynamicLoadingComponent = () => (
   <div className="flex items-center justify-center p-4">
     <div className="animate-pulse">
-      <div className="h-4 w-32 bg-gray-200 rounded"></div>
+      <div className="h-4 w-32 bg-muted rounded"></div>
     </div>
   </div>
 );
 
 // Error component for failed dynamic imports
 export const DynamicErrorComponent = ({ error }: { error: Error }) => (
-  <div className="flex items-center justify-center p-4 text-red-600">
+  <div className="flex items-center justify-center p-4 text-error">
     <p>Failed to load component: {error.message}</p>
   </div>
 );
