@@ -99,7 +99,7 @@ export function MediaUploader({
 
   return (
     <div className="space-y-4">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition-colors">
+      <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors">
         <input
           ref={fileInputRef}
           type="file"
@@ -115,10 +115,10 @@ export function MediaUploader({
           className="cursor-pointer block"
         >
           <div className="text-4xl mb-2">📁</div>
-          <p className="text-lg font-medium text-gray-700 mb-1">
+          <p className="text-lg font-medium text-foreground mb-1">
             {isUploading ? 'Uploading...' : 'Click to upload or drag and drop'}
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             Video (MP4, WebM, MOV) or Photo (JPG, PNG, WebP) up to {maxFileSize}MB
           </p>
         </label>
@@ -127,19 +127,19 @@ export function MediaUploader({
       {/* Progress Bar */}
       {isUploading && (
         <div className="space-y-2">
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-muted rounded-full h-2">
             <div
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              className="bg-primary h-2 rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-sm text-gray-600 text-center">{progress}% uploaded</p>
+          <p className="text-sm text-muted-foreground text-center">{progress}% uploaded</p>
         </div>
       )}
 
       {/* Error Message */}
       {uploadError && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+        <div className="p-4 bg-error/10 border border-error/30 rounded-lg text-error text-sm">
           {uploadError}
         </div>
       )}
@@ -148,13 +148,13 @@ export function MediaUploader({
       <Button
         onClick={() => fileInputRef.current?.click()}
         disabled={isUploading}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+        className="w-full bg-primary hover:bg-primary-dark text-primary-foreground"
       >
         {isUploading ? `Uploading (${progress}%)` : 'Select Media File'}
       </Button>
 
       {/* Info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-700">
+      <div className="bg-info/10 border border-info/30 rounded-lg p-4 text-sm text-info">
         <p className="font-medium mb-2">📝 Upload Tips:</p>
         <ul className="list-disc list-inside space-y-1">
           <li>Videos will be transcoded to 360p, 720p, and 1080p</li>

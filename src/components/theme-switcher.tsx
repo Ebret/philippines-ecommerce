@@ -18,21 +18,21 @@ export function ThemeSwitcher() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        className="p-2 rounded-lg hover:bg-muted transition-colors"
         aria-label="Toggle theme"
         title={`Current theme: ${theme}`}
       >
         {isDark ? (
-          <Moon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+          <Moon className="w-5 h-5 text-foreground" />
         ) : (
-          <Sun className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+          <Sun className="w-5 h-5 text-foreground" />
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+        <div className="absolute right-0 mt-2 w-48 bg-card rounded-lg shadow-lg border border-border z-50">
           <div className="p-2">
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 px-2 py-1">
+            <p className="text-xs font-semibold text-muted-foreground px-2 py-1">
               Theme
             </p>
             {themes.map(({ value, label, icon: Icon }) => (
@@ -44,8 +44,8 @@ export function ThemeSwitcher() {
                 }}
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
                   theme === value
-                    ? 'bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-foreground hover:bg-muted'
                 }`}
               >
                 <Icon className="w-4 h-4" />

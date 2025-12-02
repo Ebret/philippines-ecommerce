@@ -45,9 +45,9 @@ export const EmailNotificationTemplate: React.FC<EmailNotificationTemplateProps>
   className,
 }) => {
   return (
-    <div className={cn('w-full max-w-2xl mx-auto bg-white', className)}>
+    <div className={cn('w-full max-w-2xl mx-auto bg-card', className)}>
       {/* Email Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8 text-white">
+      <div className="bg-gradient-to-r from-primary to-primary-dark px-6 py-8 text-primary-foreground">
         {companyLogo && (
           <img
             src={companyLogo}
@@ -64,12 +64,12 @@ export const EmailNotificationTemplate: React.FC<EmailNotificationTemplateProps>
       {/* Email Body */}
       <div className="px-6 py-8">
         {/* Greeting */}
-        <p className="text-gray-800 mb-6">
+        <p className="text-foreground mb-6">
           Hello {recipientName},
         </p>
 
         {/* Main Content */}
-        <div className="text-gray-700 mb-8 leading-relaxed">
+        <div className="text-muted-foreground mb-8 leading-relaxed">
           {content}
         </div>
 
@@ -78,14 +78,14 @@ export const EmailNotificationTemplate: React.FC<EmailNotificationTemplateProps>
           <div className="mb-8 space-y-6">
             {sections.map((section, idx) => (
               <div key={idx}>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <h2 className="text-lg font-semibold text-foreground mb-4">
                   {section.title}
                 </h2>
-                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                <div className="bg-muted rounded-lg p-4 space-y-3">
                   {section.items.map((item, itemIdx) => (
                     <div key={itemIdx} className="flex justify-between">
-                      <span className="text-gray-600">{item.label}</span>
-                      <span className="font-semibold text-gray-900">
+                      <span className="text-muted-foreground">{item.label}</span>
+                      <span className="font-semibold text-foreground">
                         {item.value}
                       </span>
                     </div>
@@ -101,7 +101,7 @@ export const EmailNotificationTemplate: React.FC<EmailNotificationTemplateProps>
           {primaryAction && (
             <a
               href={primaryAction.url}
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
             >
               {primaryAction.label}
             </a>
@@ -109,7 +109,7 @@ export const EmailNotificationTemplate: React.FC<EmailNotificationTemplateProps>
           {secondaryAction && (
             <a
               href={secondaryAction.url}
-              className="inline-block bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+              className="inline-block bg-muted text-foreground px-6 py-3 rounded-lg font-semibold hover:bg-muted/80 transition-colors"
             >
               {secondaryAction.label}
             </a>
@@ -118,30 +118,30 @@ export const EmailNotificationTemplate: React.FC<EmailNotificationTemplateProps>
 
         {/* Footer Message */}
         {footer && (
-          <p className="text-sm text-gray-600 italic">
+          <p className="text-sm text-muted-foreground italic">
             {footer}
           </p>
         )}
       </div>
 
       {/* Email Footer */}
-      <div className="bg-gray-50 px-6 py-6 border-t border-gray-200">
-        <p className="text-xs text-gray-600 text-center mb-2">
+      <div className="bg-muted px-6 py-6 border-t border-border">
+        <p className="text-xs text-muted-foreground text-center mb-2">
           © {new Date().getFullYear()} {companyName}. All rights reserved.
         </p>
-        <p className="text-xs text-gray-600 text-center">
+        <p className="text-xs text-muted-foreground text-center">
           You received this email because you're a valued customer.
         </p>
         <div className="flex justify-center gap-4 mt-4">
-          <a href="#" className="text-xs text-blue-600 hover:text-blue-700">
+          <a href="#" className="text-xs text-primary hover:text-primary-dark">
             Unsubscribe
           </a>
-          <span className="text-xs text-gray-400">•</span>
-          <a href="#" className="text-xs text-blue-600 hover:text-blue-700">
+          <span className="text-xs text-muted-foreground">•</span>
+          <a href="#" className="text-xs text-primary hover:text-primary-dark">
             Preferences
           </a>
-          <span className="text-xs text-gray-400">•</span>
-          <a href="#" className="text-xs text-blue-600 hover:text-blue-700">
+          <span className="text-xs text-muted-foreground">•</span>
+          <a href="#" className="text-xs text-primary hover:text-primary-dark">
             Contact Us
           </a>
         </div>

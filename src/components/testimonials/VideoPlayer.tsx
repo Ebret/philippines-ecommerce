@@ -118,8 +118,8 @@ export function VideoPlayer({
                       onClick={() => handleQualityChange(quality)}
                       className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
                         selectedQuality === quality
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-white/20 text-white hover:bg-white/30'
                       }`}
                     >
                       {quality}
@@ -132,9 +132,9 @@ export function VideoPlayer({
             {/* Bottom Controls */}
             <div className="space-y-2">
               {/* Progress Bar */}
-              <div className="w-full bg-gray-600 rounded-full h-1 cursor-pointer group/progress">
+              <div className="w-full bg-white/30 rounded-full h-1 cursor-pointer group/progress">
                 <div
-                  className="bg-blue-600 h-1 rounded-full transition-all"
+                  className="bg-primary h-1 rounded-full transition-all"
                   style={{ width: `${(currentTime / duration) * 100}%` }}
                 />
               </div>
@@ -144,7 +144,7 @@ export function VideoPlayer({
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handlePlayPause}
-                    className="text-white hover:text-blue-400 transition-colors"
+                    className="text-white hover:text-primary transition-colors"
                   >
                     {isPlaying ? '⏸' : '▶'}
                   </button>
@@ -159,7 +159,7 @@ export function VideoPlayer({
                       step="0.1"
                       value={volume}
                       onChange={handleVolumeChange}
-                      className="w-16 h-1 bg-gray-600 rounded-full cursor-pointer"
+                      className="w-16 h-1 bg-white/30 rounded-full cursor-pointer accent-primary"
                     />
                   </div>
 
@@ -172,7 +172,7 @@ export function VideoPlayer({
                 {/* Fullscreen Button */}
                 <button
                   onClick={handleFullscreen}
-                  className="text-white hover:text-blue-400 transition-colors"
+                  className="text-white hover:text-primary transition-colors"
                 >
                   {isFullscreen ? '⛶' : '⛶'}
                 </button>
@@ -184,8 +184,8 @@ export function VideoPlayer({
 
       {/* Quality Info */}
       {qualities && (
-        <div className="text-sm text-gray-600">
-          Current Quality: <span className="font-medium text-gray-900">{selectedQuality}</span>
+        <div className="text-sm text-muted-foreground">
+          Current Quality: <span className="font-medium text-foreground">{selectedQuality}</span>
         </div>
       )}
     </div>
