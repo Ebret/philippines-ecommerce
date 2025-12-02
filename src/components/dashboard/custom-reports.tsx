@@ -29,10 +29,10 @@ const SimpleBarChart: React.FC<{ data: ReportData[] }> = ({ data }) => {
     <div className="space-y-2">
       {data.map((item, idx) => (
         <div key={idx} className="flex items-center gap-2">
-          <div className="w-24 text-sm font-medium truncate">{item.label}</div>
-          <div className="flex-1 bg-gray-200 rounded-full h-6 overflow-hidden">
+          <div className="w-24 text-sm font-medium truncate text-foreground">{item.label}</div>
+          <div className="flex-1 bg-muted rounded-full h-6 overflow-hidden">
             <div
-              className="bg-blue-600 h-full flex items-center justify-end pr-2 text-white text-xs font-semibold"
+              className="bg-primary h-full flex items-center justify-end pr-2 text-primary-foreground text-xs font-semibold"
               style={{ width: `${(item.value / maxValue) * 100}%` }}
             >
               {item.value}
@@ -143,9 +143,9 @@ export const CustomReports: React.FC<CustomReportsProps> = ({
             disabled={disabled}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
               selectedReport === idx
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            } disabled:bg-gray-400 disabled:cursor-not-allowed`}
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted text-foreground hover:bg-muted/80'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             {getChartIcon(report.type)}
             <span className="text-sm font-medium">{report.title}</span>
@@ -155,48 +155,48 @@ export const CustomReports: React.FC<CustomReportsProps> = ({
 
       {/* Main Report Display */}
       {currentReport && (
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-card text-card-foreground rounded-lg border border-border p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="text-lg font-semibold">{currentReport.title}</h3>
+              <h3 className="text-lg font-semibold text-foreground">{currentReport.title}</h3>
               {currentReport.description && (
-                <p className="text-sm text-gray-600 mt-1">{currentReport.description}</p>
+                <p className="text-sm text-muted-foreground mt-1">{currentReport.description}</p>
               )}
             </div>
             <button
               onClick={() => onExportReport?.(currentReport.title)}
               disabled={disabled}
-              className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+              className="px-3 py-1 text-sm bg-primary text-primary-foreground rounded hover:bg-primary-dark disabled:opacity-50 transition-colors"
             >
               Export
             </button>
           </div>
 
           {/* Chart */}
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <div className="mb-6 p-4 bg-muted rounded-lg">
             {renderChart(currentReport)}
           </div>
 
           {/* Summary Statistics */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <p className="text-xs text-gray-600">Total</p>
-              <p className="text-2xl font-bold text-blue-600">
+            <div className="p-3 bg-info/10 rounded-lg">
+              <p className="text-xs text-muted-foreground">Total</p>
+              <p className="text-2xl font-bold text-info">
                 {currentReport.data.reduce((sum, d) => sum + d.value, 0)}
               </p>
             </div>
-            <div className="p-3 bg-green-50 rounded-lg">
-              <p className="text-xs text-gray-600">Average</p>
-              <p className="text-2xl font-bold text-green-600">
+            <div className="p-3 bg-success/10 rounded-lg">
+              <p className="text-xs text-muted-foreground">Average</p>
+              <p className="text-2xl font-bold text-success">
                 {(
                   currentReport.data.reduce((sum, d) => sum + d.value, 0) /
                   currentReport.data.length
                 ).toFixed(0)}
               </p>
             </div>
-            <div className="p-3 bg-purple-50 rounded-lg">
-              <p className="text-xs text-gray-600">Items</p>
-              <p className="text-2xl font-bold text-purple-600">
+            <div className="p-3 bg-accent/20 rounded-lg">
+              <p className="text-xs text-muted-foreground">Items</p>
+              <p className="text-2xl font-bold text-accent-foreground">
                 {currentReport.data.length}
               </p>
             </div>
@@ -210,15 +210,15 @@ export const CustomReports: React.FC<CustomReportsProps> = ({
           {reports.map((report, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-lg border border-gray-200 p-4 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-card text-card-foreground rounded-lg border border-border p-4 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => setExpandedReport(expandedReport === idx ? null : idx)}
             >
               <div className="flex items-center gap-2 mb-3">
                 {getChartIcon(report.type)}
-                <h4 className="font-semibold text-sm">{report.title}</h4>
+                <h4 className="font-semibold text-sm text-foreground">{report.title}</h4>
               </div>
               {expandedReport === idx && (
-                <div className="mt-3 p-3 bg-gray-50 rounded">
+                <div className="mt-3 p-3 bg-muted rounded">
                   {renderChart(report)}
                 </div>
               )}

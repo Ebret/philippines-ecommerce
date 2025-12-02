@@ -125,10 +125,10 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
           onClick={() => handleDateClick(day)}
           className={`p-2 text-sm rounded transition-colors ${
             isStart || isEnd
-              ? 'bg-blue-600 text-white font-semibold'
+              ? 'bg-primary text-primary-foreground font-semibold'
               : isInRange
-              ? 'bg-blue-100 text-blue-900'
-              : 'hover:bg-gray-100'
+              ? 'bg-primary/10 text-primary'
+              : 'hover:bg-muted text-foreground'
           }`}
         >
           {day}
@@ -144,7 +144,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
       <button
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled}
-        className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:bg-accent/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         aria-label="Select date range"
       >
         <Calendar size={18} />
@@ -154,8 +154,8 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-lg border border-gray-200 z-50 p-4">
-          <h3 className="text-lg font-semibold mb-4">Select Date Range</h3>
+        <div className="absolute right-0 mt-2 w-96 bg-card text-card-foreground rounded-lg shadow-lg border border-border z-50 p-4">
+          <h3 className="text-lg font-semibold mb-4 text-foreground">Select Date Range</h3>
 
           {/* Preset Ranges */}
           <div className="mb-4 grid grid-cols-2 gap-2">
@@ -163,7 +163,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
               <button
                 key={preset.label}
                 onClick={() => applyPreset(preset.days)}
-                className="py-2 px-3 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                className="py-2 px-3 text-sm bg-muted text-foreground rounded hover:bg-muted/80 transition-colors"
               >
                 {preset.label}
               </button>
@@ -171,7 +171,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
           </div>
 
           {/* Calendar */}
-          <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+          <div className="mb-4 p-3 bg-muted rounded-lg">
             <div className="flex items-center justify-between mb-4">
               <button
                 onClick={() =>
@@ -179,11 +179,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                     new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1)
                   )
                 }
-                className="p-1 hover:bg-gray-200 rounded transition-colors"
+                className="p-1 hover:bg-background rounded transition-colors text-foreground"
               >
                 <ChevronLeft size={18} />
               </button>
-              <h4 className="font-semibold">
+              <h4 className="font-semibold text-foreground">
                 {currentMonth.toLocaleDateString('en-US', {
                   month: 'long',
                   year: 'numeric',
@@ -195,7 +195,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
                     new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1)
                   )
                 }
-                className="p-1 hover:bg-gray-200 rounded transition-colors"
+                className="p-1 hover:bg-background rounded transition-colors text-foreground"
               >
                 <ChevronRight size={18} />
               </button>
@@ -204,7 +204,7 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
             {/* Day Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="text-center text-xs font-semibold text-gray-600">
+                <div key={day} className="text-center text-xs font-semibold text-muted-foreground">
                   {day}
                 </div>
               ))}
@@ -215,11 +215,11 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
           </div>
 
           {/* Selected Range Display */}
-          <div className="mb-4 p-3 bg-blue-50 rounded-lg">
-            <p className="text-sm text-gray-600">
+          <div className="mb-4 p-3 bg-primary/10 rounded-lg">
+            <p className="text-sm text-foreground">
               <strong>From:</strong> {formatDate(startDate)}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-foreground">
               <strong>To:</strong> {formatDate(endDate)}
             </p>
           </div>
@@ -228,13 +228,13 @@ export const DateRangePicker: React.FC<DateRangePickerProps> = ({
           <div className="flex gap-2">
             <button
               onClick={handleApply}
-              className="flex-1 py-2 px-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="flex-1 py-2 px-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary-dark transition-colors font-medium"
             >
               Apply
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="flex-1 py-2 px-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+              className="flex-1 py-2 px-3 bg-muted text-foreground rounded-lg hover:bg-muted/80 transition-colors font-medium"
             >
               Cancel
             </button>

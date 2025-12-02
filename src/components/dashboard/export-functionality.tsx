@@ -100,7 +100,7 @@ export const ExportFunctionality: React.FC<ExportFunctionalityProps> = ({
       <button
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled || data.length === 0}
-        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         aria-label="Export data"
       >
         <Download size={18} />
@@ -108,12 +108,12 @@ export const ExportFunctionality: React.FC<ExportFunctionalityProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 p-4">
-          <h3 className="text-lg font-semibold mb-4">Export Data</h3>
+        <div className="absolute right-0 mt-2 w-80 bg-card text-card-foreground rounded-lg shadow-lg border border-border z-50 p-4">
+          <h3 className="text-lg font-semibold mb-4 text-foreground">Export Data</h3>
 
           {/* Format Selection */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Format
             </label>
             <div className="flex gap-2">
@@ -123,8 +123,8 @@ export const ExportFunctionality: React.FC<ExportFunctionalityProps> = ({
                   onClick={() => setSelectedFormat(format)}
                   className={`flex-1 py-2 px-3 rounded-lg border-2 transition-colors ${
                     selectedFormat === format
-                      ? 'border-blue-600 bg-blue-50 text-blue-600'
-                      : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-border bg-card text-foreground hover:border-primary/50'
                   }`}
                 >
                   {format === 'csv' ? (
@@ -140,7 +140,7 @@ export const ExportFunctionality: React.FC<ExportFunctionalityProps> = ({
 
           {/* Filename Input */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Filename
             </label>
             <input
@@ -148,14 +148,14 @@ export const ExportFunctionality: React.FC<ExportFunctionalityProps> = ({
               value={customFilename}
               onChange={(e) => setCustomFilename(e.target.value)}
               placeholder="Enter filename"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
 
           {/* Data Summary */}
-          <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600">
-              <strong>{data.length}</strong> rows, <strong>{columns.length}</strong> columns
+          <div className="mb-4 p-3 bg-muted rounded-lg">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">{data.length}</strong> rows, <strong className="text-foreground">{columns.length}</strong> columns
             </p>
           </div>
 
@@ -164,13 +164,13 @@ export const ExportFunctionality: React.FC<ExportFunctionalityProps> = ({
             <button
               onClick={handleExport}
               disabled={isExporting}
-              className="flex-1 py-2 px-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors font-medium"
+              className="flex-1 py-2 px-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary-dark disabled:opacity-50 transition-colors font-medium"
             >
               {isExporting ? 'Exporting...' : 'Export'}
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="flex-1 py-2 px-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+              className="flex-1 py-2 px-3 bg-muted text-foreground rounded-lg hover:bg-muted/80 transition-colors font-medium"
             >
               Cancel
             </button>
