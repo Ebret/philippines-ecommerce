@@ -1,33 +1,89 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Leaf, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/layout/navbar';
+import { useParallax } from '@/hooks/use-parallax';
 
+/**
+ * Hero Section Component with Parallax Effects
+ *
+ * Features:
+ * - Multi-layer parallax scrolling for visual depth
+ * - Smooth GPU-accelerated animations
+ * - Responsive design with mobile optimization
+ * - Dark mode support
+ * - Accessibility compliant (respects reduced motion preference)
+ */
 export default function HeroSection() {
+  // Parallax hooks for different layers (creates depth effect)
+  const backgroundParallax = useParallax({ speed: 0.3, direction: 'up', maxOffset: 150 });
+  const floatingParallax = useParallax({ speed: 0.5, direction: 'up', maxOffset: 200 });
+  const contentParallax = useParallax({ speed: 0.1, direction: 'up', maxOffset: 50 });
+
+  // Memoized transform styles for performance
+  const backgroundStyle = useMemo(() => ({
+    backgroundImage: 'url(/hero-banner.png)',
+    transform: `translate3d(0, ${backgroundParallax.offset}px, 0)`,
+    willChange: 'transform',
+  }), [backgroundParallax.offset]);
+
+  const floatingOrbStyles = useMemo(() => ({
+    orb1: {
+      transform: `translate3d(0, ${floatingParallax.offset * 0.8}px, 0)`,
+      willChange: 'transform',
+    },
+    orb2: {
+      transform: `translate3d(0, ${floatingParallax.offset * 1.2}px, 0)`,
+      willChange: 'transform',
+    },
+    orb3: {
+      transform: `translate3d(0, ${floatingParallax.offset * 0.6}px, 0)`,
+      willChange: 'transform',
+    },
+  }), [floatingParallax.offset]);
+
+  const contentStyle = useMemo(() => ({
+    transform: `translate3d(0, ${contentParallax.offset}px, 0)`,
+    willChange: 'transform',
+  }), [contentParallax.offset]);
+
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 dark:from-primary-950 dark:via-primary-900 dark:to-primary-950 overflow-hidden">
-      {/* Navigation Bar */}
+      {/* Navigation Bar - Fixed, no parallax */}
       <Navbar />
-      {/* Hero Background Image */}
+
+      {/* Hero Background Image - Slow parallax for depth */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{
-          backgroundImage: 'url(/hero-banner.png)',
-        }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 transition-transform duration-100 ease-out motion-reduce:transform-none"
+        style={backgroundStyle}
+        aria-hidden="true"
       />
 
-      {/* Animated Background Elements - Relivator Style */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse" />
+      {/* Animated Floating Orbs - Medium parallax for mid-layer depth */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl animate-pulse transition-transform duration-100 ease-out motion-reduce:transform-none"
+          style={floatingOrbStyles.orb1}
+        />
+        <div
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl animate-pulse transition-transform duration-100 ease-out motion-reduce:transform-none"
+          style={floatingOrbStyles.orb2}
+        />
+        <div
+          className="absolute top-1/2 left-1/4 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse transition-transform duration-100 ease-out motion-reduce:transform-none"
+          style={floatingOrbStyles.orb3}
+        />
       </div>
 
-      {/* Content */}
+      {/* Content - Subtle parallax for foreground layer */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 md:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <div
+          className="max-w-4xl mx-auto text-center transition-transform duration-100 ease-out motion-reduce:transform-none"
+          style={contentStyle}
+        >
           {/* Main Heading - Relivator Style */}
           <div className="mb-6 animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-tight">
