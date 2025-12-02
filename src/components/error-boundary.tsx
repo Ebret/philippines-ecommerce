@@ -72,21 +72,12 @@ export class ErrorBoundary extends Component<Props, State> {
               We encountered an unexpected error. Please try again or return to the homepage.
             </p>
 
-            {/* Error Details - Temporarily showing in production for debugging */}
-            {this.state.error && (
+            {/* Error Details (Development Only) */}
+            {process.env.NODE_ENV === 'development' && this.state.error && (
               <div className="mb-6 p-4 bg-muted/50 rounded-lg text-left">
-                <p className="text-xs text-muted-foreground mb-1">Error:</p>
                 <p className="text-sm font-mono text-destructive break-all">
                   {this.state.error.message}
                 </p>
-                {this.state.error.stack && (
-                  <details className="mt-2">
-                    <summary className="text-xs text-muted-foreground cursor-pointer">Stack trace</summary>
-                    <pre className="text-xs font-mono text-muted-foreground mt-2 overflow-x-auto whitespace-pre-wrap">
-                      {this.state.error.stack}
-                    </pre>
-                  </details>
-                )}
               </div>
             )}
 

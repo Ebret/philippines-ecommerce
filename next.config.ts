@@ -21,10 +21,11 @@ const nextConfig: NextConfig = {
   // Bundle Optimization (for webpack fallback)
   webpack: (config, { isServer }) => {
     // Tree shaking optimization
+    // Note: sideEffects must be true to prevent CSS from being tree-shaken
     config.optimization = {
       ...config.optimization,
       usedExports: true,
-      sideEffects: false,
+      sideEffects: true,  // Keep CSS imports - CRITICAL for styling
     };
 
     // Code splitting optimization
