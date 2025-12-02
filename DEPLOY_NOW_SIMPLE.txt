@@ -1,0 +1,119 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                  DEPLOY GINTEA THEME - QUICK GUIDE                   ║
+║                      Estimated Time: 3-4 Minutes                     ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+STEP 1: CONNECT TO VPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Open PuTTY:
+  Host: 109.205.181.119
+  Port: 22
+  Login: root
+
+
+STEP 2: COPY & PASTE THESE COMMANDS (ONE BLOCK AT A TIME)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+▼ Block 1: Navigate & Check Status
+────────────────────────────────────────────────────────────────────────
+cd /var/www/html/ecom/app && pwd && git branch --show-current && git log -1 --oneline
+
+
+▼ Block 2: Create Backup
+────────────────────────────────────────────────────────────────────────
+git branch backup-gintea-$(date +%Y%m%d-%H%M%S)
+
+
+▼ Block 3: Fetch & Checkout
+────────────────────────────────────────────────────────────────────────
+git fetch origin && git checkout feature/relivator-ui-integration && git pull origin feature/relivator-ui-integration
+
+
+▼ Block 4: Verify Latest Commit
+────────────────────────────────────────────────────────────────────────
+git log -1 --oneline
+
+Expected: "2b620ec deploy: add deployment scripts for GinTea theme"
+
+
+▼ Block 5: Clear Build Cache (CRITICAL!)
+────────────────────────────────────────────────────────────────────────
+rm -rf .next && echo "Cache cleared!"
+
+
+▼ Block 6: Install Dependencies
+────────────────────────────────────────────────────────────────────────
+npm install
+
+⏱️ Wait 30-60 seconds
+
+
+▼ Block 7: Build Application
+────────────────────────────────────────────────────────────────────────
+npm run build
+
+⏱️ Wait 1-2 minutes
+✅ Expected: "✓ Compiled successfully"
+
+
+▼ Block 8: Restart PM2
+────────────────────────────────────────────────────────────────────────
+pm2 restart all && sleep 3 && pm2 status
+
+✅ Expected: 2 processes showing "online"
+
+
+▼ Block 9: Save PM2 Config
+────────────────────────────────────────────────────────────────────────
+pm2 save
+
+
+STEP 3: VERIFY IN BROWSER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open: https://extremelifeherbal.com
+
+2. Hard Refresh: Ctrl + Shift + R
+
+3. Check Colors:
+   ✅ Background: Soft cream #FAF8F3 (not pure white)
+   ✅ Text: Deep tea leaf green #213B2E (not black)
+   ✅ Buttons: Matcha green #368A5C (bright green)
+   ✅ Accents: Honey gold #E8B84D (warm yellow)
+
+4. Test Dark Mode:
+   - Click theme toggle (moon/sun icon)
+   ✅ Background: Deep tea room green #131F1A
+   ✅ Text: Soft cream #EDE8DC
+   ✅ Buttons: Bright matcha #45B373
+
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ Colors don't show?
+   → Clear browser cache: Ctrl + Shift + Delete
+   → Hard refresh again: Ctrl + Shift + R
+
+❌ Build fails?
+   → Run: npm install
+   → Try build again: npm run build
+
+❌ PM2 won't restart?
+   → Run: pm2 kill && sleep 3 && pm2 start ecosystem.config.js && pm2 save
+
+
+ROLLBACK (if needed)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+git branch | grep backup
+git checkout backup-gintea-YYYYMMDD-HHMMSS
+npm run build
+pm2 restart all
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                         DEPLOYMENT COMPLETE!                         ║
+║                                                                      ║
+║  Your site now has the beautiful GinTea herbal tea shop theme! 🍵   ║
+╚══════════════════════════════════════════════════════════════════════╝
+
