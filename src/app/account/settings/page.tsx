@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/layout/navbar';
+import { BreadcrumbNav } from '@/components/ui/breadcrumb';
 
 export default function SettingsPage() {
   const { data: session, status } = useSession();
@@ -119,6 +120,9 @@ export default function SettingsPage() {
       <Navbar />
       <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
+        {/* Breadcrumb */}
+        <BreadcrumbNav items={[{ label: 'Account', href: '/account/profile' }, { label: 'Settings' }]} />
+
         {/* Header */}
         <div className="mb-8">
           <h1 className="font-serif text-3xl font-bold text-foreground">Account Settings</h1>
@@ -127,13 +131,13 @@ export default function SettingsPage() {
 
         {/* Navigation */}
         <div className="mb-8 flex gap-4 border-b border-border">
-          <Link href="/account/profile" className="px-4 py-2 text-muted-foreground hover:text-neutral-900 dark:hover:text-white">
+          <Link href="/account/profile" className="px-4 py-2 text-muted-foreground hover:text-foreground">
             Profile
           </Link>
-          <Link href="/account/orders" className="px-4 py-2 text-muted-foreground hover:text-neutral-900 dark:hover:text-white">
+          <Link href="/account/orders" className="px-4 py-2 text-muted-foreground hover:text-foreground">
             Orders
           </Link>
-          <Link href="/account/addresses" className="px-4 py-2 text-muted-foreground hover:text-neutral-900 dark:hover:text-white">
+          <Link href="/account/addresses" className="px-4 py-2 text-muted-foreground hover:text-foreground">
             Addresses
           </Link>
           <Link href="/account/settings" className="px-4 py-2 border-b-2 border-primary text-primary font-medium">

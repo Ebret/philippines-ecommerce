@@ -6,6 +6,7 @@ import { ProductGrid } from '@/components/products/product-grid';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select } from '@/components/ui/select';
+import { BreadcrumbNav } from '@/components/ui/breadcrumb';
 import Navbar from '@/components/layout/navbar';
 
 interface Product {
@@ -128,6 +129,11 @@ export default function ProductsPage() {
     <main className="min-h-screen bg-background">
       {/* Navigation */}
       <Navbar />
+
+      {/* Breadcrumb */}
+      <div className="container mx-auto px-4 pt-4">
+        <BreadcrumbNav items={[{ label: 'Products' }]} />
+      </div>
 
       {/* Page Header */}
       <section className="bg-primary text-primary-foreground py-12">

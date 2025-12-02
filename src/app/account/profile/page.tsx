@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/layout/navbar';
+import { BreadcrumbNav } from '@/components/ui/breadcrumb';
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
@@ -103,6 +104,9 @@ export default function ProfilePage() {
       <Navbar />
       <div className="min-h-screen bg-background py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
+        {/* Breadcrumb */}
+        <BreadcrumbNav items={[{ label: 'Account', href: '/account/profile' }, { label: 'Profile' }]} />
+
         {/* Header */}
         <div className="mb-8">
           <h1 className="font-serif text-3xl font-bold text-primary">My Profile</h1>

@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { ProductDetail } from '@/components/products/product-detail';
 import { ReviewList } from '@/components/reviews/review-list';
 import { ReviewForm } from '@/components/reviews/review-form';
+import { BreadcrumbNav } from '@/components/ui/breadcrumb';
 import Navbar from '@/components/layout/navbar';
 
 interface ProductData {
@@ -137,17 +138,17 @@ export default function ProductDetailPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-white dark:bg-neutral-950">
+      <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
-      <div className="bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800 py-4 border-b border-neutral-200 dark:border-neutral-700">
+      <div className="bg-muted/30 border-b border-border">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex gap-2 text-sm text-neutral-600 dark:text-neutral-400">
-            <Link href="/" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/products" className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Products</Link>
-            <span>/</span>
-            <span className="text-neutral-900 dark:text-white font-semibold">{product.name}</span>
-          </div>
+          <BreadcrumbNav
+            items={[
+              { label: 'Products', href: '/products' },
+              { label: product.category?.name || 'Category', href: `/products?category=${product.category?.id || ''}` },
+              { label: product.name },
+            ]}
+          />
         </div>
       </div>
 
@@ -174,11 +175,11 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Reviews Section */}
-      <div className="bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-950 py-16 border-t border-neutral-200 dark:border-neutral-800">
+      <div className="bg-muted/30 py-16 border-t border-border">
         <div className="container mx-auto px-4 md:px-8">
           <div className="mb-12">
-            <h2 className="text-4xl font-bold text-neutral-900 dark:text-white mb-2">Customer Reviews</h2>
-            <p className="text-neutral-600 dark:text-neutral-400">See what customers think about this product</p>
+            <h2 className="text-4xl font-bold font-serif text-foreground mb-2">Customer Reviews</h2>
+            <p className="text-muted-foreground">See what customers think about this product</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
@@ -192,9 +193,9 @@ export default function ProductDetailPage() {
                   createdAt: review.date,
                 }))} />
               ) : (
-                <div className="text-center py-12 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+                <div className="text-center py-12 bg-card rounded-xl border border-border">
                   <div className="text-5xl mb-4">💬</div>
-                  <p className="text-neutral-600 dark:text-neutral-400 font-medium">No reviews yet. Be the first to review this product!</p>
+                  <p className="text-muted-foreground font-medium">No reviews yet. Be the first to review this product!</p>
                 </div>
               )}
             </div>
@@ -206,9 +207,9 @@ export default function ProductDetailPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-neutral-900 dark:bg-black text-white py-12 px-4 md:px-8">
+      <footer className="bg-primary text-primary-foreground py-12 px-4 md:px-8">
         <div className="container mx-auto text-center">
-          <p className="text-neutral-400">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-primary-foreground/70">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>
