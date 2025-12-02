@@ -6,10 +6,12 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ShoppingCart, Search, Moon, Sun, Leaf, Home, Package, Radio, Info, Phone, User } from 'lucide-react';
 import { useTheme } from '@/lib/theme-context';
 import UserMenu from './user-menu';
+import { SearchModal } from '@/components/search/search-modal';
 import { cn } from '@/lib/utils';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const { theme, setTheme, isDark } = useTheme();
   const pathname = usePathname();
 
@@ -70,9 +72,13 @@ export default function Navbar() {
             {/* Right Actions */}
             <div className="flex items-center gap-2">
               {/* Search Button */}
-              <Link href="/search" className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                aria-label="Open search"
+              >
                 <Search className="w-5 h-5" />
-              </Link>
+              </button>
 
               {/* Cart Button */}
               <Link href="/cart" className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors relative border border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
@@ -169,6 +175,9 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

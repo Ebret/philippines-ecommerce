@@ -1,10 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ProductGrid } from '@/components/products/product-grid';
+import Navbar from '@/components/layout/navbar';
+import { BreadcrumbNav } from '@/components/ui/breadcrumb';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,14 +21,16 @@ interface Filter {
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const query = searchParams.get('q') || '';
-  
+
+  const [searchQuery, setSearchQuery] = useState(query);
   const [filters, setFilters] = useState<Filter | null>(null);
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  
+
   const [selectedFilters, setSelectedFilters] = useState({
     minPrice: 0,
     maxPrice: 100000,
@@ -36,6 +41,14 @@ function SearchPageContent() {
     inStock: false,
     sortBy: 'newest',
   });
+
+  // Handle search form submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   // Fetch filters
   useEffect(() => {
@@ -99,19 +112,51 @@ function SearchPageContent() {
   };
 
   if (!filters) {
-    return <div className="container mx-auto py-12 px-4">Loading filters...</div>;
+    return (
+      <>
+        <Navbar />
+        <div className="container mx-auto py-12 px-4">Loading filters...</div>
+      </>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto py-12 px-4">
-        <h1 className="font-serif text-3xl font-bold mb-8 text-primary">Search Results</h1>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto py-12 px-4">
+          {/* Breadcrumb */}
+          <BreadcrumbNav items={[{ label: 'Search' }]} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-card p-6 rounded-xl border border-border shadow-sm space-y-6">
-              <h2 className="font-serif text-xl font-bold text-foreground">Filters</h2>
+          {/* Search Header */}
+          <div className="mb-8">
+            <h1 className="font-serif text-3xl font-bold text-primary mb-4">
+              {query ? `Results for "${query}"` : 'Search Products'}
+            </h1>
+
+            {/* Search Form */}
+            <form onSubmit={handleSearch} className="flex gap-2 max-w-xl">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search for herbal products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 h-12"
+                />
+              </div>
+              <Button type="submit" className="h-12 px-6">
+                Search
+              </Button>
+            </form>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Filters Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="bg-card p-6 rounded-xl border border-border shadow-sm space-y-6">
+                <h2 className="font-serif text-xl font-bold text-foreground">Filters</h2>
 
               {/* Price Range */}
               <div>
@@ -222,12 +267,18 @@ function SearchPageContent() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div className="container mx-auto py-12">Loading search...</div>}>
+    <Suspense fallback={
+      <>
+        <Navbar />
+        <div className="container mx-auto py-12">Loading search...</div>
+      </>
+    }>
       <SearchPageContent />
     </Suspense>
   );
