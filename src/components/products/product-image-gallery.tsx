@@ -75,7 +75,7 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
         {/* Main Image */}
         <div
           ref={mainImageRef}
-          className="group relative h-96 w-full overflow-hidden rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 shadow-lg"
+          className="group relative h-96 w-full overflow-hidden rounded-xl bg-gradient-to-br from-muted to-muted/80 shadow-lg"
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -127,8 +127,8 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
                 className={cn(
                   'relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200',
                   selectedImageId === image.id
-                    ? 'border-emerald-500 shadow-lg ring-2 ring-emerald-300 dark:ring-emerald-600'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600'
+                    ? 'border-primary shadow-lg ring-2 ring-primary/30'
+                    : 'border-border hover:border-primary/50'
                 )}
                 aria-label={`Select ${image.alt || 'product image'}`}
               >
@@ -146,7 +146,7 @@ const ProductImageGallery = React.forwardRef<HTMLDivElement, ProductImageGallery
 
         {/* Image Counter */}
         {images.length > 1 && (
-          <div className="text-center text-sm font-semibold text-gray-600 dark:text-gray-400">
+          <div className="text-center text-sm font-semibold text-muted-foreground">
             {images.findIndex((img) => img.id === selectedImageId) + 1} / {images.length}
           </div>
         )}

@@ -20,7 +20,7 @@ export const RatingFilter: React.FC<RatingFilterProps> = ({
           <svg
             key={i}
             className={`w-4 h-4 ${
-              i < count ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+              i < count ? 'text-warning fill-warning' : 'text-muted-foreground/30'
             }`}
             viewBox="0 0 20 20"
           >
@@ -33,27 +33,27 @@ export const RatingFilter: React.FC<RatingFilterProps> = ({
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-semibold">Rating</label>
-      
+      <label className="block text-sm font-semibold text-foreground">Rating</label>
+
       <div className="space-y-2">
         {/* All Ratings Option */}
-        <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded">
+        <label className="flex items-center gap-3 cursor-pointer hover:bg-muted p-2 rounded">
           <input
             type="radio"
             name="rating"
             value={0}
             checked={selectedRating === 0}
             onChange={() => onRatingChange(0)}
-            className="w-4 h-4"
+            className="w-4 h-4 accent-primary"
           />
-          <span className="text-sm">All Ratings</span>
+          <span className="text-sm text-foreground">All Ratings</span>
         </label>
 
         {/* Star Ratings */}
         {ratings.map((rating) => (
           <label
             key={rating.stars}
-            className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded"
+            className="flex items-center gap-3 cursor-pointer hover:bg-muted p-2 rounded"
           >
             <input
               type="radio"
@@ -61,11 +61,11 @@ export const RatingFilter: React.FC<RatingFilterProps> = ({
               value={rating.stars}
               checked={selectedRating === rating.stars}
               onChange={() => onRatingChange(rating.stars)}
-              className="w-4 h-4"
+              className="w-4 h-4 accent-primary"
             />
             <div className="flex items-center gap-2 flex-1">
               {renderStars(rating.stars)}
-              <span className="text-xs text-gray-600">
+              <span className="text-xs text-muted-foreground">
                 {rating.stars} star{rating.stars !== 1 ? 's' : ''} ({rating.count})
               </span>
             </div>
@@ -75,7 +75,7 @@ export const RatingFilter: React.FC<RatingFilterProps> = ({
 
       {/* Rating Info */}
       {selectedRating > 0 && (
-        <div className="bg-blue-50 p-2 rounded text-xs text-blue-900">
+        <div className="bg-info/10 p-2 rounded text-xs text-info">
           Showing products with {selectedRating}+ star rating
         </div>
       )}

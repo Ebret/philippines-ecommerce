@@ -89,7 +89,7 @@ export function TestimonialList({
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="bg-gray-200 rounded-lg h-96 animate-pulse" />
+          <div key={i} className="bg-muted rounded-lg h-96 animate-pulse" />
         ))}
       </div>
     );
@@ -98,8 +98,8 @@ export function TestimonialList({
   if (displayedTestimonials.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">No testimonials found</p>
-        <p className="text-gray-400 text-sm mt-2">Try adjusting your filters</p>
+        <p className="text-muted-foreground text-lg">No testimonials found</p>
+        <p className="text-muted-foreground/70 text-sm mt-2">Try adjusting your filters</p>
       </div>
     );
   }
@@ -122,7 +122,7 @@ export function TestimonialList({
           <Button
             onClick={handleLoadMore}
             disabled={isLoadingMore}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+            className="bg-primary hover:bg-primary-dark text-primary-foreground"
           >
             {isLoadingMore ? 'Loading...' : 'Load More'}
           </Button>
@@ -130,7 +130,7 @@ export function TestimonialList({
       )}
 
       {/* Summary */}
-      <div className="text-center text-sm text-gray-600">
+      <div className="text-center text-sm text-muted-foreground">
         Showing {displayedTestimonials.length} testimonial{displayedTestimonials.length !== 1 ? 's' : ''}
       </div>
     </div>

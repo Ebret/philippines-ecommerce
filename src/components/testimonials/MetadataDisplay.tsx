@@ -117,7 +117,7 @@ export function MetadataDisplay({
   return (
     <div className="space-y-4">
       {title && (
-        <h3 className="font-semibold text-lg text-gray-900">{title}</h3>
+        <h3 className="font-semibold text-lg text-foreground">{title}</h3>
       )}
 
       {/* Metadata Grid */}
@@ -127,13 +127,13 @@ export function MetadataDisplay({
           .map((item, index) => (
             <div
               key={index}
-              className="p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
+              className="p-4 bg-muted rounded-lg border border-border hover:border-primary/30 transition-colors"
             >
               <div className="flex items-start gap-3">
                 <span className="text-2xl">{item.icon}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-600">{item.label}</p>
-                  <p className="text-base font-semibold text-gray-900 truncate">
+                  <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
+                  <p className="text-base font-semibold text-foreground truncate">
                     {item.value}
                   </p>
                 </div>
@@ -143,8 +143,8 @@ export function MetadataDisplay({
       </div>
 
       {/* Summary */}
-      <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <p className="text-sm text-blue-700">
+      <div className="p-4 bg-info/10 border border-info/30 rounded-lg">
+        <p className="text-sm text-info">
           <span className="font-medium">📋 Summary:</span> This{' '}
           {mediaType === 'video' ? 'video' : 'image'} is{' '}
           {formatFileSize(metadata.fileSize)} in size with dimensions of{' '}

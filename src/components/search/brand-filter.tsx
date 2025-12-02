@@ -39,16 +39,16 @@ export const BrandFilter: React.FC<BrandFilterProps> = ({
 
       <div className="space-y-1 max-h-48 overflow-y-auto">
         {/* All Brands Option */}
-        <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded">
+        <label className="flex items-center gap-3 cursor-pointer hover:bg-muted p-2 rounded">
           <input
             type="radio"
             name="brand"
             value=""
             checked={selectedBrand === ''}
             onChange={() => onBrandChange('')}
-            className="w-4 h-4"
+            className="w-4 h-4 accent-primary"
           />
-          <span className="text-sm">All Brands</span>
+          <span className="text-sm text-foreground">All Brands</span>
         </label>
 
         {/* Brand List */}
@@ -56,7 +56,7 @@ export const BrandFilter: React.FC<BrandFilterProps> = ({
           filteredBrands.map((brand) => (
             <label
               key={brand.name}
-              className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded"
+              className="flex items-center gap-3 cursor-pointer hover:bg-muted p-2 rounded"
             >
               <input
                 type="radio"
@@ -64,19 +64,19 @@ export const BrandFilter: React.FC<BrandFilterProps> = ({
                 value={brand.name}
                 checked={selectedBrand === brand.name}
                 onChange={() => onBrandChange(brand.name)}
-                className="w-4 h-4"
+                className="w-4 h-4 accent-primary"
               />
-              <span className="text-sm">{brand.name}</span>
+              <span className="text-sm text-foreground">{brand.name}</span>
             </label>
           ))
         ) : (
-          <div className="text-xs text-gray-500 p-2">No brands found</div>
+          <div className="text-xs text-muted-foreground p-2">No brands found</div>
         )}
       </div>
 
       {/* Selected Brand Info */}
       {selectedBrand && (
-        <div className="bg-green-50 p-2 rounded text-xs text-green-900">
+        <div className="bg-success/10 p-2 rounded text-xs text-success">
           {selectedBrand}
         </div>
       )}

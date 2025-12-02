@@ -74,10 +74,10 @@ export const PriceRangeFilter: React.FC<PriceRangeFilterProps> = ({
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-semibold mb-2">Price Range</label>
+        <label className="block text-sm font-semibold mb-2 text-foreground">Price Range</label>
         <div className="flex gap-2 mb-4">
           <div className="flex-1">
-            <label className="text-xs text-gray-600 mb-1 block">Min</label>
+            <label className="text-xs text-muted-foreground mb-1 block">Min</label>
             <Input
               type="number"
               value={localMin}
@@ -89,7 +89,7 @@ export const PriceRangeFilter: React.FC<PriceRangeFilterProps> = ({
             />
           </div>
           <div className="flex-1">
-            <label className="text-xs text-gray-600 mb-1 block">Max</label>
+            <label className="text-xs text-muted-foreground mb-1 block">Max</label>
             <Input
               type="number"
               value={localMax}
@@ -106,32 +106,32 @@ export const PriceRangeFilter: React.FC<PriceRangeFilterProps> = ({
       {/* Range Sliders */}
       <div className="space-y-2">
         <div>
-          <label className="text-xs text-gray-600">Min Price</label>
+          <label className="text-xs text-muted-foreground">Min Price</label>
           <input
             type="range"
             min={availableMin}
             max={availableMax}
             value={localMin}
             onChange={handleMinSlider}
-            className="w-full"
+            className="w-full accent-primary"
           />
         </div>
         <div>
-          <label className="text-xs text-gray-600">Max Price</label>
+          <label className="text-xs text-muted-foreground">Max Price</label>
           <input
             type="range"
             min={availableMin}
             max={availableMax}
             value={localMax}
             onChange={handleMaxSlider}
-            className="w-full"
+            className="w-full accent-primary"
           />
         </div>
       </div>
 
       {/* Price Display */}
-      <div className="bg-green-50 p-3 rounded text-sm">
-        <div className="font-semibold text-green-900">
+      <div className="bg-success/10 p-3 rounded text-sm">
+        <div className="font-semibold text-success">
           {formatPrice(localMin)} - {formatPrice(localMax)}
         </div>
       </div>

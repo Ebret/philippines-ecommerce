@@ -127,28 +127,28 @@ const ReportBuilder = React.forwardRef<HTMLDivElement, ReportBuilderProps>(
           <button
             onClick={handleGenerateReport}
             disabled={isLoading}
-            className="bg-blue-500 hover:bg-blue-600 disabled:bg-gray-400 text-white font-semibold py-2 px-6 rounded transition"
+            className="bg-primary hover:bg-primary-dark disabled:opacity-50 text-primary-foreground font-semibold py-2 px-6 rounded transition"
           >
             {isLoading ? 'Generating...' : 'Generate Report'}
           </button>
           <button
             onClick={() => handleExport('csv')}
             disabled={isLoading}
-            className="bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white font-semibold py-2 px-6 rounded transition"
+            className="bg-success hover:bg-success/90 disabled:opacity-50 text-white font-semibold py-2 px-6 rounded transition"
           >
             Export as CSV
           </button>
           <button
             onClick={() => handleExport('json')}
             disabled={isLoading}
-            className="bg-purple-500 hover:bg-purple-600 disabled:bg-gray-400 text-white font-semibold py-2 px-6 rounded transition"
+            className="bg-accent hover:bg-accent/90 disabled:opacity-50 text-accent-foreground font-semibold py-2 px-6 rounded transition"
           >
             Export as JSON
           </button>
           <button
             onClick={() => handleExport('pdf')}
             disabled={isLoading}
-            className="bg-red-500 hover:bg-red-600 disabled:bg-gray-400 text-white font-semibold py-2 px-6 rounded transition"
+            className="bg-error hover:bg-error/90 disabled:opacity-50 text-white font-semibold py-2 px-6 rounded transition"
           >
             Export as PDF
           </button>

@@ -34,36 +34,36 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-semibold">Category</label>
+      <label className="block text-sm font-semibold text-foreground">Category</label>
 
       <div className="space-y-1">
         {/* All Categories Option */}
-        <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded">
+        <label className="flex items-center gap-3 cursor-pointer hover:bg-muted p-2 rounded">
           <input
             type="radio"
             name="category"
             value=""
             checked={selectedCategoryId === ''}
             onChange={() => onCategoryChange('')}
-            className="w-4 h-4"
+            className="w-4 h-4 accent-primary"
           />
-          <span className="text-sm">All Categories</span>
+          <span className="text-sm text-foreground">All Categories</span>
         </label>
 
         {/* Category List */}
         {categories.map((category) => (
           <div key={category.id}>
-            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 p-2 rounded">
+            <label className="flex items-center gap-3 cursor-pointer hover:bg-muted p-2 rounded">
               <input
                 type="radio"
                 name="category"
                 value={category.id}
                 checked={selectedCategoryId === category.id}
                 onChange={() => onCategoryChange(category.id)}
-                className="w-4 h-4"
+                className="w-4 h-4 accent-primary"
               />
-              <span className="text-sm flex-1">{category.name}</span>
-              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+              <span className="text-sm flex-1 text-foreground">{category.name}</span>
+              <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
                 {category.count}
               </span>
             </label>
@@ -73,7 +73,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
       {/* Selected Category Info */}
       {selectedCategoryId && (
-        <div className="bg-green-50 p-2 rounded text-xs text-green-900">
+        <div className="bg-success/10 p-2 rounded text-xs text-success">
           {categories.find(c => c.id === selectedCategoryId)?.name}
         </div>
       )}
