@@ -2,7 +2,7 @@ import * as React from "react"
 
 type ToastActionElement = React.ReactElement<any>
 
-export interface Toast {
+interface ToastBase {
   open?: boolean
   title?: React.ReactNode
   description?: React.ReactNode
@@ -14,7 +14,7 @@ export interface Toast {
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
-type ToasterToast = Toast & {
+type ToasterToast = ToastBase & {
   id: string
   title?: React.ReactNode
   description?: React.ReactNode
@@ -143,9 +143,9 @@ function dispatch(action: Action) {
   })
 }
 
-type Toast = Omit<ToasterToast, "id">
+type ToastInput = Partial<Omit<ToasterToast, "id" | "open" | "onOpenChange">>
 
-function toast({ ...props }: Toast) {
+function toast({ ...props }: ToastInput) {
   const id = genId()
 
   const update = (props: ToasterToast) =>
@@ -164,7 +164,7 @@ function toast({ ...props }: Toast) {
       onOpenChange: (open) => {
         if (!open) dismiss()
       },
-    },
+    } as ToasterToast,
   })
 
   return {
@@ -195,4 +195,5 @@ function useToast() {
 }
 
 export { useToast, toast }
+export type { ToastBase as Toast }
 
