@@ -36,6 +36,12 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               Dashboard
             </Link>
             <Link
+              href="/admin/products"
+              className="block px-6 py-3 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 border-l-4 border-transparent hover:border-primary-600 dark:hover:border-primary-500 transition-all duration-200"
+            >
+              Products
+            </Link>
+            <Link
               href="/admin/reports"
               className="block px-6 py-3 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 border-l-4 border-transparent hover:border-primary-600 dark:hover:border-primary-500 transition-all duration-200"
             >
