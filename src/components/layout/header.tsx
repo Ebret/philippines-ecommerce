@@ -3,7 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { Menu, X, Search, ShoppingCart, User } from 'lucide-react';
+import { Menu, X, Search, ShoppingCart, User, ChevronDown, LogOut, Settings, ShoppingBag } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
 
 interface HeaderProps {
   logo?: React.ReactNode;
@@ -28,6 +29,35 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
+  const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+  const { data: session, status } = useSession();
+  const userMenuRef = React.useRef<HTMLDivElement>(null);
+
+  // Close user menu when clicking outside
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const user = session?.user;
+  const userRole = (session?.user as any)?.role || 'BUYER';
+  const userName = user?.name || user?.email || 'User';
+  const userInitials = userName
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+
+  const handleLogout = async () => {
+    await signOut({ redirect: true, callbackUrl: '/' });
+  };
 
   return (
     <header
@@ -115,14 +145,111 @@ const Header: React.FC<HeaderProps> = ({
               </span>
             </Link>
 
-            {/* User Menu - Enhanced */}
-            <Link
-              href="/account/profile"
-              className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted hover:text-primary rounded-lg transition-all duration-300 group"
-              aria-label="User account"
-            >
-              <User className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-            </Link>
+            {/* User Menu - Enhanced with Dropdown */}
+            {user ? (
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted hover:text-primary rounded-lg transition-all duration-300 group"
+                  aria-label="User menu"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-xs font-bold text-white">
+                      {userInitials}
+                    </div>
+                    <ChevronDown className="w-4 h-4 transition-transform duration-300" style={{ transform: userMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+                  </div>
+                </button>
+
+                {/* User Dropdown Menu */}
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-card border border-border/50 rounded-lg shadow-lg z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    {/* User Info Header */}
+                    <div className="px-4 py-3 border-b border-border/50 bg-muted/50">
+                      <p className="text-sm font-semibold text-foreground">{userName}</p>
+                      <p className="text-xs text-muted-foreground">{user?.email}</p>
+                      <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold rounded-full bg-primary/20 text-primary">
+                        {userRole}
+                      </span>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="py-2">
+                      <Link
+                        href="/account/profile"
+                        className="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        <User className="w-4 h-4 text-muted-foreground" />
+                        <span>My Profile</span>
+                      </Link>
+
+                      <Link
+                        href="/account/orders"
+                        className="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        <ShoppingBag className="w-4 h-4 text-muted-foreground" />
+                        <span>My Orders</span>
+                      </Link>
+
+                      {userRole === 'ADMIN' && (
+                        <Link
+                          href="/admin"
+                          className="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                          onClick={() => setUserMenuOpen(false)}
+                        >
+                          <Settings className="w-4 h-4 text-muted-foreground" />
+                          <span>Admin Dashboard</span>
+                        </Link>
+                      )}
+
+                      {userRole === 'SELLER' && (
+                        <Link
+                          href="/vendor/dashboard"
+                          className="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                          onClick={() => setUserMenuOpen(false)}
+                        >
+                          <Settings className="w-4 h-4 text-muted-foreground" />
+                          <span>Seller Dashboard</span>
+                        </Link>
+                      )}
+
+                      <Link
+                        href="/account/settings"
+                        className="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors duration-200"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        <Settings className="w-4 h-4 text-muted-foreground" />
+                        <span>Settings</span>
+                      </Link>
+                    </div>
+
+                    {/* Logout Button */}
+                    <div className="border-t border-border/50 py-2">
+                      <button
+                        onClick={() => {
+                          setUserMenuOpen(false);
+                          handleLogout();
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors duration-200"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted hover:text-primary rounded-lg transition-all duration-300 group"
+                aria-label="Login"
+              >
+                <User className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+              </Link>
+            )}
 
             {actions}
 
