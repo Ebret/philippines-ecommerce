@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import ProductImageUpload from './product-image-upload';
 
 interface Product {
   id: string;
@@ -40,11 +41,27 @@ export default function ProductEditDialog({
     stock: product.stock.toString(),
   });
   const [loading, setLoading] = useState(false);
+  const [refreshImages, setRefreshImages] = useState(0);
+  const [currentImages, setCurrentImages] = useState(product.images || []);
   const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleImagesUpdated = async () => {
+    // Refresh images from API
+    try {
+      const response = await fetch(`/api/products/${product.id}/images`);
+      if (response.ok) {
+        const images = await response.json();
+        setCurrentImages(images);
+        setRefreshImages(prev => prev + 1);
+      }
+    } catch (error) {
+      console.error('Failed to refresh images:', error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -132,6 +149,16 @@ export default function ProductEditDialog({
                 required
               />
             </div>
+          </div>
+
+          {/* Product Images Section */}
+          <div className="border-t pt-4">
+            <ProductImageUpload
+              key={refreshImages}
+              productId={product.id}
+              images={currentImages}
+              onImagesUpdated={handleImagesUpdated}
+            />
           </div>
 
           <div className="flex gap-2 justify-end pt-4">
