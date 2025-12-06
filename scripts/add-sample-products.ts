@@ -32,9 +32,9 @@ async function main() {
 
     // Get or create categories
     const categories = await prisma.category.findMany();
-    let herbTeaCategory = categories.find(c => c.name === "Herbal Teas");
-    let supplementCategory = categories.find(c => c.name === "Supplements");
-    let oilCategory = categories.find(c => c.name === "Herbal Oils");
+    let herbTeaCategory = categories.find((c: any) => c.name === "Herbal Teas");
+    let supplementCategory = categories.find((c: any) => c.name === "Supplements");
+    let oilCategory = categories.find((c: any) => c.name === "Herbal Oils");
 
     if (!herbTeaCategory) {
       herbTeaCategory = await prisma.category.create({
