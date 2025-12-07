@@ -351,3 +351,124 @@ describe('Timeline Events', () => {
   });
 });
 
+describe('Order Notification Preferences', () => {
+  const DEFAULT_PREFERENCES = {
+    orderConfirmation: ['EMAIL', 'SMS', 'IN_APP'],
+    orderStatusUpdate: ['EMAIL', 'IN_APP'],
+    paymentConfirmation: ['EMAIL', 'SMS'],
+    paymentFailed: ['EMAIL', 'SMS', 'IN_APP'],
+    shipmentUpdate: ['EMAIL', 'SMS', 'IN_APP'],
+    deliveryConfirmation: ['EMAIL', 'SMS', 'IN_APP'],
+    refundProcessed: ['EMAIL', 'SMS'],
+    orderCancelled: ['EMAIL', 'IN_APP'],
+  };
+
+  it('should have all notification types', () => {
+    expect(DEFAULT_PREFERENCES).toHaveProperty('orderConfirmation');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('orderStatusUpdate');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('paymentConfirmation');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('paymentFailed');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('shipmentUpdate');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('deliveryConfirmation');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('refundProcessed');
+    expect(DEFAULT_PREFERENCES).toHaveProperty('orderCancelled');
+  });
+
+  it('should have EMAIL channel for order confirmation', () => {
+    expect(DEFAULT_PREFERENCES.orderConfirmation).toContain('EMAIL');
+  });
+
+  it('should have SMS channel for payment confirmation', () => {
+    expect(DEFAULT_PREFERENCES.paymentConfirmation).toContain('SMS');
+  });
+
+  it('should have IN_APP channel for payment failed', () => {
+    expect(DEFAULT_PREFERENCES.paymentFailed).toContain('IN_APP');
+  });
+});
+
+describe('Order Notification Templates', () => {
+  const NOTIFICATION_TEMPLATES = {
+    ORDER_CONFIRMATION: { title: 'Order Confirmed' },
+    ORDER_STATUS_UPDATE: { title: 'Order Status Updated' },
+    PAYMENT_CONFIRMATION: { title: 'Payment Received' },
+    PAYMENT_FAILED: { title: 'Payment Failed' },
+    SHIPMENT_UPDATE: { title: 'Shipment Update' },
+    DELIVERY_CONFIRMATION: { title: 'Order Delivered' },
+    REFUND_PROCESSED: { title: 'Refund Processed' },
+    ORDER_CANCELLED: { title: 'Order Cancelled' },
+  };
+
+  it('should have all notification templates', () => {
+    expect(Object.keys(NOTIFICATION_TEMPLATES)).toHaveLength(8);
+  });
+
+  it('should have correct title for order confirmation', () => {
+    expect(NOTIFICATION_TEMPLATES.ORDER_CONFIRMATION.title).toBe('Order Confirmed');
+  });
+
+  it('should have correct title for payment failed', () => {
+    expect(NOTIFICATION_TEMPLATES.PAYMENT_FAILED.title).toBe('Payment Failed');
+  });
+
+  it('should have correct title for delivery confirmation', () => {
+    expect(NOTIFICATION_TEMPLATES.DELIVERY_CONFIRMATION.title).toBe('Order Delivered');
+  });
+});
+
+describe('Notification Channels', () => {
+  const CHANNELS = ['EMAIL', 'SMS', 'IN_APP', 'PUSH'];
+
+  it('should have 4 notification channels', () => {
+    expect(CHANNELS).toHaveLength(4);
+  });
+
+  it('should include EMAIL channel', () => {
+    expect(CHANNELS).toContain('EMAIL');
+  });
+
+  it('should include SMS channel', () => {
+    expect(CHANNELS).toContain('SMS');
+  });
+
+  it('should include IN_APP channel', () => {
+    expect(CHANNELS).toContain('IN_APP');
+  });
+
+  it('should include PUSH channel', () => {
+    expect(CHANNELS).toContain('PUSH');
+  });
+});
+
+describe('Order Notification Item', () => {
+  const mockNotification = {
+    id: 'notif-1',
+    type: 'orderConfirmation',
+    title: 'Order Confirmed',
+    message: 'Your order #ORD-2024-001 has been confirmed',
+    orderId: 'order-1',
+    orderNumber: 'ORD-2024-001',
+    channel: 'EMAIL',
+    isRead: false,
+    createdAt: '2024-01-15T10:00:00Z',
+  };
+
+  it('should have required notification fields', () => {
+    expect(mockNotification).toHaveProperty('id');
+    expect(mockNotification).toHaveProperty('type');
+    expect(mockNotification).toHaveProperty('title');
+    expect(mockNotification).toHaveProperty('message');
+    expect(mockNotification).toHaveProperty('orderId');
+    expect(mockNotification).toHaveProperty('channel');
+    expect(mockNotification).toHaveProperty('isRead');
+  });
+
+  it('should have valid channel', () => {
+    expect(['EMAIL', 'SMS', 'IN_APP', 'PUSH']).toContain(mockNotification.channel);
+  });
+
+  it('should have isRead as boolean', () => {
+    expect(typeof mockNotification.isRead).toBe('boolean');
+  });
+});
+

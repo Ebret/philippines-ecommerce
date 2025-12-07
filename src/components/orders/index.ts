@@ -69,3 +69,19 @@ export type {
   AdminOrderDashboardProps,
 } from './admin-order-dashboard';
 
+// Order notifications
+export {
+  OrderNotificationPreferencesPanel,
+  OrderNotificationList,
+  DEFAULT_PREFERENCES,
+  NOTIFICATION_LABELS,
+  CHANNEL_ICONS,
+} from './order-notifications';
+export type {
+  NotificationChannel,
+  OrderNotificationPreferences,
+  OrderNotificationPreferencesProps,
+  OrderNotificationItem,
+  OrderNotificationListProps,
+} from './order-notifications';
+
