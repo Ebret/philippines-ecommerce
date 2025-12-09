@@ -74,8 +74,8 @@ export async function POST(request: NextRequest) {
       const isFreeShipping = subtotal >= 1000 && !provider.isExpress && provider.id !== 'PICKUP';
       if (isFreeShipping) totalCost = 0;
 
-      // Estimated delivery days
-      const estimatedDays = getEstimatedDeliveryDays(provider.id, region);
+      // Estimated delivery days (cart-utils version only takes provider)
+      const estimatedDays = getEstimatedDeliveryDays(provider.id);
 
       // Calculate estimated delivery date
       const estimatedDelivery = new Date();
