@@ -289,7 +289,7 @@ export function LocationManager({
                       <Badge variant="secondary" className="text-xs">Default</Badge>
                     )}
                     {!location.isActive && (
-                      <Badge variant="destructive" className="text-xs">Inactive</Badge>
+                      <Badge variant="error" className="text-xs">Inactive</Badge>
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground">

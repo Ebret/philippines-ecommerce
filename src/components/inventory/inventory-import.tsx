@@ -191,7 +191,7 @@ export function InventoryImport({
               <span className="font-medium">Preview ({preview.length} rows)</span>
               <div className="flex gap-2">
                 {errorCount > 0 && (
-                  <Badge variant="destructive">{errorCount} errors</Badge>
+                  <Badge variant="error">{errorCount} errors</Badge>
                 )}
                 {warningCount > 0 && (
                   <Badge variant="secondary">{warningCount} warnings</Badge>

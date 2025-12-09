@@ -185,7 +185,7 @@ export function DiscountManager({
                   <span className="font-medium truncate">{discount.name}</span>
                   {getTypeBadge(discount.type)}
                   {isExpired(discount.endDate) && (
-                    <Badge variant="destructive">Expired</Badge>
+                    <Badge variant="error">Expired</Badge>
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground truncate">

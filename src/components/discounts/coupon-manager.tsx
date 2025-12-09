@@ -159,7 +159,7 @@ export function CouponManager({
                     )}
                   </Button>
                   {!coupon.isActive && <Badge variant="secondary">Inactive</Badge>}
-                  {isExpired(coupon.endDate) && <Badge variant="destructive">Expired</Badge>}
+                  {isExpired(coupon.endDate) && <Badge variant="error">Expired</Badge>}
                   {isExhausted(coupon) && <Badge variant="outline">Exhausted</Badge>}
                 </div>
                 <p className="text-sm text-muted-foreground">
