@@ -21,7 +21,7 @@ const variantSchema = z.object({
   price: z.number().min(0, 'Price must be positive'),
   compareAtPrice: z.number().min(0).optional(),
   stock: z.number().int().min(0, 'Stock must be non-negative'),
-  attributes: z.record(z.string()),
+  attributes: z.record(z.string(), z.string()), // Zod v4: record(keyType, valueType)
   isActive: z.boolean().default(true),
 });
 
