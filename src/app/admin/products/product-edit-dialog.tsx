@@ -9,6 +9,14 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import ProductImageUpload from './product-image-upload';
 
+interface ProductImage {
+  id: string;
+  url: string;
+  altText?: string;
+  isPrimary: boolean;
+  sortOrder: number;
+}
+
 interface Product {
   id: string;
   name: string;
@@ -16,7 +24,7 @@ interface Product {
   price: number;
   stock: number;
   category: { name: string };
-  images: Array<{ url: string; isPrimary: boolean }>;
+  images: ProductImage[];
   status: string;
   vendor: { storeName: string };
 }
