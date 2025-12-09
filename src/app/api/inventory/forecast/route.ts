@@ -91,7 +91,9 @@ export async function GET(request: NextRequest) {
 
     // Calculate reorder metrics
     const leadTimeDays = 7;
-    const safetyStock = calculateSafetyStock(averageDailySales, leadTimeDays);
+    const zScore = 1.65; // 95% service level
+    const standardDeviation = averageDailySales * 0.3; // Assume 30% variability
+    const safetyStock = calculateSafetyStock(zScore, standardDeviation, leadTimeDays);
     const reorderPoint = Math.ceil(averageDailySales * leadTimeDays + safetyStock);
     const currentStock = variant.stockQuantity || 0;
     const daysUntilReorder = averageDailySales > 0
