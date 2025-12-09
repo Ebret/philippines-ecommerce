@@ -83,28 +83,44 @@ export async function GET(request: NextRequest) {
           },
         },
         location: { select: { id: true, name: true } },
-        createdBy: { select: { id: true, name: true, email: true } },
+        createdBy: {
+          select: {
+            id: true,
+            email: true,
+            profile: { select: { firstName: true, lastName: true } }
+          }
+        },
       },
       orderBy: { createdAt: 'desc' },
       take: limit,
     });
 
     // Transform movements to history entries
-    const entries = movements.map(m => ({
-      id: m.id,
-      timestamp: m.createdAt.toISOString(),
-      action: m.movementType === 'IN' ? 'CREATED' 
-        : m.movementType === 'OUT' ? 'ADJUSTED'
-        : m.movementType === 'TRANSFER' ? 'TRANSFERRED'
-        : 'UPDATED',
-      movementType: m.movementType,
-      quantity: m.quantity,
-      reason: m.referenceType,
-      notes: m.notes,
-      user: m.createdBy || { id: '', name: 'System', email: 'system@example.com' },
-      variant: m.variant,
-      location: m.location,
-    }));
+    const entries = movements.map(m => {
+      const userName = m.createdBy?.profile
+        ? `${m.createdBy.profile.firstName || ''} ${m.createdBy.profile.lastName || ''}`.trim() || 'Unknown'
+        : 'System';
+
+      return {
+        id: m.id,
+        timestamp: m.createdAt.toISOString(),
+        action: m.movementType === 'IN' ? 'CREATED'
+          : m.movementType === 'OUT' ? 'ADJUSTED'
+          : m.movementType === 'TRANSFER' ? 'TRANSFERRED'
+          : 'UPDATED',
+        movementType: m.movementType,
+        quantity: m.quantity,
+        reason: m.referenceType,
+        notes: m.notes,
+        user: {
+          id: m.createdBy?.id || '',
+          name: userName,
+          email: m.createdBy?.email || 'system@example.com'
+        },
+        variant: m.variant,
+        location: m.location,
+      };
+    });
 
     return NextResponse.json({
       entries,

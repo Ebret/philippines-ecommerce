@@ -79,15 +79,36 @@ export async function GET(request: NextRequest) {
           },
         },
         location: { select: { id: true, name: true } },
-        createdBy: { select: { id: true, name: true, email: true } },
+        createdBy: {
+          select: {
+            id: true,
+            email: true,
+            profile: { select: { firstName: true, lastName: true } }
+          }
+        },
       },
       orderBy: { createdAt: 'desc' },
       skip: (page - 1) * limit,
       take: limit,
     });
 
+    // Transform to include user name from profile
+    const transformedMovements = movements.map(m => {
+      const userName = m.createdBy?.profile
+        ? `${m.createdBy.profile.firstName || ''} ${m.createdBy.profile.lastName || ''}`.trim() || 'Unknown'
+        : 'System';
+      return {
+        ...m,
+        createdBy: m.createdBy ? {
+          id: m.createdBy.id,
+          name: userName,
+          email: m.createdBy.email,
+        } : null,
+      };
+    });
+
     return NextResponse.json({
-      movements,
+      movements: transformedMovements,
       pagination: {
         total,
         page,
