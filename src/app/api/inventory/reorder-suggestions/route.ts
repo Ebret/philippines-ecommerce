@@ -95,11 +95,11 @@ export async function GET(request: NextRequest) {
         const standardDeviation = averageDailySales * 0.3; // Assume 30% variability
         const safetyStock = calculateSafetyStock(zScore, standardDeviation, leadTimeDays);
         const reorderPoint = Math.ceil(averageDailySales * leadTimeDays + safetyStock);
+        // calculateReorderQuantity(averageDailyDemand, leadTimeDays, safetyStock)
         const suggestedQuantity = calculateReorderQuantity(
-          currentStock,
-          reorderPoint,
           averageDailySales,
-          leadTimeDays
+          leadTimeDays,
+          safetyStock
         );
 
         // Determine priority
