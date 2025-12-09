@@ -13,14 +13,11 @@ import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
 // Validation schema for location creation
+// Note: InventoryLocation model has: id, vendorId, name, code, addressId, isActive, createdAt
 const LocationSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  address: z.string().optional(),
-  city: z.string().optional(),
-  province: z.string().optional(),
-  postalCode: z.string().optional(),
-  country: z.string().default('Philippines'),
-  isDefault: z.boolean().default(false),
+  code: z.string().optional(),
+  addressId: z.string().optional(),
 });
 
 /**
@@ -55,8 +52,7 @@ export async function GET(request: NextRequest) {
     if (search) {
       where.OR = [
         { name: { contains: search, mode: 'insensitive' } },
-        { city: { contains: search, mode: 'insensitive' } },
-        { address: { contains: search, mode: 'insensitive' } },
+        { code: { contains: search, mode: 'insensitive' } },
       ];
     }
 
@@ -64,8 +60,9 @@ export async function GET(request: NextRequest) {
       where,
       include: {
         _count: { select: { inventoryItems: true } },
+        address: true,
       },
-      orderBy: [{ isDefault: 'desc' }, { name: 'asc' }],
+      orderBy: [{ createdAt: 'desc' }, { name: 'asc' }],
     });
 
     // Get stats for each location
@@ -129,17 +126,11 @@ export async function POST(request: NextRequest) {
       vendorId = vendor.id;
     }
 
-    // If setting as default, unset other defaults
-    if (data.isDefault && vendorId) {
-      await prisma.inventoryLocation.updateMany({
-        where: { vendorId, isDefault: true },
-        data: { isDefault: false },
-      });
-    }
-
     const location = await prisma.inventoryLocation.create({
       data: {
-        ...data,
+        name: data.name,
+        code: data.code,
+        addressId: data.addressId,
         vendorId: vendorId || '',
         isActive: true,
       },
