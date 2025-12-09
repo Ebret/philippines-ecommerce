@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error transferring stock:', error);
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
+      return NextResponse.json({ error: 'Validation error', details: error.issues }, { status: 400 });
     }
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
