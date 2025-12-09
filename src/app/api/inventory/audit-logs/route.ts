@@ -68,7 +68,14 @@ export async function GET(request: NextRequest) {
           },
         },
         location: { select: { id: true, name: true } },
-        createdBy: { select: { id: true, name: true, email: true, role: true } },
+        createdBy: {
+          select: {
+            id: true,
+            email: true,
+            role: true,
+            profile: { select: { firstName: true, lastName: true } }
+          }
+        },
       },
       orderBy: { createdAt: 'desc' },
       skip: (page - 1) * limit,
@@ -76,27 +83,37 @@ export async function GET(request: NextRequest) {
     });
 
     // Transform to audit log format
-    const logs = movements.map(m => ({
-      id: m.id,
-      entityType: 'INVENTORY' as const,
-      entityId: m.variantId,
-      action: `${m.movementType}_STOCK`,
-      changes: {
-        quantity: {
-          old: null,
-          new: m.quantity,
+    const logs = movements.map(m => {
+      const userName = m.createdBy?.profile
+        ? `${m.createdBy.profile.firstName || ''} ${m.createdBy.profile.lastName || ''}`.trim() || 'Unknown'
+        : 'System';
+
+      return {
+        id: m.id,
+        entityType: 'INVENTORY' as const,
+        entityId: m.variantId,
+        action: `${m.movementType}_STOCK`,
+        changes: {
+          quantity: {
+            old: null,
+            new: m.quantity,
+          },
         },
-      },
-      metadata: {
-        locationId: m.locationId,
-        referenceType: m.referenceType,
-        referenceId: m.referenceId,
-        notes: m.notes,
-      },
-      userId: m.createdById || '',
-      user: m.createdBy || { name: 'System', email: 'system@example.com', role: 'SYSTEM' },
-      createdAt: m.createdAt.toISOString(),
-    }));
+        metadata: {
+          locationId: m.locationId,
+          referenceType: m.referenceType,
+          referenceId: m.referenceId,
+          notes: m.notes,
+        },
+        userId: m.createdById || '',
+        user: {
+          name: userName,
+          email: m.createdBy?.email || 'system@example.com',
+          role: m.createdBy?.role || 'SYSTEM'
+        },
+        createdAt: m.createdAt.toISOString(),
+      };
+    });
 
     return NextResponse.json({
       logs,
