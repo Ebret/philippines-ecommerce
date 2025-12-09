@@ -120,28 +120,26 @@ export async function POST(
     const title = template.title;
     const message = validatedData.customMessage || template.message(order);
 
-    // Create notifications for each channel
-    const notifications = [];
-    for (const channel of validatedData.channels) {
-      const notification = await prisma.notification.create({
+    // Create notification with all channels
+    const notification = await prisma.notification.create({
+      data: {
+        userId: order.userId,
+        type: validatedData.type,
+        title,
+        message,
+        channels: validatedData.channels,
         data: {
-          userId: order.userId,
-          type: validatedData.type,
-          title,
-          message,
-          channel,
-          data: JSON.stringify({
-            orderId: order.id,
-            orderNumber: order.orderNumber,
-            status: order.status,
-            totalAmount: Number(order.totalAmount),
-          }),
-          isRead: false,
+          orderId: order.id,
+          orderNumber: order.orderNumber,
+          status: order.status,
+          totalAmount: Number(order.totalAmount),
         },
-      });
-      notifications.push(notification);
+        isRead: false,
+      },
+    });
 
-      // Queue notification for processing
+    // Queue notification for processing on each channel
+    for (const channel of validatedData.channels) {
       await prisma.notificationQueue.create({
         data: {
           notificationId: notification.id,
@@ -156,7 +154,7 @@ export async function POST(
     return NextResponse.json({
       success: true,
       message: `Notification sent via ${validatedData.channels.join(', ')}`,
-      notifications: notifications.map((n) => ({ id: n.id, channel: n.channel })),
+      notification: { id: notification.id, channels: notification.channels },
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
