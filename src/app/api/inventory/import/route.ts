@@ -129,6 +129,22 @@ export async function POST(request: NextRequest) {
         });
 
         if (variant) {
+          // Get or create default location for imports
+          let defaultLocation = await prisma.inventoryLocation.findFirst({
+            where: { name: 'Main Warehouse' },
+          });
+
+          if (!defaultLocation) {
+            defaultLocation = await prisma.inventoryLocation.create({
+              data: {
+                name: 'Main Warehouse',
+                type: 'WAREHOUSE',
+                address: 'Default Import Location',
+                isActive: true,
+              },
+            });
+          }
+
           // Update stock quantity
           await prisma.productVariant.update({
             where: { id: variant.id },
@@ -139,6 +155,7 @@ export async function POST(request: NextRequest) {
           await prisma.inventoryMovement.create({
             data: {
               variantId: variant.id,
+              locationId: defaultLocation.id,
               movementType: 'IN',
               quantity: row.quantity,
               referenceType: 'IMPORT',
