@@ -122,12 +122,12 @@ export function InventoryHistory({
 
   // Get action badge
   const getActionBadge = (entry: HistoryEntry) => {
-    const variants: Record<string, 'default' | 'success' | 'warning' | 'destructive' | 'secondary'> = {
+    const variants: Record<string, 'default' | 'success' | 'warning' | 'error' | 'secondary'> = {
       CREATED: 'success',
       UPDATED: 'secondary',
       ADJUSTED: 'warning',
       TRANSFERRED: 'default',
-      DELETED: 'destructive',
+      DELETED: 'error',
     };
     return (
       <Badge variant={variants[entry.action] || 'secondary'}>
@@ -260,7 +260,7 @@ export function InventoryHistory({
                       <div className="flex items-center gap-2 flex-wrap">
                         {getActionBadge(entry)}
                         {entry.quantity !== undefined && (
-                          <Badge variant={entry.movementType === 'IN' ? 'success' : 'destructive'}>
+                          <Badge variant={entry.movementType === 'IN' ? 'success' : 'error'}>
                             {entry.movementType === 'IN' ? '+' : '-'}{Math.abs(entry.quantity)}
                           </Badge>
                         )}

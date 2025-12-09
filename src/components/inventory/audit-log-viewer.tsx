@@ -100,12 +100,12 @@ export function AuditLogViewer({
 
   // Get entity badge color
   const getEntityBadge = (type: string) => {
-    const colors: Record<string, 'default' | 'success' | 'warning' | 'destructive' | 'secondary'> = {
+    const colors: Record<string, 'default' | 'success' | 'warning' | 'error' | 'secondary'> = {
       INVENTORY: 'default',
       PRODUCT: 'success',
       VARIANT: 'secondary',
       LOCATION: 'warning',
-      ALERT: 'destructive',
+      ALERT: 'error',
     };
     return <Badge variant={colors[type] || 'secondary'}>{type}</Badge>;
   };

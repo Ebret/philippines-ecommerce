@@ -33,7 +33,7 @@ interface InventoryStatusBadgeProps {
 // Status configuration with colors and icons
 const statusConfig: Record<InventoryStatus, {
   label: string;
-  variant: 'default' | 'success' | 'warning' | 'destructive' | 'secondary';
+  variant: 'default' | 'success' | 'warning' | 'error' | 'secondary';
   icon: React.ComponentType<{ className?: string }>;
   bgClass: string;
   textClass: string;
@@ -54,7 +54,7 @@ const statusConfig: Record<InventoryStatus, {
   },
   OUT_OF_STOCK: {
     label: 'Out of Stock',
-    variant: 'destructive',
+    variant: 'error',
     icon: XCircle,
     bgClass: 'bg-red-100 dark:bg-red-900/30',
     textClass: 'text-red-700 dark:text-red-400',

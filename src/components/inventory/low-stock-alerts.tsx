@@ -119,7 +119,7 @@ export function LowStockAlerts({
   // Get badge variant based on severity
   const getBadgeVariant = (severity: 'critical' | 'warning' | 'low') => {
     switch (severity) {
-      case 'critical': return 'destructive';
+      case 'critical': return 'error';
       case 'warning': return 'warning';
       default: return 'secondary';
     }

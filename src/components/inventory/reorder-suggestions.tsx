@@ -104,8 +104,8 @@ export function ReorderSuggestions({
 
   // Get priority badge
   const getPriorityBadge = (priority: string) => {
-    const variants: Record<string, 'destructive' | 'warning' | 'default' | 'secondary'> = {
-      CRITICAL: 'destructive',
+    const variants: Record<string, 'error' | 'warning' | 'default' | 'secondary'> = {
+      CRITICAL: 'error',
       HIGH: 'warning',
       MEDIUM: 'default',
       LOW: 'secondary',

@@ -182,7 +182,7 @@ export function SKULookup({
                     SKU: {result.sku} • Stock: {result.currentStock}
                   </p>
                 </div>
-                <Badge variant={result.currentStock <= result.lowStockThreshold ? 'destructive' : 'secondary'}>
+                <Badge variant={result.currentStock <= result.lowStockThreshold ? 'error' : 'secondary'}>
                   {result.currentStock <= 0 ? 'Out of Stock' :
                    result.currentStock <= result.lowStockThreshold ? 'Low Stock' : 'In Stock'}
                 </Badge>

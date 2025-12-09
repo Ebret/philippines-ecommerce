@@ -110,7 +110,7 @@ export function AdjustmentHistory({
   const getMovementBadge = (type: string, quantity: number) => {
     const isPositive = type === 'IN' || (type === 'ADJUSTMENT' && quantity > 0);
     return (
-      <Badge variant={isPositive ? 'success' : 'destructive'}>
+      <Badge variant={isPositive ? 'success' : 'error'}>
         {isPositive ? '+' : '-'}{Math.abs(quantity)}
       </Badge>
     );
