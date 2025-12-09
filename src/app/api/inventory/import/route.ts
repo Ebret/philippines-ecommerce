@@ -129,17 +129,30 @@ export async function POST(request: NextRequest) {
         });
 
         if (variant) {
+          // Get vendor from product for location
+          const product = await prisma.product.findUnique({
+            where: { id: variant.productId },
+            select: { vendorId: true },
+          });
+
+          if (!product?.vendorId) {
+            console.error(`No vendor found for product ${variant.productId}`);
+            continue;
+          }
+
           // Get or create default location for imports
           let defaultLocation = await prisma.inventoryLocation.findFirst({
-            where: { name: 'Main Warehouse' },
+            where: {
+              name: 'Main Warehouse',
+              vendorId: product.vendorId,
+            },
           });
 
           if (!defaultLocation) {
             defaultLocation = await prisma.inventoryLocation.create({
               data: {
                 name: 'Main Warehouse',
-                type: 'WAREHOUSE',
-                address: 'Default Import Location',
+                vendorId: product.vendorId,
                 isActive: true,
               },
             });
