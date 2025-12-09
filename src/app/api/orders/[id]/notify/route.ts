@@ -95,10 +95,18 @@ export async function POST(
     const validatedData = orderNotificationSchema.parse(body);
 
     // Get order with user info
+    // Note: User model doesn't have 'name' field, use profile.firstName/lastName instead
     const order = await prisma.order.findUnique({
       where: { id },
       include: {
-        user: { select: { id: true, email: true, name: true, phone: true } },
+        user: {
+          select: {
+            id: true,
+            email: true,
+            phone: true,
+            profile: { select: { firstName: true, lastName: true } }
+          }
+        },
         vendor: { select: { id: true, storeName: true } },
       },
     });
