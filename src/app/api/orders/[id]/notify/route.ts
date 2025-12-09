@@ -4,17 +4,16 @@ import { z } from 'zod';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
-// Notification schema
+// Notification schema - must match Prisma NotificationType enum
 const orderNotificationSchema = z.object({
   type: z.enum([
-    'ORDER_CONFIRMATION',
-    'ORDER_STATUS_UPDATE',
-    'PAYMENT_CONFIRMATION',
-    'PAYMENT_FAILED',
-    'SHIPMENT_UPDATE',
-    'DELIVERY_CONFIRMATION',
-    'REFUND_PROCESSED',
+    'ORDER_CONFIRMED',
+    'PAYMENT_CONFIRMED',
+    'SHIPMENT_SHIPPED',
+    'SHIPMENT_DELIVERED',
     'ORDER_CANCELLED',
+    'RETURN_INITIATED',
+    'RETURN_APPROVED',
   ]),
   channels: z.array(z.enum(['EMAIL', 'SMS', 'IN_APP', 'PUSH'])).min(1),
   customMessage: z.string().optional(),
@@ -22,37 +21,33 @@ const orderNotificationSchema = z.object({
 
 // Notification templates
 const NOTIFICATION_TEMPLATES: Record<string, { title: string; message: (order: any) => string }> = {
-  ORDER_CONFIRMATION: {
+  ORDER_CONFIRMED: {
     title: 'Order Confirmed',
     message: (order) => `Your order #${order.orderNumber} has been confirmed. Total: ₱${order.totalAmount}`,
   },
-  ORDER_STATUS_UPDATE: {
-    title: 'Order Status Updated',
-    message: (order) => `Your order #${order.orderNumber} status has been updated to ${order.status}`,
-  },
-  PAYMENT_CONFIRMATION: {
+  PAYMENT_CONFIRMED: {
     title: 'Payment Received',
     message: (order) => `Payment for order #${order.orderNumber} has been received. Amount: ₱${order.totalAmount}`,
   },
-  PAYMENT_FAILED: {
-    title: 'Payment Failed',
-    message: (order) => `Payment for order #${order.orderNumber} has failed. Please try again.`,
-  },
-  SHIPMENT_UPDATE: {
+  SHIPMENT_SHIPPED: {
     title: 'Shipment Update',
     message: (order) => `Your order #${order.orderNumber} has been shipped. Track your delivery.`,
   },
-  DELIVERY_CONFIRMATION: {
+  SHIPMENT_DELIVERED: {
     title: 'Order Delivered',
     message: (order) => `Your order #${order.orderNumber} has been delivered. Thank you for shopping!`,
-  },
-  REFUND_PROCESSED: {
-    title: 'Refund Processed',
-    message: (order) => `Refund for order #${order.orderNumber} has been processed. Amount: ₱${order.totalAmount}`,
   },
   ORDER_CANCELLED: {
     title: 'Order Cancelled',
     message: (order) => `Your order #${order.orderNumber} has been cancelled.`,
+  },
+  RETURN_INITIATED: {
+    title: 'Return Initiated',
+    message: (order) => `Return request for order #${order.orderNumber} has been initiated.`,
+  },
+  RETURN_APPROVED: {
+    title: 'Return Approved',
+    message: (order) => `Return for order #${order.orderNumber} has been approved. Refund will be processed soon.`,
   },
 };
 
