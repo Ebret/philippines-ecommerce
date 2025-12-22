@@ -42,26 +42,33 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-md">
+        {/* Subtle bottom border with gradient */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 font-serif text-xl font-bold tracking-tight text-primary md:text-2xl hover:opacity-80 transition-opacity">
-              <Leaf className="h-6 w-6 fill-primary/20" />
-              <span>Extreme Life</span>
+          <div className="flex items-center justify-between h-18 py-4">
+            {/* Logo - Herb and Water style */}
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="p-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 group-hover:border-white/20 transition-colors">
+                <Leaf className="h-5 w-5 text-[hsl(42,70%,65%)] fill-[hsl(42,70%,65%)]/20" />
+              </div>
+              <span className="font-serif text-xl md:text-2xl font-medium tracking-tight text-white group-hover:text-[hsl(42,70%,65%)] transition-colors">
+                Extreme Life
+              </span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation - Refined */}
+            <div className="hidden md:flex items-center gap-1">
               {navigationItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "text-sm font-medium transition-colors",
+                    "px-4 py-2 text-sm font-medium transition-all duration-250 rounded-full",
                     pathname === item.href
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
+                      ? "text-[hsl(42,70%,65%)] bg-white/10"
+                      : "text-white/80 hover:text-white hover:bg-white/5"
                   )}
                 >
                   {item.label}
@@ -69,29 +76,29 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Right Actions */}
-            <div className="flex items-center gap-2">
+            {/* Right Actions - Refined */}
+            <div className="flex items-center gap-1.5">
               {/* Search Button */}
               <button
                 onClick={() => setSearchOpen(true)}
-                className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="p-2.5 min-h-11 min-w-11 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                 aria-label="Open search"
               >
                 <Search className="w-5 h-5" />
               </button>
 
-              {/* Cart Button */}
-              <Link href="/cart" className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-primary/5 hover:text-primary rounded-lg transition-colors relative border border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+              {/* Cart Button - Refined */}
+              <Link href="/cart" className="p-2.5 min-h-11 min-w-11 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all duration-250 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30">
                 <ShoppingCart className="w-5 h-5" />
-                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground">
+                <span className="absolute -top-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[hsl(42,70%,58%)] text-[10px] font-semibold text-[hsl(155,35%,12%)] shadow-sm">
                   0
                 </span>
               </Link>
 
-              {/* Theme Toggle */}
+              {/* Theme Toggle - Refined */}
               <button
                 onClick={() => setTheme(isDark ? 'light' : 'dark')}
-                className="p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="p-2.5 min-h-11 min-w-11 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                 aria-label="Toggle theme"
               >
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -102,10 +109,10 @@ export default function Navbar() {
                 <UserMenu />
               </div>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - Refined */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden p-2 min-h-11 min-w-11 flex items-center justify-center text-foreground hover:bg-muted rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="md:hidden p-2.5 min-h-11 min-w-11 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/10 rounded-full transition-all duration-250 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
                 aria-label="Toggle menu"
                 aria-expanded={mobileMenuOpen}
               >
@@ -119,23 +126,23 @@ export default function Navbar() {
       {/* Mobile Navigation Overlay */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 md:hidden animate-in fade-in duration-200"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden animate-in fade-in duration-200"
           onClick={() => setMobileMenuOpen(false)}
           aria-hidden="true"
         />
       )}
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Navigation Drawer - Herb and Water style */}
       <div
         className={cn(
-          "fixed top-16 right-0 z-50 h-[calc(100vh-4rem)] w-80 max-w-[85vw] bg-background border-l border-border shadow-xl transform transition-transform duration-300 ease-in-out md:hidden",
+          "fixed top-[72px] right-0 z-50 h-[calc(100vh-72px)] w-80 max-w-[85vw] bg-[hsl(155,28%,12%)] border-l border-white/10 shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden",
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
         <div className="flex flex-col h-full">
           {/* Navigation Links */}
-          <nav className="flex-1 overflow-y-auto py-4 px-2">
-            <ul className="space-y-1">
+          <nav className="flex-1 overflow-y-auto py-6 px-3">
+            <ul className="space-y-1.5">
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -145,10 +152,10 @@ export default function Navbar() {
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={cn(
-                        "flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium transition-colors",
+                        "flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-250",
                         isActive
-                          ? "bg-primary/10 text-primary"
-                          : "text-foreground hover:bg-muted hover:text-primary"
+                          ? "bg-white/10 text-[hsl(42,70%,65%)]"
+                          : "text-white/80 hover:bg-white/5 hover:text-white"
                       )}
                     >
                       <Icon className="w-5 h-5" />
@@ -161,14 +168,14 @@ export default function Navbar() {
           </nav>
 
           {/* User Section */}
-          <div className="border-t border-border p-4">
+          <div className="border-t border-white/10 p-4">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <User className="w-5 h-5 text-primary" />
+              <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
+                <User className="w-5 h-5 text-[hsl(42,70%,65%)]" />
               </div>
               <div>
-                <p className="text-sm font-medium text-foreground">Account</p>
-                <p className="text-xs text-muted-foreground">Manage your profile</p>
+                <p className="text-sm font-medium text-white">Account</p>
+                <p className="text-xs text-white/60">Manage your profile</p>
               </div>
             </div>
             <UserMenu />

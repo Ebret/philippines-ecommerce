@@ -7,7 +7,7 @@
 
 // Phase 26.4.1: Product Variant Management
 export { VariantManager } from './variant-manager';
-export type { ProductVariant, VariantAttribute } from './variant-manager';
+export type { ProductVariant } from './variant-manager';
 
 // Phase 26.4.2: Category & Tag Management
 export { CategoryTagManager } from './category-tag-manager';
@@ -15,7 +15,7 @@ export type { Category, ProductTag } from './category-tag-manager';
 
 // Phase 26.4.3: Product Review Moderation
 export { ReviewModeration } from './review-moderation';
-export type { ProductReview, ReviewStats } from './review-moderation';
+export type { ProductReview } from './review-moderation';
 
 // Phase 26.4.4: Product Comparison
 export { ProductComparison } from './product-comparison';
