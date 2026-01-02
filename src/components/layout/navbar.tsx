@@ -58,17 +58,17 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Desktop Navigation - Refined */}
+            {/* Desktop Navigation - PharmaPro style */}
             <div className="hidden md:flex items-center gap-1">
               {navigationItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium transition-all duration-250 rounded-full",
+                    "px-4 py-2.5 text-sm font-semibold transition-all duration-250 rounded-lg",
                     pathname === item.href
-                      ? "text-[hsl(42,70%,65%)] bg-white/10"
-                      : "text-white/80 hover:text-white hover:bg-white/5"
+                      ? "text-white bg-white/20"
+                      : "text-white hover:text-white hover:bg-white/15"
                   )}
                 >
                   {item.label}
