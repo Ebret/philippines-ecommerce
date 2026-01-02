@@ -2,18 +2,18 @@
 
 import { useMemo } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Leaf, Zap, Sparkles } from 'lucide-react';
+import { ShieldCheck, Leaf, Zap, Heart, Truck, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Navbar from '@/components/layout/navbar';
 import { useParallax } from '@/hooks/use-parallax';
 
 /**
- * Hero Section Component - Herb and Water Inspired
+ * Hero Section Component - PharmaPro Drugstore Inspired
  *
  * Features:
- * - Serene, nature-inspired gradient backgrounds
- * - Soft organic floating elements
- * - Elegant typography with Cormorant Garamond
+ * - Professional healthcare gradient backgrounds
+ * - Modern floating elements with aquamarine/blue accents
+ * - Clean typography with Poppins font
  * - Smooth animations respecting reduced motion
  * - Full dark mode support
  */
@@ -56,14 +56,14 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Herb and Water Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(152,32%,25%)] via-[hsl(155,28%,18%)] to-[hsl(145,22%,22%)] dark:from-[hsl(155,35%,8%)] dark:via-[hsl(152,28%,10%)] dark:to-[hsl(145,25%,12%)]" />
+      {/* PharmaPro Gradient Background - Professional Healthcare */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(155,50%,45%)] via-[hsl(175,45%,38%)] to-[hsl(224,60%,45%)] dark:from-[hsl(155,45%,18%)] dark:via-[hsl(175,40%,15%)] dark:to-[hsl(224,55%,22%)]" />
 
-      {/* Subtle pattern overlay */}
+      {/* Modern geometric pattern overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0v20H0zm20 0L40 0v20H20zm0 0v20l20-20H20zm0 0H0l20 20V20z'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
         aria-hidden="true"
       />
@@ -73,43 +73,43 @@ export default function HeroSection() {
 
       {/* Hero Background Image - Slow parallax for depth */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 transition-transform duration-100 ease-out motion-reduce:transform-none"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15 transition-transform duration-100 ease-out motion-reduce:transform-none"
         style={backgroundStyle}
         aria-hidden="true"
       />
 
-      {/* Organic Floating Elements - Soft, nature-inspired */}
+      {/* Modern Floating Elements - Professional healthcare aesthetic */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        {/* Main sage glow - top right */}
+        {/* Primary aquamarine glow - top right */}
         <div
-          className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full blur-[100px] transition-transform duration-100 ease-out motion-reduce:transform-none"
+          className="absolute -top-32 -right-32 w-[550px] h-[550px] rounded-full blur-[120px] transition-transform duration-100 ease-out motion-reduce:transform-none"
           style={{
             ...floatingOrbStyles.orb1,
-            background: 'radial-gradient(circle, rgba(90, 148, 116, 0.25) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(91, 193, 153, 0.35) 0%, transparent 70%)',
           }}
         />
-        {/* Golden accent glow - bottom left */}
+        {/* Orange accent glow - bottom left (CTA energy) */}
         <div
-          className="absolute -bottom-40 -left-32 w-[450px] h-[450px] rounded-full blur-[90px] transition-transform duration-100 ease-out motion-reduce:transform-none"
+          className="absolute -bottom-40 -left-32 w-[450px] h-[450px] rounded-full blur-[100px] transition-transform duration-100 ease-out motion-reduce:transform-none"
           style={{
             ...floatingOrbStyles.orb2,
-            background: 'radial-gradient(circle, rgba(229, 184, 74, 0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(239, 101, 0, 0.18) 0%, transparent 70%)',
           }}
         />
-        {/* Secondary sage glow - center */}
+        {/* Blue professional glow - center left */}
         <div
-          className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full blur-[80px] transition-transform duration-100 ease-out motion-reduce:transform-none"
+          className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full blur-[90px] transition-transform duration-100 ease-out motion-reduce:transform-none"
           style={{
             ...floatingOrbStyles.orb3,
-            background: 'radial-gradient(circle, rgba(107, 158, 122, 0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(78, 114, 208, 0.15) 0%, transparent 70%)',
           }}
         />
-        {/* Mint accent - right center */}
+        {/* Teal accent - right center */}
         <div
-          className="absolute top-1/2 right-1/4 w-[300px] h-[300px] rounded-full blur-[70px] transition-transform duration-100 ease-out motion-reduce:transform-none"
+          className="absolute top-1/2 right-1/4 w-[320px] h-[320px] rounded-full blur-[80px] transition-transform duration-100 ease-out motion-reduce:transform-none"
           style={{
             ...floatingOrbStyles.orb4,
-            background: 'radial-gradient(circle, rgba(74, 168, 138, 0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(57, 179, 167, 0.12) 0%, transparent 70%)',
           }}
         />
       </div>
@@ -120,88 +120,88 @@ export default function HeroSection() {
           className="max-w-5xl mx-auto text-center transition-transform duration-100 ease-out motion-reduce:transform-none"
           style={contentStyle}
         >
-          {/* Tagline badge */}
+          {/* Tagline badge - PharmaPro style */}
           <div className="mb-8 animate-fade-in">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-[hsl(48,35%,92%)] text-sm font-medium">
-              <Sparkles className="w-4 h-4 text-[hsl(42,70%,58%)]" />
-              Nature&apos;s Healing Power
+            <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold tracking-wide">
+              <Heart className="w-4 h-4 text-[hsl(25,100%,55%)]" />
+              Your Health, Our Priority
             </span>
           </div>
 
-          {/* Main Heading - Herb and Water Style */}
+          {/* Main Heading - PharmaPro Professional Style */}
           <div className="mb-8 animate-fade-in">
-            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-white mb-6 leading-[1.1] tracking-tight">
-              Discover
-              <span className="block mt-2 bg-gradient-to-r from-[hsl(42,70%,65%)] via-[hsl(48,65%,72%)] to-[hsl(42,60%,60%)] bg-clip-text text-transparent">
-                Herbal Wellness
+            <h1 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.15] tracking-tight">
+              Premium Herbal
+              <span className="block mt-2 bg-gradient-to-r from-[hsl(25,100%,55%)] via-[hsl(25,95%,60%)] to-[hsl(45,90%,55%)] bg-clip-text text-transparent">
+                Health Solutions
               </span>
             </h1>
           </div>
 
-          {/* Subtitle - Elegant and readable */}
-          <p className="text-lg sm:text-xl md:text-2xl text-[hsl(145,20%,75%)] dark:text-[hsl(145,18%,70%)] mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in font-light">
-            Premium herbal products crafted from nature&apos;s finest botanicals for your health, vitality, and wellness journey
+          {/* Subtitle - Clean and professional */}
+          <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in font-normal">
+            Trusted herbal products for your wellness journey. Quality certified, naturally sourced, delivered to your doorstep.
           </p>
 
-          {/* CTA Buttons - Elegant pill shapes */}
+          {/* CTA Buttons - PharmaPro style with orange accent */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20 animate-fade-in">
             <Link href="/products">
               <Button
                 size="lg"
-                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-full bg-gradient-to-r from-[hsl(42,70%,58%)] to-[hsl(42,75%,48%)] text-[hsl(155,35%,12%)] font-medium shadow-lg hover:shadow-xl hover:from-[hsl(42,75%,52%)] hover:to-[hsl(42,80%,42%)] transition-all duration-300 hover:-translate-y-1"
+                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-lg bg-[hsl(25,100%,47%)] hover:bg-[hsl(25,100%,42%)] text-white font-semibold shadow-lg shadow-[hsl(25,100%,47%)]/30 hover:shadow-xl hover:shadow-[hsl(25,100%,47%)]/40 transition-all duration-300 hover:-translate-y-0.5"
               >
-                Explore Products
+                Shop Now
               </Button>
             </Link>
             <Link href="/about">
               <Button
                 size="lg"
                 variant="outline"
-                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-full border-2 border-white/25 text-white hover:bg-white/10 hover:border-white/40 backdrop-blur-sm transition-all duration-300"
+                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-lg border-2 border-white/30 text-white hover:bg-white/15 hover:border-white/50 backdrop-blur-sm transition-all duration-300 font-semibold"
               >
-                Our Story
+                Learn More
               </Button>
             </Link>
           </div>
 
-          {/* Trust Signals - Refined cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pt-12 border-t border-white/10">
-            {/* Signal 1 */}
-            <div className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 animate-fade-in group hover:bg-white/10 transition-all duration-300">
-              <div className="p-4 bg-[hsl(152,32%,38%)]/30 rounded-xl group-hover:bg-[hsl(152,32%,38%)]/40 transition-all duration-300">
-                <ShieldCheck className="w-7 h-7 text-[hsl(42,70%,65%)]" />
+          {/* Trust Signals - Professional healthcare cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 pt-12 border-t border-white/15">
+            {/* Signal 1 - FDA Approved */}
+            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/8 backdrop-blur-sm border border-white/15 animate-fade-in group hover:bg-white/12 transition-all duration-300">
+              <div className="p-3 bg-[hsl(155,50%,55%)]/25 rounded-lg group-hover:bg-[hsl(155,50%,55%)]/35 transition-all duration-300">
+                <Award className="w-6 h-6 text-[hsl(155,50%,70%)]" />
               </div>
-              <h3 className="text-white font-serif text-lg font-medium group-hover:text-[hsl(42,70%,65%)] transition-colors">100% Natural</h3>
-              <p className="text-[hsl(145,16%,60%)] text-sm leading-relaxed">Pure botanical ingredients sourced responsibly</p>
+              <h3 className="text-white font-semibold text-base group-hover:text-[hsl(155,50%,70%)] transition-colors">FDA Registered</h3>
+              <p className="text-white/60 text-sm leading-relaxed">Quality assured herbal products</p>
             </div>
 
-            {/* Signal 2 */}
-            <div className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 animate-fade-in group hover:bg-white/10 transition-all duration-300">
-              <div className="p-4 bg-[hsl(152,32%,38%)]/30 rounded-xl group-hover:bg-[hsl(152,32%,38%)]/40 transition-all duration-300">
-                <Leaf className="w-7 h-7 text-[hsl(42,70%,65%)]" />
+            {/* Signal 2 - Natural Ingredients */}
+            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/8 backdrop-blur-sm border border-white/15 animate-fade-in group hover:bg-white/12 transition-all duration-300">
+              <div className="p-3 bg-[hsl(155,50%,55%)]/25 rounded-lg group-hover:bg-[hsl(155,50%,55%)]/35 transition-all duration-300">
+                <Leaf className="w-6 h-6 text-[hsl(155,50%,70%)]" />
               </div>
-              <h3 className="text-white font-serif text-lg font-medium group-hover:text-[hsl(42,70%,65%)] transition-colors">Quality Certified</h3>
-              <p className="text-[hsl(145,16%,60%)] text-sm leading-relaxed">Trusted standards for premium wellness</p>
+              <h3 className="text-white font-semibold text-base group-hover:text-[hsl(155,50%,70%)] transition-colors">100% Natural</h3>
+              <p className="text-white/60 text-sm leading-relaxed">Pure botanical ingredients</p>
             </div>
 
-            {/* Signal 3 */}
-            <div className="flex flex-col items-center gap-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 animate-fade-in group hover:bg-white/10 transition-all duration-300">
-              <div className="p-4 bg-[hsl(152,32%,38%)]/30 rounded-xl group-hover:bg-[hsl(152,32%,38%)]/40 transition-all duration-300">
-                <Zap className="w-7 h-7 text-[hsl(42,70%,65%)]" />
+            {/* Signal 3 - Fast Delivery */}
+            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/8 backdrop-blur-sm border border-white/15 animate-fade-in group hover:bg-white/12 transition-all duration-300">
+              <div className="p-3 bg-[hsl(155,50%,55%)]/25 rounded-lg group-hover:bg-[hsl(155,50%,55%)]/35 transition-all duration-300">
+                <Truck className="w-6 h-6 text-[hsl(155,50%,70%)]" />
               </div>
-              <h3 className="text-white font-serif text-lg font-medium group-hover:text-[hsl(42,70%,65%)] transition-colors">Proven Results</h3>
-              <p className="text-[hsl(145,16%,60%)] text-sm leading-relaxed">Time-tested formulas that deliver</p>
+              <h3 className="text-white font-semibold text-base group-hover:text-[hsl(155,50%,70%)] transition-colors">Fast Delivery</h3>
+              <p className="text-white/60 text-sm leading-relaxed">Nationwide shipping available</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator - Refined */}
+      {/* Scroll Indicator - Modern style */}
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
         <div className="flex flex-col items-center gap-3 animate-bounce">
-          <p className="text-[hsl(145,18%,60%)] text-xs uppercase tracking-widest font-medium">Explore</p>
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
-            <div className="w-1.5 h-1.5 bg-[hsl(42,70%,58%)] rounded-full animate-pulse" />
+          <p className="text-white/50 text-xs uppercase tracking-widest font-semibold">Scroll</p>
+          <div className="w-6 h-10 rounded-full border-2 border-white/25 flex items-start justify-center p-2">
+            <div className="w-1.5 h-1.5 bg-[hsl(25,100%,55%)] rounded-full animate-pulse" />
           </div>
         </div>
       </div>

@@ -1,132 +1,132 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* Light mode colors - Herb and Water Inspired Wellness Theme */
-  /* WCAG AA Compliant - Minimum 4.5:1 contrast for normal text, 3:1 for large text */
-  /* Color Palette: Soft sage greens, warm creams, natural earth tones - serene & organic */
+  /* Light mode colors - PharmaPro Drugstore Template */
+  /* WCAG AA Compliant - Professional healthcare/pharmacy aesthetic */
+  /* Color Palette: Vibrant greens, professional blues, energetic orange accents */
 
-  /* Base Colors - Natural Cream & Deep Forest */
-  --background: hsl(48, 45%, 97%); /* #FDFBF7 - Warm Cream (like natural paper) */
-  --foreground: hsl(155, 35%, 15%); /* #1A3329 - Deep Forest Green (10:1 contrast) */
+  /* Base Colors - Clean White & Dark Slate */
+  --background: hsl(0, 0%, 100%); /* #FFFFFF - Pure White (clean, clinical) */
+  --foreground: hsl(205, 33%, 20%); /* #223645 - Dark Slate Grey (professional) */
 
-  /* Primary - Sage Green (Calming Herbs) */
-  --primary: hsl(152, 32%, 38%); /* #3D7A5C - Sage Green (calming, natural) */
-  --primary-dark: hsl(152, 38%, 30%); /* #2D6248 - Deep Sage */
-  --primary-light: hsl(152, 28%, 48%); /* #5A9474 - Light Sage */
-  --primary-foreground: hsl(48, 45%, 98%); /* Cream text on primary (12:1 contrast) */
+  /* Primary - Medium Aquamarine (Health/Wellness Green) */
+  --primary: hsl(155, 50%, 55%); /* #5BC199 - Medium Aquamarine (trustworthy, healthy) */
+  --primary-dark: hsl(155, 55%, 42%); /* #3DA87A - Deep Aquamarine */
+  --primary-light: hsl(155, 48%, 68%); /* #7BD4B3 - Light Aquamarine */
+  --primary-foreground: hsl(0, 0%, 100%); /* White text on primary */
 
-  /* Secondary - Warm Taupe (Dried Botanicals) */
-  --secondary: hsl(28, 25%, 45%); /* #8B7355 - Warm Taupe (earthy, grounding) */
-  --secondary-dark: hsl(28, 30%, 36%); /* #735D42 - Dark Taupe */
-  --secondary-light: hsl(28, 22%, 55%); /* #A38B6F - Light Taupe */
-  --secondary-foreground: hsl(48, 45%, 98%); /* Cream text on secondary */
+  /* Secondary - Medium Slate Blue (Professional/Trust) */
+  --secondary: hsl(224, 60%, 56%); /* #4E72D0 - Medium Slate Blue (professional) */
+  --secondary-dark: hsl(224, 65%, 45%); /* #3A5CB8 - Deep Blue */
+  --secondary-light: hsl(224, 55%, 68%); /* #7A96E0 - Light Blue */
+  --secondary-foreground: hsl(0, 0%, 100%); /* White text on secondary */
 
-  /* Accent - Soft Gold (Natural Honey) */
-  --accent: hsl(42, 70%, 58%); /* #E5B84A - Soft Gold (warm, inviting) */
-  --accent-dark: hsl(42, 75%, 48%); /* #D4A32E - Rich Gold */
-  --accent-light: hsl(42, 65%, 68%); /* #F0CC6F - Light Gold */
-  --accent-foreground: hsl(155, 35%, 15%); /* Dark text on accent (9:1 contrast) */
+  /* Accent - Vibrant Orange (Energy/CTA) */
+  --accent: hsl(25, 100%, 47%); /* #EF6500 - Vibrant Orange (attention-grabbing) */
+  --accent-dark: hsl(25, 100%, 38%); /* #C25200 - Deep Orange */
+  --accent-light: hsl(25, 100%, 60%); /* #FF8533 - Light Orange */
+  --accent-foreground: hsl(0, 0%, 100%); /* White text on accent */
 
-  /* Botanical Accent Colors - Herbal Varieties */
-  --olive: hsl(78, 30%, 42%); /* #7A8F52 - Olive Leaf */
-  --sage: hsl(145, 22%, 52%); /* #6B9E7A - Fresh Sage */
-  --bark: hsl(22, 28%, 38%); /* #7A5D47 - Tree Bark */
-  --soil: hsl(18, 32%, 32%); /* #6B4D3D - Rich Earth */
-  --mint: hsl(165, 40%, 48%); /* #4AA88A - Fresh Mint */
-  --chamomile: hsl(52, 55%, 72%); /* #E8DB8F - Chamomile */
-  --lavender: hsl(270, 25%, 65%); /* #A899B8 - Lavender */
-  --rose: hsl(350, 35%, 60%); /* #C47A7A - Rose Hip */
+  /* Complementary Healthcare Colors */
+  --teal: hsl(175, 50%, 45%); /* #39B3A7 - Teal (calm, medical) */
+  --mint: hsl(155, 60%, 75%); /* #9BE5CC - Soft Mint (fresh) */
+  --navy: hsl(210, 55%, 30%); /* #234770 - Deep Navy (authority) */
+  --sky: hsl(200, 65%, 70%); /* #7FBFE5 - Sky Blue (friendly) */
+  --coral: hsl(15, 80%, 60%); /* #E87C4F - Coral (warm accent) */
+  --gold: hsl(45, 90%, 55%); /* #F0B810 - Golden (premium) */
+  --sage: hsl(145, 30%, 55%); /* #6BA37A - Sage Green (herbal) */
+  --cream: hsl(40, 40%, 95%); /* #F9F6F0 - Soft Cream (warmth) */
 
-  /* Semantic Colors - Enhanced Contrast */
-  --success: hsl(152, 45%, 42%); /* #3D9966 - Fresh Green (5.8:1) */
+  /* Semantic Colors - Healthcare Optimized */
+  --success: hsl(155, 50%, 45%); /* #3DA87A - Health Green (6.2:1) */
   --success-foreground: hsl(0, 0%, 100%);
-  --error: hsl(4, 60%, 50%); /* #CC4444 - Soft Red (5.2:1) */
+  --error: hsl(0, 65%, 52%); /* #D94444 - Alert Red (5.5:1) */
   --error-foreground: hsl(0, 0%, 100%);
-  --warning: hsl(42, 75%, 52%); /* #D9A82E - Warm Gold (4.5:1) */
-  --warning-foreground: hsl(155, 35%, 15%);
-  --info: hsl(200, 50%, 48%); /* #3D99B8 - Calm Blue (5.0:1) */
+  --warning: hsl(45, 90%, 50%); /* #F0A800 - Warning Gold (4.6:1) */
+  --warning-foreground: hsl(205, 33%, 20%);
+  --info: hsl(224, 60%, 56%); /* #4E72D0 - Info Blue (5.2:1) */
   --info-foreground: hsl(0, 0%, 100%);
 
-  /* UI Elements - Soft & Natural */
-  --muted: hsl(48, 35%, 92%); /* #F2EFE6 - Soft Cream (natural, warm) */
-  --muted-foreground: hsl(155, 20%, 40%); /* #4D7A66 - Muted Sage (5.2:1) */
-  --border: hsl(145, 15%, 75%); /* #B3C9BD - Soft Sage Border (3.8:1) */
-  --input: hsl(145, 15%, 75%); /* Same as border */
-  --ring: hsl(152, 32%, 38%); /* Primary color for focus rings */
+  /* UI Elements - Clean & Professional */
+  --muted: hsl(210, 20%, 96%); /* #F4F6F8 - Light Grey (subtle) */
+  --muted-foreground: hsl(205, 25%, 45%); /* #506575 - Muted Slate (5.5:1) */
+  --border: hsl(210, 20%, 85%); /* #D3DAE0 - Soft Border */
+  --input: hsl(210, 20%, 85%); /* Same as border */
+  --ring: hsl(155, 50%, 55%); /* Primary color for focus rings */
 
   /* Card & Surface */
   --card: hsl(0, 0%, 100%); /* Pure White */
-  --card-foreground: hsl(155, 35%, 15%); /* Deep Forest */
+  --card-foreground: hsl(205, 33%, 20%); /* Dark Slate */
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(155, 35%, 15%);
+  --popover-foreground: hsl(205, 33%, 20%);
 
   /* Destructive (same as error) */
-  --destructive: hsl(4, 60%, 50%);
+  --destructive: hsl(0, 65%, 52%);
   --destructive-foreground: hsl(0, 0%, 100%);
 }
 
 html.dark {
-  /* Dark mode colors - Herb and Water Inspired (Evening Botanical Sanctuary) */
-  /* WCAG AA Compliant - Maintains herbal aesthetic with warm, inviting tones */
+  /* Dark mode colors - PharmaPro Drugstore (Night Mode) */
+  /* WCAG AA Compliant - Professional dark healthcare aesthetic */
 
-  /* Base Colors - Deep Forest Night */
-  --background: hsl(155, 28%, 9%); /* #111F1A - Deep Forest Night */
-  --foreground: hsl(48, 35%, 92%); /* #F2EFE6 - Soft Cream (12:1 contrast) */
+  /* Base Colors - Deep Slate Night */
+  --background: hsl(205, 35%, 12%); /* #141F28 - Deep Slate (professional dark) */
+  --foreground: hsl(210, 20%, 92%); /* #E8ECF0 - Soft White (12:1 contrast) */
 
-  /* Primary - Luminous Sage (Moonlit Herbs) */
-  --primary: hsl(152, 38%, 52%); /* #4DB380 - Luminous Sage (9:1 contrast) */
-  --primary-dark: hsl(152, 42%, 44%); /* #3D996B - Medium Sage */
-  --primary-light: hsl(152, 35%, 62%); /* #6BC99A - Light Sage */
-  --primary-foreground: hsl(155, 28%, 9%); /* Dark background on primary */
+  /* Primary - Luminous Aquamarine */
+  --primary: hsl(155, 55%, 58%); /* #5FD4A8 - Bright Aquamarine (9.5:1 contrast) */
+  --primary-dark: hsl(155, 50%, 48%); /* #4CB88D - Medium Aquamarine */
+  --primary-light: hsl(155, 50%, 68%); /* #82E0BE - Light Aquamarine */
+  --primary-foreground: hsl(205, 35%, 12%); /* Dark background on primary */
 
-  /* Secondary - Warm Earth Glow */
-  --secondary: hsl(28, 28%, 52%); /* #A38B6F - Warm Earth (glowing) */
-  --secondary-dark: hsl(28, 32%, 44%); /* #8B7355 - Medium Earth */
-  --secondary-light: hsl(28, 25%, 62%); /* #B8A38B - Light Earth */
-  --secondary-foreground: hsl(48, 35%, 92%); /* Cream text */
+  /* Secondary - Luminous Blue */
+  --secondary: hsl(224, 55%, 62%); /* #6B8BE0 - Bright Slate Blue */
+  --secondary-dark: hsl(224, 50%, 52%); /* #5575CC - Medium Blue */
+  --secondary-light: hsl(224, 50%, 72%); /* #8DA5E8 - Light Blue */
+  --secondary-foreground: hsl(0, 0%, 100%); /* White text */
 
-  /* Accent - Golden Glow */
-  --accent: hsl(42, 68%, 65%); /* #F0CC6F - Golden Glow (warm) */
-  --accent-dark: hsl(42, 72%, 55%); /* #E5B84A - Medium Gold */
-  --accent-light: hsl(42, 62%, 75%); /* #F5DB8F - Light Gold */
-  --accent-foreground: hsl(155, 28%, 9%); /* Dark text on accent (11:1 contrast) */
+  /* Accent - Bright Orange */
+  --accent: hsl(25, 95%, 55%); /* #FF7820 - Bright Orange */
+  --accent-dark: hsl(25, 90%, 45%); /* #DB6010 - Medium Orange */
+  --accent-light: hsl(25, 90%, 65%); /* #FF9550 - Light Orange */
+  --accent-foreground: hsl(0, 0%, 100%); /* White text on accent */
 
-  /* Botanical Accent Colors - Evening Garden */
-  --olive: hsl(78, 28%, 52%); /* #8FA366 - Muted Olive */
-  --sage: hsl(145, 20%, 58%); /* #7AAD8A - Soft Sage */
-  --bark: hsl(22, 24%, 48%); /* #8F7A66 - Light Bark */
-  --soil: hsl(18, 28%, 42%); /* #8A6B5C - Medium Earth */
-  --mint: hsl(165, 38%, 58%); /* #5CC9A3 - Soft Mint */
-  --chamomile: hsl(52, 52%, 78%); /* #F0E8B3 - Soft Chamomile */
-  --lavender: hsl(270, 22%, 70%); /* #B8A8C9 - Soft Lavender */
-  --rose: hsl(350, 32%, 65%); /* #CC8A8A - Soft Rose */
+  /* Complementary Healthcare Colors - Dark Mode */
+  --teal: hsl(175, 45%, 52%); /* #4DC4B8 - Bright Teal */
+  --mint: hsl(155, 55%, 70%); /* #8EECC7 - Soft Mint */
+  --navy: hsl(210, 50%, 40%); /* #335C8C - Medium Navy */
+  --sky: hsl(200, 60%, 65%); /* #6BB8E0 - Sky Blue */
+  --coral: hsl(15, 75%, 65%); /* #E8937A - Soft Coral */
+  --gold: hsl(45, 85%, 60%); /* #F0C020 - Bright Gold */
+  --sage: hsl(145, 35%, 60%); /* #78B88C - Sage Green */
+  --cream: hsl(40, 30%, 20%); /* #302820 - Dark Cream */
 
   /* Semantic Colors - Dark Mode Enhanced */
-  --success: hsl(152, 42%, 55%); /* #4DB380 - Bright Sage (9.5:1) */
-  --success-foreground: hsl(155, 28%, 9%);
-  --error: hsl(4, 65%, 62%); /* #E66666 - Soft Red (7.5:1) */
+  --success: hsl(155, 55%, 55%); /* #4DC498 - Bright Green (9.8:1) */
+  --success-foreground: hsl(205, 35%, 12%);
+  --error: hsl(0, 70%, 65%); /* #E86060 - Soft Red (7.8:1) */
   --error-foreground: hsl(0, 0%, 100%);
-  --warning: hsl(42, 70%, 62%); /* #EBC04D - Bright Gold (8.5:1) */
-  --warning-foreground: hsl(155, 28%, 9%);
-  --info: hsl(200, 48%, 58%); /* #5CB3CC - Calm Blue (6.5:1) */
-  --info-foreground: hsl(155, 28%, 9%);
+  --warning: hsl(45, 85%, 58%); /* #F0BC18 - Bright Gold (8.2:1) */
+  --warning-foreground: hsl(205, 35%, 12%);
+  --info: hsl(224, 55%, 62%); /* #6B8BE0 - Bright Blue (7.0:1) */
+  --info-foreground: hsl(205, 35%, 12%);
 
   /* UI Elements - Dark Mode Enhanced */
-  --muted: hsl(155, 22%, 16%); /* #1F2E28 - Dark Muted Forest */
-  --muted-foreground: hsl(145, 16%, 68%); /* #A3C2B3 - Light Sage (7:1) */
-  --border: hsl(155, 18%, 26%); /* #354A42 - Medium Border (4.2:1) */
-  --input: hsl(155, 18%, 26%); /* Same as border */
-  --ring: hsl(152, 38%, 52%); /* Primary color for focus rings */
+  --muted: hsl(205, 30%, 18%); /* #1E2A35 - Dark Muted Slate */
+  --muted-foreground: hsl(210, 18%, 68%); /* #A0AFBC - Light Slate (7.2:1) */
+  --border: hsl(205, 25%, 28%); /* #30404F - Medium Border (4.5:1) */
+  --input: hsl(205, 25%, 28%); /* Same as border */
+  --ring: hsl(155, 55%, 58%); /* Primary color for focus rings */
 
   /* Card & Surface - Elevated from background */
-  --card: hsl(155, 24%, 12%); /* #172420 - Dark Forest Card (elevated) */
-  --card-foreground: hsl(48, 35%, 92%); /* Soft Cream */
-  --popover: hsl(155, 24%, 12%);
-  --popover-foreground: hsl(48, 35%, 92%);
+  --card: hsl(205, 32%, 16%); /* #1A2730 - Dark Slate Card (elevated) */
+  --card-foreground: hsl(210, 20%, 92%); /* Soft White */
+  --popover: hsl(205, 32%, 16%);
+  --popover-foreground: hsl(210, 20%, 92%);
 
   /* Destructive (same as error) */
-  --destructive: hsl(4, 65%, 62%);
+  --destructive: hsl(0, 70%, 65%);
   --destructive-foreground: hsl(0, 0%, 100%);
 }
 
@@ -158,36 +158,37 @@ html.dark {
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  /* Botanical Accent Colors - Herbal Varieties */
-  --color-olive: var(--olive);
-  --color-sage: var(--sage);
-  --color-bark: var(--bark);
-  --color-soil: var(--soil);
+  /* Healthcare Accent Colors */
+  --color-teal: var(--teal);
   --color-mint: var(--mint);
-  --color-chamomile: var(--chamomile);
-  --color-lavender: var(--lavender);
-  --color-rose: var(--rose);
+  --color-navy: var(--navy);
+  --color-sky: var(--sky);
+  --color-coral: var(--coral);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --color-cream: var(--cream);
 
-  /* Typography - Herb and Water Inspired */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  /* Typography - PharmaPro Professional */
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', monospace;
 
-  /* Spacing & Layout - Organic, Rounded */
-  --radius: 1rem; /* 16px - More organic feel */
-  --radius-sm: 0.625rem; /* 10px */
-  --radius-md: 0.875rem; /* 14px */
-  --radius-lg: 1.25rem; /* 20px */
-  --radius-xl: 1.75rem; /* 28px */
-  --radius-2xl: 2.5rem; /* 40px - For hero elements */
+  /* Spacing & Layout - Modern, Clean */
+  --radius: 0.75rem; /* 12px - Modern rounded corners */
+  --radius-sm: 0.375rem; /* 6px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.5rem; /* 24px */
+  --radius-2xl: 2rem; /* 32px - For hero elements */
 
-  /* Shadows - Softer, more organic */
-  --shadow-sm: 0 1px 3px 0 rgb(61 122 92 / 0.04), 0 1px 2px -1px rgb(61 122 92 / 0.04);
-  --shadow: 0 2px 6px -1px rgb(61 122 92 / 0.06), 0 2px 4px -2px rgb(61 122 92 / 0.04);
-  --shadow-md: 0 6px 12px -2px rgb(61 122 92 / 0.08), 0 3px 6px -3px rgb(61 122 92 / 0.06);
-  --shadow-lg: 0 12px 20px -4px rgb(61 122 92 / 0.10), 0 6px 10px -5px rgb(61 122 92 / 0.06);
-  --shadow-xl: 0 24px 32px -6px rgb(61 122 92 / 0.12), 0 10px 14px -8px rgb(61 122 92 / 0.08);
-  --shadow-glow: 0 0 20px -4px rgb(61 122 92 / 0.25); /* Soft glow effect */
+  /* Shadows - Professional, Clean */
+  --shadow-sm: 0 1px 2px 0 rgb(34 54 69 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(34 54 69 / 0.08), 0 1px 2px -1px rgb(34 54 69 / 0.08);
+  --shadow-md: 0 4px 6px -1px rgb(34 54 69 / 0.08), 0 2px 4px -2px rgb(34 54 69 / 0.08);
+  --shadow-lg: 0 10px 15px -3px rgb(34 54 69 / 0.10), 0 4px 6px -4px rgb(34 54 69 / 0.10);
+  --shadow-xl: 0 20px 25px -5px rgb(34 54 69 / 0.10), 0 8px 10px -6px rgb(34 54 69 / 0.10);
+  --shadow-primary: 0 4px 14px -2px rgb(91 193 153 / 0.35); /* Primary color glow */
+  --shadow-accent: 0 4px 14px -2px rgb(239 101 0 / 0.30); /* Accent color glow */
 }
 
 * {
