@@ -11,3 +11,6 @@ export type {
   SecurityMetrics,
 } from './security-dashboard';
 
+export { CookieConsentBanner } from './cookie-consent';
+export { default as CookieConsent } from './cookie-consent';
+

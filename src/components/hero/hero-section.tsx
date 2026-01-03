@@ -156,8 +156,7 @@ export default function HeroSection() {
             <Link href="/about">
               <Button
                 size="lg"
-                variant="outline"
-                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-lg border-2 border-white/30 text-white hover:bg-white/15 hover:border-white/50 backdrop-blur-sm transition-all duration-300 font-semibold"
+                className="text-base sm:text-lg px-8 sm:px-10 py-5 sm:py-6 h-auto rounded-lg border-2 border-white bg-transparent text-white hover:bg-white hover:text-[hsl(155,50%,35%)] backdrop-blur-sm transition-all duration-300 font-semibold"
               >
                 Learn More
               </Button>
