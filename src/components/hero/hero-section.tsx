@@ -163,33 +163,33 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* Trust Signals - Professional healthcare cards */}
+          {/* Trust Signals - Solid background cards for better readability */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 pt-12 border-t border-white/15">
             {/* Signal 1 - FDA Approved */}
-            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/8 backdrop-blur-sm border border-white/15 animate-fade-in group hover:bg-white/12 transition-all duration-300">
-              <div className="p-3 bg-[hsl(155,50%,55%)]/25 rounded-lg group-hover:bg-[hsl(155,50%,55%)]/35 transition-all duration-300">
-                <Award className="w-6 h-6 text-[hsl(155,50%,70%)]" />
+            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white dark:bg-slate-800 shadow-lg animate-fade-in group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="p-3 bg-emerald-100 dark:bg-emerald-900 rounded-lg">
+                <Award className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <h3 className="text-white font-semibold text-base group-hover:text-[hsl(155,50%,70%)] transition-colors">FDA Registered</h3>
-              <p className="text-white/60 text-sm leading-relaxed">Quality assured herbal products</p>
+              <h3 className="text-slate-900 dark:text-white font-semibold text-base">FDA Registered</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed text-center">Quality assured herbal products</p>
             </div>
 
             {/* Signal 2 - Natural Ingredients */}
-            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/8 backdrop-blur-sm border border-white/15 animate-fade-in group hover:bg-white/12 transition-all duration-300">
-              <div className="p-3 bg-[hsl(155,50%,55%)]/25 rounded-lg group-hover:bg-[hsl(155,50%,55%)]/35 transition-all duration-300">
-                <Leaf className="w-6 h-6 text-[hsl(155,50%,70%)]" />
+            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white dark:bg-slate-800 shadow-lg animate-fade-in group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="p-3 bg-emerald-100 dark:bg-emerald-900 rounded-lg">
+                <Leaf className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <h3 className="text-white font-semibold text-base group-hover:text-[hsl(155,50%,70%)] transition-colors">100% Natural</h3>
-              <p className="text-white/60 text-sm leading-relaxed">Pure botanical ingredients</p>
+              <h3 className="text-slate-900 dark:text-white font-semibold text-base">100% Natural</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed text-center">Pure botanical ingredients</p>
             </div>
 
             {/* Signal 3 - Fast Delivery */}
-            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/8 backdrop-blur-sm border border-white/15 animate-fade-in group hover:bg-white/12 transition-all duration-300">
-              <div className="p-3 bg-[hsl(155,50%,55%)]/25 rounded-lg group-hover:bg-[hsl(155,50%,55%)]/35 transition-all duration-300">
-                <Truck className="w-6 h-6 text-[hsl(155,50%,70%)]" />
+            <div className="flex flex-col items-center gap-3 p-6 rounded-xl bg-white dark:bg-slate-800 shadow-lg animate-fade-in group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="p-3 bg-emerald-100 dark:bg-emerald-900 rounded-lg">
+                <Truck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <h3 className="text-white font-semibold text-base group-hover:text-[hsl(155,50%,70%)] transition-colors">Fast Delivery</h3>
-              <p className="text-white/60 text-sm leading-relaxed">Nationwide shipping available</p>
+              <h3 className="text-slate-900 dark:text-white font-semibold text-base">Fast Delivery</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed text-center">Nationwide shipping available</p>
             </div>
           </div>
         </div>
