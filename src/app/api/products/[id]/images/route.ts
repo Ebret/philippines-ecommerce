@@ -1,8 +1,24 @@
+/**
+ * Product Images API Route
+ *
+ * GET /api/products/[id]/images - Get product images
+ * POST /api/products/[id]/images - Add image to product
+ *
+ * Security: Integrated malware scanning and privacy protection
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductImageSchema } from "@/lib/validations/product";
+import {
+  scanFileUpload,
+  imageUploadConfig,
+  createBlockedResponse,
+  applyPrivacyProtection,
+  logSecurityEvent,
+} from "@/lib/security-middleware";
 
 /**
  * GET /api/products/[id]/images
@@ -19,7 +35,8 @@ export async function GET(
       orderBy: { sortOrder: "asc" },
     });
 
-    return NextResponse.json(images);
+    const response = NextResponse.json(images);
+    return applyPrivacyProtection(response, request.headers);
   } catch (error) {
     console.error("Error fetching images:", error);
     return NextResponse.json(
@@ -32,12 +49,20 @@ export async function GET(
 /**
  * POST /api/products/[id]/images
  * Add an image to a product (Seller/Admin only)
+ *
+ * Security Features:
+ * - Malware scanning on image URLs (if base64 data provided)
+ * - Input validation
+ * - Authorization checks
+ * - Security audit logging
  */
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+
   try {
     const session = await getServerSession(authOptions);
 
@@ -48,7 +73,44 @@ export async function POST(
       );
     }
 
+    const userId = session.user.id;
     const body = await request.json();
+
+    // If image data is provided as base64, scan for malware
+    if (body.imageData && typeof body.imageData === 'string') {
+      try {
+        const base64Data = body.imageData.replace(/^data:image\/\w+;base64,/, '');
+        const binaryString = atob(base64Data);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const content = bytes.buffer;
+
+        const securityResult = await scanFileUpload(
+          {
+            name: body.fileName || 'image.jpg',
+            type: body.mimeType || 'image/jpeg',
+            size: content.byteLength,
+            content,
+          },
+          imageUploadConfig,
+          userId,
+          ip
+        );
+
+        if (!securityResult.allowed) {
+          return createBlockedResponse(
+            `Image rejected: ${securityResult.errors.join(', ')}`,
+            400
+          );
+        }
+      } catch (scanError) {
+        console.error('Error scanning image:', scanError);
+        // Log but don't block if scan fails - let validation handle it
+      }
+    }
+
     const validatedData = ProductImageSchema.parse(body);
 
     // Verify product exists
@@ -70,6 +132,14 @@ export async function POST(
       });
 
       if (!vendor || vendor.id !== product.vendorId) {
+        logSecurityEvent({
+          timestamp: Date.now(),
+          action: 'request_blocked',
+          userId,
+          ip,
+          details: { reason: 'unauthorized_vendor', productId: id },
+          result: 'blocked',
+        });
         return NextResponse.json(
           { error: "Unauthorized" },
           { status: 401 }
@@ -92,7 +162,8 @@ export async function POST(
       },
     });
 
-    return NextResponse.json(image, { status: 201 });
+    const response = NextResponse.json(image, { status: 201 });
+    return applyPrivacyProtection(response, request.headers);
   } catch (error) {
     if (error instanceof Error && error.message.includes("validation")) {
       return NextResponse.json(

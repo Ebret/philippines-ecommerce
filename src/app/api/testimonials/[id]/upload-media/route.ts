@@ -1,12 +1,35 @@
+/**
+ * Testimonial Media Upload API Route
+ *
+ * POST /api/testimonials/[id]/upload-media - Upload media to testimonial
+ * DELETE /api/testimonials/[id]/upload-media - Delete media from testimonial
+ *
+ * Security: Integrated malware scanning and privacy protection
+ */
+
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { validateMediaFile, uploadMediaToCDN, extractMediaMetadata } from "@/lib/media-processor";
+import {
+  scanFileUpload,
+  imageUploadConfig,
+  videoUploadConfig,
+  createBlockedResponse,
+  applyPrivacyProtection,
+  logSecurityEvent,
+} from "@/lib/security-middleware";
 
 /**
  * POST /api/testimonials/[id]/upload-media
  * Upload media (video or photo) to a testimonial
+ *
+ * Security Features:
+ * - Malware scanning on all uploaded files
+ * - File type validation (images and videos)
+ * - Size limits enforcement
+ * - Security audit logging
  */
 export async function POST(
   request: NextRequest,
@@ -81,6 +104,58 @@ export async function POST(
         { success: false, error: validation.error },
         { status: 400 }
       );
+    }
+
+    // Security: Scan file for malware before processing
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const uploadConfig = mediaType === 'video' ? videoUploadConfig : imageUploadConfig;
+
+    try {
+      const fileBuffer = await file.arrayBuffer();
+      const securityResult = await scanFileUpload(
+        {
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          content: fileBuffer,
+        },
+        uploadConfig,
+        user.id,
+        ip
+      );
+
+      if (!securityResult.allowed) {
+        return createBlockedResponse(
+          `Media upload rejected: ${securityResult.errors.join(', ')}`,
+          400
+        );
+      }
+
+      // Log successful security scan
+      logSecurityEvent({
+        timestamp: Date.now(),
+        action: 'file_upload',
+        userId: user.id,
+        ip,
+        details: {
+          filename: securityResult.sanitizedFilename,
+          mediaType,
+          testimonialId: testimonial.id,
+          fileHash: securityResult.scanResult?.fileHash,
+        },
+        result: 'allowed',
+      });
+    } catch (scanError) {
+      console.error('Error scanning media file:', scanError);
+      // Don't block on scan error, log and continue
+      logSecurityEvent({
+        timestamp: Date.now(),
+        action: 'file_upload',
+        userId: user.id,
+        ip,
+        details: { error: 'scan_failed', filename: file.name },
+        result: 'allowed',
+      });
     }
 
     // Extract metadata

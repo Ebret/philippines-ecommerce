@@ -2,6 +2,8 @@
  * Product Review API Routes
  * GET /api/reviews/products - List product reviews
  * POST /api/reviews/products - Create product review
+ *
+ * Security: Integrated content sanitization for XSS/injection prevention
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -13,6 +15,10 @@ import {
   ReviewStatusEnum,
 } from "@/lib/validations/reviews";
 import { generateReviewId } from "@/lib/review-utils";
+import {
+  scanAndSanitizeContent,
+  applyPrivacyProtection,
+} from "@/lib/security-middleware";
 
 // Mock database - replace with Prisma in production
 const reviews: Record<string, any> = {};
@@ -77,7 +83,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
     const paginatedReviews = filteredReviews.slice(skip, skip + limit);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       data: paginatedReviews,
       pagination: {
@@ -87,6 +93,7 @@ export async function GET(request: NextRequest) {
         pages: Math.ceil(filteredReviews.length / limit),
       },
     });
+    return applyPrivacyProtection(response, request.headers);
   } catch (error) {
     console.error("Error fetching product reviews:", error);
     return NextResponse.json(
@@ -100,9 +107,18 @@ export async function GET(request: NextRequest) {
 // POST /api/reviews/products - Create product review
 // ============================================================================
 
+/**
+ * POST /api/reviews/products - Create product review
+ *
+ * Security Features:
+ * - Content sanitization (XSS, SQL injection, script injection)
+ * - Input validation
+ * - Security audit logging
+ */
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
 
     if (!session?.user) {
       return NextResponse.json(
@@ -125,6 +141,22 @@ export async function POST(request: NextRequest) {
 
     const reviewData = validation.data;
 
+    // Security: Sanitize review title for malicious content
+    const titleScan = scanAndSanitizeContent(
+      reviewData.title,
+      session.user.id,
+      ip,
+      'review'
+    );
+
+    // Security: Sanitize review content for malicious content
+    const contentScan = scanAndSanitizeContent(
+      reviewData.content,
+      session.user.id,
+      ip,
+      'review'
+    );
+
     // Check if user already reviewed this product
     const existingReview = Object.values(reviews).find(
       (review) =>
@@ -140,7 +172,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create review
+    // Create review with sanitized content
     const reviewId = generateReviewId();
     const newReview = {
       id: reviewId,
@@ -150,8 +182,8 @@ export async function POST(request: NextRequest) {
       userId: session.user.id,
       userName: session.user.name || "Anonymous",
       rating: parseInt(reviewData.rating),
-      title: reviewData.title,
-      content: reviewData.content,
+      title: titleScan.sanitizedContent, // Use sanitized title
+      content: contentScan.sanitizedContent, // Use sanitized content
       photos: reviewData.photos || [],
       videos: reviewData.videos || [],
       tags: reviewData.tags || [],
@@ -164,18 +196,27 @@ export async function POST(request: NextRequest) {
       responses: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      // Include security metadata
+      securityScanned: true,
+      threatsDetected: titleScan.threats.length + contentScan.threats.length,
     };
 
     reviews[reviewId] = newReview;
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: "Review created successfully",
         data: newReview,
+        securityInfo: {
+          contentSanitized: !titleScan.allowed || !contentScan.allowed ||
+                           titleScan.threats.length > 0 || contentScan.threats.length > 0,
+          threatsRemoved: titleScan.threats.length + contentScan.threats.length,
+        },
       },
       { status: 201 }
     );
+    return applyPrivacyProtection(response, request.headers);
   } catch (error) {
     console.error("Error creating product review:", error);
     return NextResponse.json(

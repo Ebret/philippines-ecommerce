@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
 import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper";
+import { CookieConsentBanner } from "@/components/security/cookie-consent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,11 @@ export default function RootLayout({
             <main id="main-content">
               {children}
             </main>
+            {/* Cookie Consent Banner - GDPR/Data Privacy Act compliant */}
+            <CookieConsentBanner
+              privacyPolicyUrl="/privacy-policy"
+              cookiePolicyUrl="/cookie-policy"
+            />
           </ErrorBoundaryWrapper>
         </Providers>
       </body>
