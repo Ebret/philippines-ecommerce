@@ -1,0 +1,3 @@
+{
+  "/api/live-streams/[id]/start/route": "app/api/live-streams/[id]/start/route.js"
+}

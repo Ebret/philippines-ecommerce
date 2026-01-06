@@ -1,0 +1,3 @@
+{
+  "/api/inventory/alerts/[id]/dismiss/route": "app/api/inventory/alerts/[id]/dismiss/route.js"
+}

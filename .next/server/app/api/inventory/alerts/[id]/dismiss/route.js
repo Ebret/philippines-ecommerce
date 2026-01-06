@@ -1,0 +1,9 @@
+var R=require("../../../../../../chunks/[turbopack]_runtime.js")("server/app/api/inventory/alerts/[id]/dismiss/route.js")
+R.c("server/chunks/600b5_bcryptjs_index_0b12279d.js")
+R.c("server/chunks/[root-of-the-server]__6d4749cd._.js")
+R.c("server/chunks/600b5_23011c57._.js")
+R.c("server/chunks/[root-of-the-server]__86e0e327._.js")
+R.c("server/chunks/600b5_next_a68c62f7._.js")
+R.c("server/chunks/448c4_server_app_api_inventory_alerts_[id]_dismiss_route_actions_2436978f.js")
+R.m(40528)
+module.exports=R.m(40528).exports

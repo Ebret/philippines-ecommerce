@@ -1,0 +1,1 @@
+{"version":3,"sources":["turbopack:///[project]/20251031/philippines-ecommerce/src/app/checkout/layout.tsx"],"sourcesContent":["export const dynamic = 'force-dynamic';\n\nexport default function CheckoutLayout({\n  children,\n}: {\n  children: React.ReactNode;\n}) {\n  return children;\n}\n\n"],"names":[],"mappings":"uCAEe,SAAS,EAAe,UACrC,CAAQ,CAGT,EACC,OAAO,CACT,kCARuB"}

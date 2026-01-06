@@ -1,0 +1,11 @@
+var R=require("../../../chunks/[turbopack]_runtime.js")("server/app/api/categories/route.js")
+R.c("server/chunks/600b5_next_31e5a155._.js")
+R.c("server/chunks/600b5_next-auth_9518fc05._.js")
+R.c("server/chunks/600b5_openid-client_c451455b._.js")
+R.c("server/chunks/600b5_jose_dist_node_cjs_8d02eaa0._.js")
+R.c("server/chunks/600b5_zod_v4_a38d2502._.js")
+R.c("server/chunks/600b5_5db0665b._.js")
+R.c("server/chunks/[root-of-the-server]__5f7bcef1._.js")
+R.c("server/chunks/a7675__next-internal_server_app_api_categories_route_actions_0aadaba1.js")
+R.m("[project]/20251031/philippines-ecommerce/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/20251031/philippines-ecommerce/src/app/api/categories/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/20251031/philippines-ecommerce/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/20251031/philippines-ecommerce/src/app/api/categories/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports

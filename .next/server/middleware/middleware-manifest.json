@@ -1,0 +1,31 @@
+{
+  "sorted_middleware": [],
+  "middleware": {
+    "/": {
+      "files": [
+        "server/edge/chunks/20251031_philippines-ecommerce_edge-wrapper_98e810d9.js",
+        "server/edge/chunks/[root-of-the-server]__d71e5ab8._.js",
+        "server/edge/chunks/turbopack-20251031_philippines-ecommerce_edge-wrapper_cdfc3f32.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/((?!_next/static|_next/image|favicon.ico|public|api).*){(\\\\.json)}?",
+          "originalSource": "/((?!_next/static|_next/image|favicon.ico|public|api).*)"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "env": {
+        "__NEXT_BUILD_ID": "6Fbx-diqXvN49fowzBFsN",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "WomhLWWvTRB15mstY7NiNSBS+vARc+4ZTqMkcqFc038=",
+        "__NEXT_PREVIEW_MODE_ID": "01cbeaa2092e955c7572a23d45edddb6",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "26f1a058ececf689daaf9f19adcc2a41374cdb5b95bd6a9d456b125da756177a",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "871cf5db17df89d4f478c33eaa0307f8917b1a9c5c6e54591f32838b1945470f"
+      }
+    }
+  },
+  "instrumentation": null,
+  "functions": {}
+}
