@@ -240,7 +240,7 @@ export default function ProductsPage() {
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-8 mt-12">
         <div className="container mx-auto text-center px-4">
-          <p className="text-primary-foreground/80 text-sm">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-primary-foreground/80 text-sm">&copy; 2026 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>

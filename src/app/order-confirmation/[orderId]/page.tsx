@@ -284,7 +284,7 @@ export default function OrderConfirmationPage() {
 
       <footer className="bg-neutral-800 dark:bg-neutral-900 text-white py-8 mt-12">
         <div className="container mx-auto text-center">
-          <p>&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p>&copy; 2026 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>

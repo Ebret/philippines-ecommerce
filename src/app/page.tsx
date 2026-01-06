@@ -283,7 +283,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-primary-foreground/20 pt-8 text-center text-primary-foreground/80">
-            <p className="text-sm">&copy; 2025 Extreme Life Herbal Products. All rights reserved.</p>
+            <p className="text-sm">&copy; 2026 Extreme Life Herbal Products. All rights reserved.</p>
             <p className="text-xs mt-2">35 Cambridge E. Rodriguez Cubao, Quezon City 1102, Philippines | (02) 8714 8285</p>
           </div>
         </div>

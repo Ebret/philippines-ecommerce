@@ -209,7 +209,7 @@ export default function ProductDetailPage() {
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-12 px-4 md:px-8">
         <div className="container mx-auto text-center">
-          <p className="text-primary-foreground/70">&copy; 2025 Extreme Life Herbal. All rights reserved.</p>
+          <p className="text-primary-foreground/70">&copy; 2026 Extreme Life Herbal. All rights reserved.</p>
         </div>
       </footer>
     </main>
